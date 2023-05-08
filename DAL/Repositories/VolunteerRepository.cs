@@ -8,7 +8,7 @@ namespace DAL.Repositories
     /// <summary>
     /// Class that represents a volunteer repository
     /// </summary>
-    public class VolunteerRepository : IRepository<Volunteer>, IDetailsRepository<Volunteer>
+    public class VolunteerRepository : IVolunteerRepository
     {
         private readonly SiteContext _context;
 

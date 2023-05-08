@@ -1,4 +1,5 @@
 ﻿using DAL.Enteties;
+using DAL.Entities;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
@@ -43,6 +44,7 @@ namespace DAL.Context
         public DbSet<Post> Posts { get; set; }
         public DbSet<UserCountry> UserCountries { get; set; }
         public DbSet<UserChat> UsersChats { get; set; }
+        public DbSet<CountryChangesHistory> CountriesHistories { get; set; }
 
         protected override void OnModelCreating(ModelBuilder builder)
         {
@@ -106,8 +108,12 @@ namespace DAL.Context
             builder.Entity<UserProfile>().HasMany(x => x.Countries).WithOne(x => x.User).HasForeignKey(x => x.UserId);
             builder.Entity<Country>().HasMany(x => x.Users).WithOne(x => x.Country).HasForeignKey(x => x.CountryId);
 
+            builder.Entity<CountryChangesHistory>().HasKey(x => new { x.Id });
+            builder.Entity<CountryChangesHistory>().HasOne(x => x.Author).WithMany(x => x.MadeCountryChanges).OnDelete(DeleteBehavior.NoAction).HasForeignKey(x => x.AuthorId);
+            builder.Entity<CountryChangesHistory>().HasOne(x => x.Country).WithMany(x => x.CountryVersions).OnDelete(DeleteBehavior.Cascade).HasForeignKey(x => x.CountryId);
+
             builder.Entity<UserCountry>().HasKey(x => new { x.UserId, x.CountryId });
-            builder.Entity<UserCountry>().HasOne(x => x.User).WithMany(x => x.Countries).OnDelete(DeleteBehavior.NoAction).HasForeignKey(x => x.UserId);
+            builder.Entity<UserCountry>().HasOne(x => x.User).WithMany(x => x.Countries).OnDelete(DeleteBehavior.Cascade).HasForeignKey(x => x.UserId);
             builder.Entity<UserCountry>().HasOne(x => x.Country).WithMany(x => x.Users).OnDelete(DeleteBehavior.Cascade).HasForeignKey(x => x.CountryId);
             
             builder.Entity<UserChat>().HasKey(x => new { x.UserId, x.ChatId });

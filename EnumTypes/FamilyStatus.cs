@@ -1,4 +1,4 @@
-﻿namespace DAL.Enteties
+﻿namespace EnumTypes
 {
     public enum FamilyStatus
     {

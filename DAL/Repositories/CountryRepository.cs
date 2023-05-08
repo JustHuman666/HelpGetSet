@@ -47,6 +47,7 @@ namespace DAL.Repositories
         public async Task<IQueryable<Country>> GetAllWithDetailsAsync()
         {
             var countries = await _context.Countries
+                .Include(country => country.CountryVersions)
                 .Include(country => country.Users).ThenInclude(x => x.User).ToListAsync();
             return countries.AsQueryable();
         }
@@ -59,6 +60,7 @@ namespace DAL.Repositories
         public async Task<Country> GetByIdWithDetailsAsync(int id)
         {
             return await _context.Countries
+                .Include(country => country.CountryVersions)
                 .Include(country => country.Users).ThenInclude(x => x.User)
                 .FirstOrDefaultAsync(country => country.Id == id);
         }

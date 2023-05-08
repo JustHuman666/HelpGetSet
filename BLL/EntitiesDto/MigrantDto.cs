@@ -4,12 +4,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace DAL.Enteties
+namespace BLL.EntitiesDto
 {
-    public enum Gender
+    internal class MigrantDto
     {
-        Female,
-        Male,
-        Other
     }
 }

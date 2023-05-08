@@ -4,13 +4,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace DAL.Enteties
+namespace BLL.EntitiesDto
 {
-    public enum Housing
+    internal class CountryDto
     {
-        Shelter,
-        Family,
-        Rent,
-        None
     }
 }

@@ -1,5 +1,7 @@
 ﻿using System.ComponentModel.DataAnnotations.Schema;
 using System.ComponentModel.DataAnnotations;
+using EnumTypes;
+using DAL.Entities;
 
 namespace DAL.Enteties
 {
@@ -39,12 +41,15 @@ namespace DAL.Enteties
 
         public virtual ICollection<Post> Posts { get; set; }
 
+        public virtual ICollection<CountryChangesHistory> MadeCountryChanges { get; set; }
+
         public UserProfile()
         {
             Chats ??= new HashSet<UserChat>();
             Messages ??= new HashSet<Message>();
             Countries ??= new HashSet<UserCountry>();
             Posts ??= new HashSet<Post>();
+            MadeCountryChanges ??= new HashSet<CountryChangesHistory>();
         }
     }
 }

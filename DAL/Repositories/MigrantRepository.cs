@@ -1,6 +1,6 @@
 ﻿using DAL.Context;
 using DAL.Enteties;
-using DAL.Interfaces.BaseInterfaces;
+using DAL.Interfaces;
 using Microsoft.EntityFrameworkCore;
 
 namespace DAL.Repositories
@@ -8,7 +8,7 @@ namespace DAL.Repositories
     /// <summary>
     /// Class that represents a migrant repository
     /// </summary>
-    public class MigrantRepository : IRepository<Migrant>, IDetailsRepository<Migrant>
+    public class MigrantRepository : IMigrantRepository
     {
         private readonly SiteContext _context;
 

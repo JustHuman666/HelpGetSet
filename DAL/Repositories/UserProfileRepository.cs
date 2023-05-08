@@ -35,6 +35,7 @@ namespace DAL.Repositories
                 .Include(user => user.Migrant)
                 .Include(user => user.Volunteer)
                 .Include(user => user.Messages)
+                .Include(user => user.MadeCountryChanges)
                 .Include(user => user.Chats).ToListAsync();
             return userProfiles.AsQueryable();
         }
@@ -53,6 +54,7 @@ namespace DAL.Repositories
                 .Include(user => user.Migrant)
                 .Include(user => user.Volunteer)
                 .Include(user => user.Messages)
+                .Include(user => user.MadeCountryChanges)
                 .Include(user => user.Chats).FirstOrDefaultAsync(user => user.Id == id);
         }
     }

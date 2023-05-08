@@ -27,14 +27,14 @@ namespace DAL.Enteties
         /// Instance of user who send this message
         /// </summary>
         public virtual UserProfile? Sender { get; set; }
-        [ForeignKey("Sender")]
+        [ForeignKey("SenderId")]
         public int SenderId { get; set; }
 
         /// <summary>
         /// Instance of chat where this message was sent
         /// </summary>
         public virtual Chat? UsersChat { get; set; }
-        [ForeignKey("Chat")]
+        [ForeignKey("ChatId")]
         public int? ChatId { get; set; }
 
     }
