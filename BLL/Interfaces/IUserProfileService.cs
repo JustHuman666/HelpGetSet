@@ -36,14 +36,14 @@ namespace BLL.Interfaces
         /// To get an original country id for user
         /// </summary>
         /// <param name="id">The id of user profile</param>
-        /// <returns>An id of found country</returns>
-        Task<int> GetOriginalCountryByUserIdAsync(int id);
+        /// <returns>An instance of found country</returns>
+        Task<CountryDto> GetOriginalCountryByUserIdAsync(int id);
 
         /// <summary>
         /// To get a current country id for user
         /// </summary>
         /// <param name="id">The id of user profile</param>
-        /// <returns>An id of found country</returns>
-        Task<int> GetCurrentCountryByUserIdAsync(int id);
+        /// <returns>An instance of found country</returns>
+        Task<CountryDto> GetCurrentCountryByUserIdAsync(int id);
     }
 }

@@ -11,9 +11,9 @@ namespace BLL.Interfaces
     {
         Task<CountryDto> GetCountryByIdAsync(int id);
 
-        Task<CountryDto> GetCountryByNameAsync(int name);
+        Task<CountryDto> GetCountryByNameAsync(string name);
 
-        Task<CountryDto> GetCountryByShortNameAsync(int shortName);
+        Task<CountryDto> GetCountryByShortNameAsync(string shortName);
 
         Task<IEnumerable<CountryDto>> GetAllCountriesAsync();
 
@@ -24,8 +24,6 @@ namespace BLL.Interfaces
         Task CreateCountryAsync(CountryDto item);
 
         Task UpdateCountryNamesAsync(CountryDto item);
-
-        Task ApproveNewVersionAsync(CountryDto item);
 
         Task DeleteCountryAsync(int id);
     }
