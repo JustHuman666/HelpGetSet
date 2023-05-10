@@ -89,6 +89,13 @@ namespace DAL.Interfaces
         Task<User> GetByIdWithDetailsAsync(int id);
 
         /// <summary>
+        /// To get an instance of user with additional information from DB by username
+        /// </summary>
+        /// <param name="username">The username of user that is found</param>
+        /// <returns>An instance of found user</returns>
+        Task<User> GetByUsernameWithDetailsAsync(string username);
+
+        /// <summary>
         /// To get a collection of users with additional information from DB
         /// </summary>
         /// <returns>Collection of found users with all details</returns>

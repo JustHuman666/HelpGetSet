@@ -57,5 +57,21 @@ namespace DAL.Repositories
                 .Include(user => user.MadeCountryChanges)
                 .Include(user => user.Chats).FirstOrDefaultAsync(user => user.Id == id);
         }
+
+        public async Task<IQueryable<UserProfile>> GetUsersByFirstAndLastNameAsync(string firstname, string lastname)
+        {
+            var users = _context.UserProfiles
+                .Where(user => user.FirstName == firstname && user.LastName == lastname)
+                .Include(user => user.AppUser)
+                .Include(user => user.Countries)
+                .Include(user => user.Posts)
+                .Include(user => user.Migrant)
+                .Include(user => user.Volunteer)
+                .Include(user => user.Messages)
+                .Include(user => user.MadeCountryChanges)
+                .Include(user => user.Chats)
+                .AsQueryable();
+            return users;
+        }
     }
 }

@@ -91,6 +91,13 @@ namespace DAL.Repositories
             return await _userManager.Users.FirstOrDefaultAsync(user => user.PhoneNumber == phoneNumber);
         }
 
+        public async Task<User> GetByUsernameWithDetailsAsync(string username)
+        {
+            return await _userManager.Users
+                .Include(user => user.UserProfile)
+                .FirstOrDefaultAsync(user => user.UserName == username);
+        }
+
         public async Task UpdateAsync(User item)
         {
             var user = await GetByIdWithDetailsAsync(item.Id);

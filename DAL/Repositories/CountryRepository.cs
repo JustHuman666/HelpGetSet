@@ -65,6 +65,22 @@ namespace DAL.Repositories
                 .FirstOrDefaultAsync(country => country.Id == id);
         }
 
+        public async Task<Country> GetByNameAsync(string name)
+        {
+            return await _context.Countries
+                .Include(country => country.CountryVersions)
+                .Include(country => country.Users).ThenInclude(x => x.User)
+                .FirstOrDefaultAsync(country => country.Name == name);
+        }
+
+        public async Task<Country> GetByShortNameAsync(string shortName)
+        {
+            return await _context.Countries
+                .Include(country => country.CountryVersions)
+                .Include(country => country.Users).ThenInclude(x => x.User)
+                .FirstOrDefaultAsync(country => country.ShortName == shortName);
+        }
+
         public void Update(Country item)
         {
             _context.Entry(item).State = EntityState.Modified;

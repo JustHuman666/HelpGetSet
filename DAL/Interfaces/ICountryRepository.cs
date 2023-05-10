@@ -13,5 +13,18 @@ namespace DAL.Interfaces
     /// </summary>
     public interface ICountryRepository : IRepository<Country>, IDetailsRepository<Country>
     {
+        /// <summary>
+        /// To get an instance of country from DB by its name
+        /// </summary>
+        /// <param name="name">Id of country that is found</param>
+        /// <returns>An instance of found country</returns>
+        Task<Country> GetByNameAsync(string name);
+
+        /// <summary>
+        /// To get an instance of country from DB by its short name
+        /// </summary>
+        /// <param name="shortName">Id of country that is found</param>
+        /// <returns>An instance of found country</returns>
+        Task<Country> GetByShortNameAsync(string shortName);
     }
 }

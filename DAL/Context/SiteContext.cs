@@ -108,6 +108,9 @@ namespace DAL.Context
             builder.Entity<UserProfile>().HasMany(x => x.Countries).WithOne(x => x.User).HasForeignKey(x => x.UserId);
             builder.Entity<Country>().HasMany(x => x.Users).WithOne(x => x.Country).HasForeignKey(x => x.CountryId);
 
+            builder.Entity<Country>().HasMany(x => x.Posts).WithOne(x => x.Country).OnDelete(DeleteBehavior.Cascade).HasForeignKey(x => x.CountryId);
+            builder.Entity<Post>().HasOne(x => x.Country).WithMany(x => x.Posts).HasForeignKey(x => x.Id);
+
             builder.Entity<CountryChangesHistory>().HasKey(x => new { x.Id });
             builder.Entity<CountryChangesHistory>().HasOne(x => x.Author).WithMany(x => x.MadeCountryChanges).OnDelete(DeleteBehavior.NoAction).HasForeignKey(x => x.AuthorId);
             builder.Entity<CountryChangesHistory>().HasOne(x => x.Country).WithMany(x => x.CountryVersions).OnDelete(DeleteBehavior.Cascade).HasForeignKey(x => x.CountryId);

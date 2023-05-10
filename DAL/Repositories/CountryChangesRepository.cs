@@ -52,6 +52,16 @@ namespace DAL.Repositories
             return versions.AsQueryable();
         }
 
+        public async Task<IQueryable<CountryChangesHistory>> GetByCountryIdAsync(int id)
+        {
+            var versions = await _context.CountriesHistories
+               .Where(version => version.CountryId == id)
+               .Include(version => version.Author)
+               .Include(version => version.Country)
+               .ToListAsync();
+            return versions.AsQueryable();
+        }
+
         public async Task<CountryChangesHistory> GetByIdAsync(int id)
         {
             return await _context.CountriesHistories.FindAsync(id);

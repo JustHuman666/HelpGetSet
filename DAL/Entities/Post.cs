@@ -27,7 +27,14 @@ namespace DAL.Enteties
         /// Instance of user who created a post
         /// </summary>
         public virtual UserProfile? Author { get; set; }
-        [ForeignKey("Author")]
+        [ForeignKey("AuthorId")]
         public int AuthorId { get; set; }
+
+        /// <summary>
+        /// Instance of country which is related to a post
+        /// </summary>
+        public virtual Country? Country { get; set; }
+        [ForeignKey("CountryId")]
+        public int CountryId { get; set; }
     }
 }

@@ -6,7 +6,9 @@ namespace DAL.Enteties
     {
         public bool IsOfficialRefugee { get; set; }
 
-        public bool IsMigrant { get; set; }
+        public bool IsForcedMigrant { get; set; }
+
+        public bool IsCommonMigrant { get; set; }
 
         public FamilyStatus FamilyStatus { get; set; }
 

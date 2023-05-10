@@ -1,19 +1,14 @@
 ﻿using DAL.Context;
 using DAL.Enteties;
-using DAL.Interfaces.BaseInterfaces;
+using DAL.Interfaces;
 using Microsoft.EntityFrameworkCore;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace DAL.Repositories
 {
     /// <summary>
     /// Class that represents a message repository
     /// </summary>
-    public class PostRepository : IRepository<Post>
+    public class PostRepository : IPostRepository
     {
         private readonly SiteContext _context;
 
@@ -42,6 +37,18 @@ namespace DAL.Repositories
         public async Task<IQueryable<Post>> GetAllAsync()
         {
             var posts = await _context.Posts.ToListAsync();
+            return posts.AsQueryable();
+        }
+
+        public async Task<IQueryable<Post>> GetByAuthorIdAsync(int id)
+        {
+            var posts = await _context.Posts.Where(post => post.AuthorId == id).ToListAsync();
+            return posts.AsQueryable();
+        }
+
+        public async Task<IQueryable<Post>> GetByCountryIdAsync(int id)
+        {
+            var posts = await _context.Posts.Where(post => post.CountryId == id).ToListAsync();
             return posts.AsQueryable();
         }
 
