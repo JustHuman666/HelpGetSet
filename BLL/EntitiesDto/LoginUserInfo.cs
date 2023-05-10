@@ -6,6 +6,7 @@
     public class LoginUserInfo
     {
         public string Token { get; }
+
         public int UserId { get; }
 
         public LoginUserInfo(string token, int id)

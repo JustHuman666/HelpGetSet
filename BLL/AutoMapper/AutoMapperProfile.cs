@@ -68,14 +68,19 @@ namespace BLL.AutoMapper
 
             CreateMap<Country, CountryDto>()
                .ForMember(p => p.UserIds, c => c.MapFrom(src => src.Users.Select(item => item.UserId)))
+               .ForMember(p => p.PostIds, c => c.MapFrom(src => src.Posts.Select(item => item.Id)))
                .ForMember(p => p.CountryVersionIds, c => c.MapFrom(src => src.CountryVersions.Select(item => item.Id)));
 
             CreateMap<CountryDto, Country>()
                .ForMember(p => p.Users, c => c.MapFrom(src => src.UserIds))
+               .ForMember(p => p.Posts, c => c.MapFrom(src => src.PostIds))
                .ForMember(p => p.CountryVersions, c => c.MapFrom(src => src.CountryVersionIds));
 
             CreateMap<int, UserChat>()
                 .ForMember(dest => dest.UserId, m => m.MapFrom(src => src));
+
+            CreateMap<int, Post>()
+                .ForMember(dest => dest.Id, m => m.MapFrom(src => src));
 
             CreateMap<int, UserCountry>()
                 .ForMember(dest => dest.CountryId, m => m.MapFrom(src => src));
