@@ -117,7 +117,7 @@ namespace DAL.Context
 
             builder.Entity<UserCountry>().HasKey(x => new { x.UserId, x.CountryId });
             builder.Entity<UserCountry>().HasOne(x => x.User).WithMany(x => x.Countries).OnDelete(DeleteBehavior.Cascade).HasForeignKey(x => x.UserId);
-            builder.Entity<UserCountry>().HasOne(x => x.Country).WithMany(x => x.Users).OnDelete(DeleteBehavior.Cascade).HasForeignKey(x => x.CountryId);
+            builder.Entity<UserCountry>().HasOne(x => x.Country).WithMany(x => x.Users).OnDelete(DeleteBehavior.NoAction).HasForeignKey(x => x.CountryId);
             
             builder.Entity<UserChat>().HasKey(x => new { x.UserId, x.ChatId });
             builder.Entity<UserChat>().HasOne(x => x.User).WithMany(x => x.Chats).OnDelete(DeleteBehavior.Cascade).HasForeignKey(x => x.UserId);

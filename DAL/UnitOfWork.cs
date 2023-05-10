@@ -20,6 +20,7 @@ namespace DAL
         /// <param name="roleRepository">The instance of role repository</param>
         /// <param name="userProfileRepository">The instance of user profile repository</param>
         /// <param name="chatRepository">The instance of chat repository</param>
+        /// <param name="countryRepository">The instance of country repository</param>
         /// <param name="messageRepository">The instance of message repository</param>
         /// <param name="postRepository">The instance of post repository</param>
         /// <param name="migrantRepository">The instance of migrant user repository</param>
@@ -29,6 +30,7 @@ namespace DAL
                           IRoleRepository roleRepository,
                           IUserProfileRepository userProfileRepository,
                           IChatRepository chatRepository,
+                          ICountryRepository countryRepository,
                           IRepository<Message> messageRepository,
                           IRepository<Post> postRepository,
                           IRepository<Migrant> migrantRepository,
@@ -39,6 +41,7 @@ namespace DAL
             Roles = roleRepository;
             UsersProfiles = userProfileRepository;
             Chats = chatRepository;
+            Countries = countryRepository;
             Messages = messageRepository;
             Posts = postRepository;
             Migrants = migrantRepository;
@@ -49,6 +52,7 @@ namespace DAL
         public IRoleRepository Roles { get; }
         public IUserProfileRepository UsersProfiles { get; }
         public IChatRepository Chats { get; }
+        public ICountryRepository Countries { get; }
         public IRepository<Message> Messages { get; }
         public IRepository<Post> Posts { get; }
         public IRepository<Migrant> Migrants { get; }

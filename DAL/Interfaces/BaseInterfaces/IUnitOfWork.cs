@@ -28,6 +28,11 @@ namespace DAL.Interfaces.BaseInterfaces
         IChatRepository Chats { get; }
 
         /// <summary>
+        /// Repository for countries
+        /// </summary>
+        ICountryRepository Countries { get; }
+
+        /// <summary>
         /// Repository for messages
         /// </summary>
         IRepository<Message> Messages { get; }
