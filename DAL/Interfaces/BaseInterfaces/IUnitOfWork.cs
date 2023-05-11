@@ -53,6 +53,11 @@ namespace DAL.Interfaces.BaseInterfaces
         IRepository<Volunteer> Volunteers { get; }
 
         /// <summary>
+        /// Repository for info versions for countries
+        /// </summary>
+        ICountryHistoryRepository CountryVersions { get; }
+
+        /// <summary>
         /// To save all channges in DB
         /// </summary>
         Task SaveAsync();

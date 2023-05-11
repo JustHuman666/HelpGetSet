@@ -45,6 +45,7 @@ namespace DAL.Context
         public DbSet<UserCountry> UserCountries { get; set; }
         public DbSet<UserChat> UsersChats { get; set; }
         public DbSet<CountryChangesHistory> CountriesHistories { get; set; }
+        public DbSet<UserApprove> UsersApproves { get; set; }
 
         protected override void OnModelCreating(ModelBuilder builder)
         {
@@ -122,6 +123,10 @@ namespace DAL.Context
             builder.Entity<UserChat>().HasKey(x => new { x.UserId, x.ChatId });
             builder.Entity<UserChat>().HasOne(x => x.User).WithMany(x => x.Chats).OnDelete(DeleteBehavior.Cascade).HasForeignKey(x => x.UserId);
             builder.Entity<UserChat>().HasOne(x => x.Chat).WithMany(x => x.Users).OnDelete(DeleteBehavior.Cascade).HasForeignKey(x => x.ChatId);
+
+            builder.Entity<UserApprove>().HasKey(x => new { x.Id });
+            builder.Entity<UserApprove>().HasOne(x => x.User).WithMany(x => x.CountryVersionsChecked).OnDelete(DeleteBehavior.NoAction).HasForeignKey(x => x.UserId);
+            builder.Entity<UserApprove>().HasOne(x => x.CountryVersion).WithMany(x => x.UsersWhoChecked).OnDelete(DeleteBehavior.NoAction).HasForeignKey(x => x.VersionId);
         }
     }
 }

@@ -36,7 +36,8 @@ namespace DAL.Repositories
                 .Include(user => user.Volunteer)
                 .Include(user => user.Messages)
                 .Include(user => user.MadeCountryChanges)
-                .Include(user => user.Chats).ToListAsync();
+                .Include(user => user.Chats)
+                .Include(user => user.CountryVersionsChecked).ToListAsync();
             return userProfiles.AsQueryable();
         }
 
@@ -55,7 +56,8 @@ namespace DAL.Repositories
                 .Include(user => user.Volunteer)
                 .Include(user => user.Messages)
                 .Include(user => user.MadeCountryChanges)
-                .Include(user => user.Chats).FirstOrDefaultAsync(user => user.Id == id);
+                .Include(user => user.Chats)
+                .Include(user => user.CountryVersionsChecked).FirstOrDefaultAsync(user => user.Id == id);
         }
 
         public async Task<IQueryable<UserProfile>> GetUsersByFirstAndLastNameAsync(string firstname, string lastname)
@@ -70,6 +72,7 @@ namespace DAL.Repositories
                 .Include(user => user.Messages)
                 .Include(user => user.MadeCountryChanges)
                 .Include(user => user.Chats)
+                .Include(user => user.CountryVersionsChecked)
                 .AsQueryable();
             return users;
         }

@@ -17,5 +17,11 @@ namespace DAL.Interfaces
         /// <param name="id">Id of country, changes of which are being looked for</param>
         /// <returns></returns>
         Task<IQueryable<CountryChangesHistory>> GetByCountryIdAsync(int id);
+
+        /// <summary>
+        /// To delete country changes from DB by country id
+        /// </summary>
+        /// <param name="id">Id of country, changes of which are being deleted</param>
+        Task DeleteByCountryIdAsync(int id);
     }
 }

@@ -37,6 +37,14 @@ namespace DAL.Repositories
                 _context.CountriesHistories.Remove(version);
             }
         }
+        public async Task DeleteByCountryIdAsync(int id)
+        {
+            var versions = await _context.CountriesHistories.Where(version => version.CountryId == id).ToListAsync();
+            if (versions.Count() != 0)
+            {
+                _context.CountriesHistories.RemoveRange(versions);
+            }
+        }
 
         public async Task<IQueryable<CountryChangesHistory>> GetAllAsync()
         {
@@ -48,7 +56,8 @@ namespace DAL.Repositories
         {
             var versions = await _context.CountriesHistories
                 .Include(version => version.Author)
-                .Include(version => version.Country).ToListAsync();
+                .Include(version => version.Country)
+                .Include(version => version.UsersWhoChecked).ToListAsync();
             return versions.AsQueryable();
         }
 
@@ -58,6 +67,7 @@ namespace DAL.Repositories
                .Where(version => version.CountryId == id)
                .Include(version => version.Author)
                .Include(version => version.Country)
+               .Include(version => version.UsersWhoChecked)
                .ToListAsync();
             return versions.AsQueryable();
         }
@@ -72,6 +82,7 @@ namespace DAL.Repositories
             return await _context.CountriesHistories
                 .Include(version => version.Author)
                 .Include(version => version.Country)
+                .Include(version => version.UsersWhoChecked)
                 .FirstOrDefaultAsync(version => version.Id == id);
         }
 

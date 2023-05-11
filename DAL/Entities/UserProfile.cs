@@ -43,6 +43,8 @@ namespace DAL.Enteties
 
         public virtual ICollection<CountryChangesHistory> MadeCountryChanges { get; set; }
 
+        public virtual ICollection<UserApprove> CountryVersionsChecked { get; set; }
+
         public UserProfile()
         {
             Chats ??= new HashSet<UserChat>();
@@ -50,6 +52,7 @@ namespace DAL.Enteties
             Countries ??= new HashSet<UserCountry>();
             Posts ??= new HashSet<Post>();
             MadeCountryChanges ??= new HashSet<CountryChangesHistory>();
+            CountryVersionsChecked ??= new HashSet<UserApprove>();
         }
     }
 }

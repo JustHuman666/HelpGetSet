@@ -34,7 +34,8 @@ namespace DAL
                           IRepository<Message> messageRepository,
                           IRepository<Post> postRepository,
                           IRepository<Migrant> migrantRepository,
-                          IRepository<Volunteer> volunteerRepository)
+                          IRepository<Volunteer> volunteerRepository,
+                          ICountryHistoryRepository countryVersions)
         {
             _context = context;
             Users = userRepository;
@@ -46,6 +47,7 @@ namespace DAL
             Posts = postRepository;
             Migrants = migrantRepository;
             Volunteers = volunteerRepository;
+            CountryVersions = countryVersions;
         }
 
         public IUserRepository Users { get; }
@@ -57,6 +59,7 @@ namespace DAL
         public IRepository<Post> Posts { get; }
         public IRepository<Migrant> Migrants { get; }
         public IRepository<Volunteer> Volunteers { get; }
+        public ICountryHistoryRepository CountryVersions { get; }
 
         public async Task SaveAsync()
         {

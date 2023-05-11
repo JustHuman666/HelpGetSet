@@ -57,5 +57,11 @@ namespace DAL.Entities
         [Required]
         public int DisApprovesAmount { get; set; }
 
+        public virtual ICollection<UserApprove> UsersWhoChecked { get; set; }
+
+        public CountryChangesHistory()
+        {
+            UsersWhoChecked ??= new HashSet<UserApprove>();
+        }
     }
 }
