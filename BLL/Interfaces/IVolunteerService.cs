@@ -1,10 +1,4 @@
 ﻿using BLL.EntitiesDto;
-using EnumTypes;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace BLL.Interfaces
 {
@@ -27,7 +21,5 @@ namespace BLL.Interfaces
         Task UpdateVolunteerInfoAsync(VolunteerDto item);
 
         Task DeleteVolunteerInfoAsync(int id);
-
-        Task CheckIfEmployedAsync(int id);
     }
 }

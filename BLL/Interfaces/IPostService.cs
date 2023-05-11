@@ -9,20 +9,18 @@ namespace BLL.Interfaces
 {
     public interface IPostService
     {
-        Task<PostDto> GetPostIdAsync(int id);
+        Task<PostDto> GetPostByIdAsync(int id);
 
         Task<IEnumerable<PostDto>> GetAllPostsAsync();
 
         Task<IEnumerable<PostDto>> GetAllUserPostsByUserIdAsync(int id);
 
-        Task<IEnumerable<PostDto>> GetAllCountryPostsByCountryIdAsync();
+        Task<IEnumerable<PostDto>> GetAllCountryPostsByCountryIdAsync(int id);
 
         Task CreatePostAsync(PostDto item);
 
         Task UpdatePostAsync(PostDto item);
 
         Task DeletePostAsync(int id);
-
-        Task CheckIfEmployedAsync(int id);
     }
 }

@@ -13,17 +13,17 @@ namespace BLL.Interfaces
 
         Task<IEnumerable<CountryChangesHistoryDto>> GetAllCountriesVersionsAsync();
 
-        Task<IEnumerable<CountryChangesHistoryDto>> GetLastCountryInfoByIdAsync(int id);
+        Task<CountryChangesHistoryDto> GetLastCountryInfoByIdAsync(int id);
 
-        Task<IEnumerable<CountryChangesHistoryDto>> GetAllCountryInfoVersionsByIdAsync(int id);
+        Task<IEnumerable<CountryChangesHistoryDto>> GetAllCountryInfoVersionsByCountryIdAsync(int id);
 
         Task CreateCountryVersionAsync(CountryChangesHistoryDto item);
 
-        Task ApproveNewVersionAsync(CountryChangesHistoryDto item);
+        Task ApproveVersionByIdAsync(int versionId, int userId);
 
-        Task DispproveNewVersionAsync(CountryChangesHistoryDto item);
+        Task DisapproveVersionByIdAsync(int versionId, int userId);
 
-        Task UpdateCountryVersionAsync(CountryChangesHistoryDto item);
+        Task<bool> CheckIfUserAlreadyCheckedVersionAsync(int versionId, int userId);
 
         Task DeleteCountryInfoVersionAsync(int id);
 

@@ -30,6 +30,6 @@ namespace BLL.Interfaces
 
         Task DeleteMigrantInfoAsync(int id);
 
-        Task CheckIfEmployedAsync(int id);
+        Task<bool> CheckIfEmployedAsync(int id);
     }
 }

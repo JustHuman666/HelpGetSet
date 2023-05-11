@@ -78,7 +78,7 @@ namespace BLL.Services
             var countries = await _db.Countries.GetAllAsync();
             if (countries == null || countries.Count() == 0)
             {
-                throw new NotFoundException("There is any user profile");
+                throw new NotFoundException("There is no country");
             }
             return _mapper.Map<IEnumerable<CountryDto>>(countries);
         }

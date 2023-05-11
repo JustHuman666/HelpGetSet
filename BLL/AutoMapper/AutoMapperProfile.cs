@@ -88,6 +88,9 @@ namespace BLL.AutoMapper
             CreateMap<int, CountryChangesHistory>()
                 .ForMember(dest => dest.Id, m => m.MapFrom(src => src));
 
+            CreateMap<int, UserApprove>()
+                .ForMember(dest => dest.Id, m => m.MapFrom(src => src));
+
             CreateMap<int, Message>()
                 .ForMember(dest => dest.Id, m => m.MapFrom(src => src));
 
