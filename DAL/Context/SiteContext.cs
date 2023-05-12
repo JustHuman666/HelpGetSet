@@ -21,19 +21,19 @@ namespace DAL.Context
         {
         }
 
-        public SiteContext(DbContextOptions options) : base(options)
-        {
-        }
+        //public SiteContext(DbContextOptions options) : base(options)
+        //{
+        //}
 
-        public SiteContext() : base()
-        {
-        }
+        //public SiteContext() : base()
+        //{
+        //}
 
-        protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
-        {
-            optionsBuilder.UseSqlServer(@"Server = localhost, 1433; Database = HelpGetSet; User ID = sa; Password = <password12345>; TrustServerCertificate = True")
-                .EnableSensitiveDataLogging();
-        }
+        //protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
+        //{
+        //    optionsBuilder.UseSqlServer(@"Server = localhost, 1433; Database = HelpGetSet; User ID = sa; Password = <password12345>; TrustServerCertificate = True")
+        //        .EnableSensitiveDataLogging();
+        //}
 
         public DbSet<UserProfile> UserProfiles { get; set; }
         public DbSet<Chat> Chats { get; set; }
