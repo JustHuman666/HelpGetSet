@@ -1,7 +1,7 @@
 ﻿using AutoMapper;
 using BLL.EntitiesDto;
 using BLL.Interfaces;
-using BLL.JvtAuthOptions;
+using BLL.JwtAuthOptions;
 using BLL.Validation;
 using Microsoft.IdentityModel.Tokens;
 using System;
@@ -14,7 +14,7 @@ using System.Threading.Tasks;
 
 namespace BLL.Services
 {
-    public class AuthentificationService : IAuthenticationService
+    public class AuthenticationService : IAuthenticationService
     {
         private readonly IUserService _userService;
 
@@ -25,7 +25,7 @@ namespace BLL.Services
         /// </summary>
         /// <param name="userService">Instance of unit of work for this service</param>
         /// <param name="mapper">Instance of automapper profile</param>
-        public AuthentificationService(IUserService userService, IMapper mapper)
+        public AuthenticationService(IUserService userService, IMapper mapper)
         {
             _userService = userService;
             _mapper = mapper;

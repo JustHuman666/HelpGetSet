@@ -31,8 +31,6 @@ namespace BLL.EntitiesDto
 
         public string SupportInfo { get; set; }
 
-        public bool IsApproved { get; set; }
-
         public int ApprovesAmount { get; set; }
 
         public int DisApprovesAmount { get; set; }
