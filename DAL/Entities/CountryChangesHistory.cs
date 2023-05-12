@@ -40,12 +40,6 @@ namespace DAL.Entities
         public string SupportInfo { get; set; }
 
         /// <summary>
-        /// Status of the information in terms of approving
-        /// </summary>
-        [Required]
-        public bool IsApproved { get; set; }
-
-        /// <summary>
         /// An amount of approvals for the information
         /// </summary>
         [Required]
