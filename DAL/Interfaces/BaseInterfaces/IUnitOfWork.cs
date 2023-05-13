@@ -40,17 +40,17 @@ namespace DAL.Interfaces.BaseInterfaces
         /// <summary>
         /// Repository for posts
         /// </summary>
-        IRepository<Post> Posts { get; }
+        IPostRepository Posts { get; }
 
         /// <summary>
         /// Repository for migrants
         /// </summary>
-        IRepository<Migrant> Migrants { get; }
+        IMigrantRepository Migrants { get; }
 
         /// <summary>
         /// Repository for volunteers
         /// </summary>
-        IRepository<Volunteer> Volunteers { get; }
+        IVolunteerRepository Volunteers { get; }
 
         /// <summary>
         /// Repository for info versions for countries

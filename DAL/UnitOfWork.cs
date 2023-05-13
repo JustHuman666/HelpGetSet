@@ -32,9 +32,9 @@ namespace DAL
                           IChatRepository chatRepository,
                           ICountryRepository countryRepository,
                           IRepository<Message> messageRepository,
-                          IRepository<Post> postRepository,
-                          IRepository<Migrant> migrantRepository,
-                          IRepository<Volunteer> volunteerRepository,
+                          IPostRepository postRepository,
+                          IMigrantRepository migrantRepository,
+                          IVolunteerRepository volunteerRepository,
                           ICountryHistoryRepository countryVersions)
         {
             _context = context;
@@ -56,9 +56,9 @@ namespace DAL
         public IChatRepository Chats { get; }
         public ICountryRepository Countries { get; }
         public IRepository<Message> Messages { get; }
-        public IRepository<Post> Posts { get; }
-        public IRepository<Migrant> Migrants { get; }
-        public IRepository<Volunteer> Volunteers { get; }
+        public IPostRepository Posts { get; }
+        public IMigrantRepository Migrants { get; }
+        public IVolunteerRepository Volunteers { get; }
         public ICountryHistoryRepository CountryVersions { get; }
 
         public async Task SaveAsync()

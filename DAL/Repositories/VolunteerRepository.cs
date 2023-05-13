@@ -1,6 +1,6 @@
 ﻿using DAL.Context;
 using DAL.Enteties;
-using DAL.Interfaces.BaseInterfaces;
+using DAL.Interfaces;
 using Microsoft.EntityFrameworkCore;
 
 namespace DAL.Repositories
