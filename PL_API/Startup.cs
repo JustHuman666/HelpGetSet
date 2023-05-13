@@ -133,7 +133,8 @@ namespace PL_API
                         new string[] { }
                     }
                 });
-                var xmlPath = Path.Combine(AppContext.BaseDirectory, "PL_API.xml");
+                var xmlFile = $"{Assembly.GetExecutingAssembly().GetName().Name}.XML";
+                var xmlPath = Path.Combine(AppContext.BaseDirectory, xmlFile);
                 c.IncludeXmlComments(xmlPath);
 
             });
