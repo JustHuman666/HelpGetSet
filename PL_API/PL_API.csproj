@@ -4,6 +4,8 @@
     <TargetFramework>net6.0</TargetFramework>
     <Nullable>enable</Nullable>
     <ImplicitUsings>enable</ImplicitUsings>
+    <GenerateDocumentationFile>True</GenerateDocumentationFile>
+    <DocumentationFile>C:\Users\lenovo\source\repos\HelpGetSet\PL_API\PL_API.xml</DocumentationFile>
   </PropertyGroup>
 
   <ItemGroup>

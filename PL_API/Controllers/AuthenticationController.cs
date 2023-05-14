@@ -3,6 +3,8 @@ using AutoMapper;
 using BLL.EntitiesDto;
 using BLL.Interfaces;
 using Microsoft.AspNetCore.Mvc;
+using BLL.Validation;
+using EnumTypes;
 
 namespace PL_API.Controllers
 {
@@ -39,6 +41,10 @@ namespace PL_API.Controllers
         [Route("Register")]
         public async Task<IActionResult> RegisterUSer([FromBody] RegisterModel registerModel)
         {
+            if (!Enum.IsDefined(typeof(Gender), registerModel))
+            {
+                throw new HelpSiteException($"{registerModel.Gender} gender is not compatible");
+            }
             return new ObjectResult(await _authService.RegisterNewUserAsync(_mapper.Map<UserDto>(registerModel), registerModel.Password))
             { StatusCode = StatusCodes.Status201Created };
         }

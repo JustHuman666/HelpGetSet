@@ -52,10 +52,9 @@ namespace DAL.Context
             base.OnModelCreating(builder);
 
             var admin = new Role() { Id = 1, Name = "Admin", NormalizedName = "ADMIN" };
-            var volunteer = new Role() { Id = 2, Name = "Volunteer", NormalizedName = "VOLUNTEER" };
-            var migrant = new Role() { Id = 3, Name = "Migrant", NormalizedName = "MIGRANT" };
+            var registered = new Role() { Id = 2, Name = "Registered", NormalizedName = "REGISTERED" };
 
-            builder.Entity<Role>().HasData(admin, volunteer, migrant);
+            builder.Entity<Role>().HasData(admin, registered);
 
             var defaultMigrant = new Migrant()
             {
@@ -93,8 +92,7 @@ namespace DAL.Context
 
             builder.Entity<IdentityUserRole<int>>().HasData(
                 new IdentityUserRole<int> { RoleId = admin.Id, UserId = adminProfile.Id },
-                new IdentityUserRole<int> { RoleId = volunteer.Id, UserId = adminProfile.Id },
-                new IdentityUserRole<int> { RoleId = migrant.Id, UserId = adminProfile.Id });
+                new IdentityUserRole<int> { RoleId = registered.Id, UserId = adminProfile.Id })
 
 
             builder.Entity<UserProfile>().HasKey(x => new { x.Id });

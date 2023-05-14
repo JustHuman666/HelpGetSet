@@ -19,5 +19,9 @@ namespace PL_API.Models
         [Required]
         [Phone]
         public string PhoneNumber { get; set; }
+
+        public DateTime Birthday { get; set; }
+
+        public string Gender { get; set; }
     }
 }

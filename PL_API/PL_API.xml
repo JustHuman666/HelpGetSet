@@ -1,1 +1,279 @@
-﻿<?xml version="1.0" encoding="utf-8" ?>
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>PL_API</name>
+    </assembly>
+    <members>
+        <member name="T:PL_API.Controllers.AuthenticationController">
+            <summary>
+            Controller for authentification processes
+            </summary>
+        </member>
+        <member name="M:PL_API.Controllers.AuthenticationController.#ctor(BLL.Interfaces.IAuthenticationService,BLL.Interfaces.IUserService,AutoMapper.IMapper)">
+            <summary>
+            Constructor for creating of controller with given services and mapper profile
+            </summary>
+            <param name="mapper">Auto mapper profile for models and dtos</param>
+            <param name="authService">Authentification service</param>
+            <param name="userService">User service</param>
+        </member>
+        <member name="M:PL_API.Controllers.AuthenticationController.RegisterUSer(PL_API.Models.RegisterModel)">
+            <summary>
+            The registration of new user
+            </summary>
+            <param name="registerModel">Model of registered user</param>
+            <returns>Instance of object result of creating user</returns>
+        </member>
+        <member name="M:PL_API.Controllers.AuthenticationController.Login(PL_API.Models.LoginModel)">
+            <summary>
+            To log user in network
+            </summary>
+            <param name="loginModel">Instance of data for logging in</param>
+            <returns>Result status code</returns>
+        </member>
+        <member name="T:PL_API.Controllers.ChatController">
+            <summary>
+            Controller for working with chats
+            </summary>
+        </member>
+        <member name="M:PL_API.Controllers.ChatController.#ctor(BLL.Interfaces.IChatService,AutoMapper.IMapper)">
+            <summary>
+            Constructor for creating of controller with given services and mapper profile
+            </summary>
+            <param name="mapper">Auto mapper profile for models and dtos</param>
+            <param name="chatService">Chat service</param>
+        </member>
+        <member name="M:PL_API.Controllers.ChatController.CreateNewChatForUser(PL_API.Models.ChatModel)">
+            <summary>
+            To create user chat with at least one user
+            </summary>
+            <param name="chatModel">Model of chat for creating with needed data</param>
+        </member>
+        <member name="M:PL_API.Controllers.ChatController.GetAllUsersChat">
+            <summary>
+            To get all chats of authorized user
+            </summary>
+            <returns>Collection of all chats of this user</returns>
+        </member>
+        <member name="M:PL_API.Controllers.ChatController.GetAllUsersInChat(System.Int32)">
+            <summary>
+            To get all users of chosen chat
+            </summary>
+            <param name="id">Id of chat which users are finding</param>
+            <returns>Collection of all users profiles in this chat</returns>
+        </member>
+        <member name="M:PL_API.Controllers.ChatController.RenameChat(System.Int32,System.String)">
+            <summary>
+            To rename chat by its id 
+            </summary>
+            <param name="id">The id of chat which name should be changed</param>
+            <param name="name">The new name for chosen chat</param>
+        </member>
+        <member name="M:PL_API.Controllers.ChatController.AddUserInChat(System.Int32,System.Int32)">
+            <summary>
+            To add new user in a chat
+            </summary>
+            <param name="chatId">The id of chat where user should be added</param>
+            <param name="userId">The id of user who should be added</param>
+        </member>
+        <member name="M:PL_API.Controllers.ChatController.DeleteUserFromChat(System.Int32,System.Int32)">
+            <summary>
+            To delete chosen user from a chat
+            </summary>
+            <param name="chatId">The id of chat where user should be deleted</param>
+            <param name="userId">The id of user who should be deleted</param>
+        </member>
+        <member name="M:PL_API.Controllers.ChatController.ClearChatHistoryById(System.Int32)">
+            <summary>
+            To clear a history of messages of chosen chat
+            /// </summary>
+            <param name="id">The id of chat which history should be cleared</param>
+        </member>
+        <member name="M:PL_API.Controllers.ChatController.DeleteChat(System.Int32)">
+            <summary>
+            To delete chosen chat by its unique id
+            </summary>
+            <param name="id">Id of chat that should be deleted</param>
+        </member>
+        <member name="M:PL_API.Controllers.ChatController.GetChatById(System.Int32)">
+            <summary>
+            To get chat with details by its id
+            </summary>
+            <param name="id">Id of chat that should be returned with details</param>
+            <returns>Instance of chat with details</returns>
+        </member>
+        <member name="M:PL_API.Controllers.ChatController.SetAdminStatusToUser(System.Int32,System.Int32)">
+            <summary>
+            To change the status of chosen user in chosen chat for admin
+            </summary>
+            <param name="userId">The id of user who should be an admin</param>
+            <param name="chatId">The id of chat where chosen user wanted to be admin</param>
+        </member>
+        <member name="M:PL_API.Controllers.ChatController.SetDefaultStatusToUser(System.Int32,System.Int32)">
+            <summary>
+            To change the status of chosen user in chosen chat for default
+            </summary>
+            <param name="userId">The id of chat that is finding</param>
+            <param name="chatId">The id of chat where chosen user wanted to be admin</param>
+        </member>
+        <member name="T:PL_API.Controllers.ErrorController">
+            <summary>
+            Controller for error handling
+            </summary>
+        </member>
+        <member name="M:PL_API.Controllers.MessageController.#ctor(BLL.Interfaces.IMessageService,BLL.Interfaces.IUserProfileService,AutoMapper.IMapper)">
+            <summary>
+            Constructor for creating of controller with given services and mapper profile
+            </summary>
+            <param name="mapper">Auto mapper profile for models and dtos</param>
+            <param name="messageService">Chat service</param>
+            <param name="userProfileService">USer profile service</param>
+        </member>
+        <member name="M:PL_API.Controllers.MessageController.SendMessageInChat(PL_API.Models.MessageModel)">
+            <summary>
+            To send a new message in chat
+            </summary>
+            <param name="messageModel">The instance of new message that should be sent</param>
+        </member>
+        <member name="M:PL_API.Controllers.MessageController.DeleteMessage(System.Int32)">
+            <summary>
+            To delete chosen message for all users in the chat
+            </summary>
+            <param name="id">Id of message that should be deleted</param>
+        </member>
+        <member name="M:PL_API.Controllers.MessageController.GetMessageById(System.Int32)">
+            <summary>
+            To get an instance of message by its id
+            </summary>
+            <param name="id">Id of message that is found</param>
+            <returns>An instance of found message</returns>
+        </member>
+        <member name="M:PL_API.Controllers.MessageController.GetAllMessages">
+            <summary>
+            To get a collection of all messages
+            </summary>
+            <returns>Collection of messages</returns>
+        </member>
+        <member name="M:PL_API.Controllers.MessageController.GetMessagesOfChat(System.Int32)">
+            <summary>
+            To get a collection of all messages
+            </summary>
+            <returns>Collection of messages</returns>
+        </member>
+        <member name="T:PL_API.Controllers.UserController">
+            <summary>
+            Controller for working with users
+            </summary>
+        </member>
+        <member name="M:PL_API.Controllers.UserController.#ctor(BLL.Interfaces.IUserService,BLL.Interfaces.IUserProfileService,AutoMapper.IMapper)">
+            <summary>
+            Constructor for creating of user controller with given services and mapper profile
+            </summary>
+            <param name="mapper">Auto mapper profile for models and dtos</param>
+            <param name="userService">User service</param>
+            <param name="userProfileService">User profile service</param>
+        </member>
+        <member name="M:PL_API.Controllers.UserController.GetAllUserProfilesWithDetails">
+            <summary>
+            To get all users profiles with details
+            </summary>
+            <returns>Collection of users profiles</returns>
+        </member>
+        <member name="M:PL_API.Controllers.UserController.GetUserProfileByIdForAll(System.Int32)">
+            <summary>
+            To get user profile by its id allowed for all users
+            </summary>
+            <param name="id">The id of user whose detailed profile should be found</param>
+            <returns>Found user profile</returns>
+        </member>
+        <member name="M:PL_API.Controllers.UserController.GetUserRoles">
+            <summary>
+            To get all user roles
+            </summary>
+            <returns>Collection of role names</returns>
+        </member>
+        <member name="M:PL_API.Controllers.UserController.GetAuthorizedUserProfile">
+            <summary>
+            To get own user profile after autorirization
+            </summary>
+            <returns>User profile of authorized user</returns>
+        </member>
+        <member name="M:PL_API.Controllers.UserController.ChangeUserPassword(PL_API.Models.ChangePasswordModel)">
+            <summary>
+            To change your own password
+            </summary>
+            <param name="passwordModel">The instance with data for changing password</param>
+            <returns>Successfull status code if all is Ok</returns>
+        </member>
+        <member name="M:PL_API.Controllers.UserController.GetUserProfileWithDetailsByUserName(System.String)">
+            <summary>
+            To get user profile with all details by his user name
+            </summary>
+            <param name="name">The user name of user who should be found</param>
+            <returns>Found user</returns>
+        </member>
+        <member name="M:PL_API.Controllers.UserController.GetUsersProfileWithDetailsByFullName(System.String,System.String)">
+            <summary>
+            To get user profile with all details by his full name
+            </summary>
+            <param name="first">The first name of user who should be found</param>
+            <param name="last">The last name of user who should be found</param>
+            <returns>Found user</returns>
+        </member>
+        <member name="M:PL_API.Controllers.UserController.GetUserProfileWithDetailsByPhone(System.String)">
+            <summary>
+            To get user profile with all details by his phone number
+            </summary>
+            <param name="phoneNumber">The phone number of user who should be found</param>
+            <returns>Found user</returns>
+        </member>
+        <member name="M:PL_API.Controllers.UserController.AddUserToRole(System.Int32,System.String)">
+            <summary>
+            To add chosen user to chosen role
+            </summary>
+            <param name="id">The id of user who should be added to role</param>
+            <param name="role">The role name where user should be added to</param>
+            <returns>Result status code</returns>
+        </member>
+        <member name="M:PL_API.Controllers.UserController.UpdateUserInfoByUser(PL_API.Models.UserModel)">
+            <summary>
+            To update user info by this user
+            </summary>
+            <param name="userModel">Changed data of user</param>
+            <returns>Updated user profile</returns>
+        </member>
+        <member name="M:PL_API.Controllers.UserController.UpdateUserInfoByAdmin(System.Int32,PL_API.Models.UserModel)">
+            <summary>
+            To update user info by admin
+            </summary>
+            <param name="userModel">Changed data of user</param>
+            <param name="id">The id user whose information should changed</param>
+            <returns>Updated user profile</returns>
+        </member>
+        <member name="M:PL_API.Controllers.UserController.DeleteUserByHimself">
+            <summary>
+            To delete user because of his own desire
+            </summary>
+            <returns>Result status code</returns>        
+        </member>
+        <member name="M:PL_API.Controllers.UserController.DeleteUserByAdmin(System.Int32)">
+            <summary>
+            To delete any user by admin
+            </summary>
+            <param name="id">The id of user who should be deleted</param>
+            <returns>Result status code</returns>
+        </member>
+        <member name="T:PL_API.ErrorBuilder.ApiErrorBuilder">
+            <summary>
+            Class for returning errors by api
+            </summary>
+        </member>
+        <member name="M:PL_API.ErrorBuilder.ApiErrorBuilder.#ctor(System.String,System.Net.HttpStatusCode)">
+            <summary>
+            Constructor for creating error object with given parametrs
+            </summary>
+            <param name="message">The message of sent exception</param>
+            <param name="code">The status code of exception</param>
+        </member>
+    </members>
+</doc>

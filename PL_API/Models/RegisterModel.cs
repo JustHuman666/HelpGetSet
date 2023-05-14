@@ -25,5 +25,11 @@ namespace PL_API.Models
         [Display(Name = "Password")]
         [StringLength(50, ErrorMessage = "Password should consits of at least {2} characters", MinimumLength = 8)]
         public string Password { get; set; }
+
+        [Required]
+        public DateTime Birthday { get; set; }
+
+        [Required]
+        public string Gender { get; set; }
     }
 }

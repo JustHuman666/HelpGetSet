@@ -5,6 +5,9 @@ using BLL.Interfaces;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using System.Security.Claims;
+using EnumTypes;
+using BLL.Validation;
+using DAL.Enteties;
 
 namespace PL_API.Controllers
 {
@@ -177,6 +180,10 @@ namespace PL_API.Controllers
         [Authorize(Roles = "Registered")]
         public async Task<ActionResult<UserProfileDto>> UpdateUserInfoByUser([FromBody] UserModel userModel)
         {
+            if (!Enum.IsDefined(typeof(Gender), userModel))
+            {
+                throw new HelpSiteException($"{userModel.Gender} gender is not compatible");
+            }
             var userToChange = _mapper.Map<UserDto>(userModel);
             userToChange.Id = Convert.ToInt32(User.FindFirst(ClaimTypes.NameIdentifier).Value);
             await _userService.UpdateUserInfoAsync(userToChange);
@@ -195,6 +202,10 @@ namespace PL_API.Controllers
         [Authorize(Roles = "Admin")]
         public async Task<ActionResult<UserProfileModel>> UpdateUserInfoByAdmin(int id, [FromBody] UserModel userModel)
         {
+            if (!Enum.IsDefined(typeof(Gender), userModel))
+            {
+                throw new HelpSiteException($"{userModel.Gender} gender is not compatible");
+            }
             var userToChange = _mapper.Map<UserDto>(userModel);
             userToChange.Id = id;
             await _userService.UpdateUserInfoAsync(userToChange);
@@ -227,6 +238,32 @@ namespace PL_API.Controllers
         {
             await _userService.DeleteUserByIdAsync(id);
             return Ok();
+        }
+
+        /// <summary>
+        /// To get an original country of user bu the user's id
+        /// </summary>
+        ///  /// <param name="id">The id of user, whose original country is being looked for</param>
+        /// <returns>Found user's original country instance</returns>
+        [HttpGet]
+        [Route("OriginalCountry/{id}")]
+        public async Task<ActionResult<Country>> GetUsersOriginalCountryByUserId(int id)
+        {
+            var countryDto = await _userProfileService.GetOriginalCountryByUserIdAsync(id);
+            return Ok(_mapper.Map<CountryModel>(countryDto));
+        }
+
+        /// <summary>
+        /// To get a current country of user bu the user's id
+        /// </summary>
+        ///  /// <param name="id">The id of user, whose current country is being looked for</param>
+        /// <returns>Found user's current country instance</returns>
+        [HttpGet]
+        [Route("CurrentCountry/{id}")]
+        public async Task<ActionResult<Country>> GetUsersCurrentCountryByUserId(int id)
+        {
+            var countryDto = await _userProfileService.GetCurrentCountryByUserIdAsync(id);
+            return Ok(_mapper.Map<CountryModel>(countryDto));
         }
     }
 }

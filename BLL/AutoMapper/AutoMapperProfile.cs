@@ -22,6 +22,8 @@ namespace BLL.AutoMapper
             CreateMap<User, UserDto>()
                 .ForMember(p => p.FirstName, c => c.MapFrom(src => src.UserProfile.FirstName))
                 .ForMember(p => p.LastName, c => c.MapFrom(src => src.UserProfile.LastName))
+                .ForMember(p => p.Birthday, c => c.MapFrom(src => src.UserProfile.Birthday))
+                .ForMember(p => p.Gender, c => c.MapFrom(src => src.UserProfile.Gender))
                 .ReverseMap();
 
             CreateMap<UserProfile, UserProfileDto>()

@@ -12,13 +12,13 @@ namespace PL_API.Models
 
         public bool IsCommonMigrant { get; set; }
 
-        public FamilyStatus FamilyStatus { get; set; }
+        public string FamilyStatus { get; set; }
 
         public int AmountOfChildren { get; set; }
 
         public bool IsEmployed { get; set; }
 
-        public Housing Housing { get; set; }
+        public string Housing { get; set; }
 
         public virtual ICollection<int> UserIds { get; set; }
     }

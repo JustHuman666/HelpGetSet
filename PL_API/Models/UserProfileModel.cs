@@ -20,7 +20,7 @@ namespace PL_API.Models
 
         public DateTime Birthday { get; set; }
 
-        public Gender Gender { get; set; }
+        public string Gender { get; set; }
 
         public virtual ICollection<int> CountryIds { get; set; }
 
