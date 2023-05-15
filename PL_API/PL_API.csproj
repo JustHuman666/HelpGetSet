@@ -6,9 +6,11 @@
     <ImplicitUsings>enable</ImplicitUsings>
     <GenerateDocumentationFile>True</GenerateDocumentationFile>
     <DocumentationFile>C:\Users\lenovo\source\repos\HelpGetSet\PL_API\PL_API.xml</DocumentationFile>
+    <UserSecretsId>29d2f8e0-c4be-464e-a943-0882a8ab61a6</UserSecretsId>
   </PropertyGroup>
 
   <ItemGroup>
+    <PackageReference Include="IPinfo" Version="2.1.0" />
     <PackageReference Include="Swashbuckle.AspNetCore" Version="6.2.3" />
   </ItemGroup>
 

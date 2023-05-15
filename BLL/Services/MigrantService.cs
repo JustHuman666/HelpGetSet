@@ -42,6 +42,18 @@ namespace BLL.Services
             {
                 throw new HelpSiteException("Migrant info cannot be null");
             }
+            foreach (int userId in item.UserIds)
+            {
+                var user = await _db.Users.GetByIdAsync(userId);
+                if (user == null)
+                {
+                    throw new NotFoundException("There is no such user in the system");
+                }
+                if (user.UserProfile.MigrantId > 1 || user.UserProfile.VolunteerId > 1)
+                {
+                    throw new HelpSiteException("The user has already chosen type of profile");
+                }
+            }
             var migrantToCreate = _mapper.Map<Migrant>(item);
             await _db.Migrants.CreateAsync(migrantToCreate);
             await _db.SaveAsync();

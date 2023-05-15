@@ -92,7 +92,7 @@ namespace DAL.Context
 
             builder.Entity<IdentityUserRole<int>>().HasData(
                 new IdentityUserRole<int> { RoleId = admin.Id, UserId = adminProfile.Id },
-                new IdentityUserRole<int> { RoleId = registered.Id, UserId = adminProfile.Id })
+                new IdentityUserRole<int> { RoleId = registered.Id, UserId = adminProfile.Id });
 
 
             builder.Entity<UserProfile>().HasKey(x => new { x.Id });

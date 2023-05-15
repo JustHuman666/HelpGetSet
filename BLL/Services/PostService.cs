@@ -61,7 +61,7 @@ namespace BLL.Services
             var country = await _db.Countries.GetByIdAsync(id);
             if (country == null) 
             {
-                throw new NotFoundException($"No country with id: {id} was found");
+                throw new HelpSiteException($"No country with id: {id} was found");
             }
             var countryPosts = allPosts.Where(post => post.CountryId == id);
             if (countryPosts == null || countryPosts.Count() == 0)
@@ -88,7 +88,7 @@ namespace BLL.Services
             var user = await _db.Users.GetByIdAsync(id);
             if (user == null)
             {
-                throw new NotFoundException($"No user with id: {id} was found");
+                throw new HelpSiteException($"No user with id: {id} was found");
             }
             var userPosts = allPosts.Where(post => post.AuthorId == id);
             if (userPosts == null || userPosts.Count() == 0)

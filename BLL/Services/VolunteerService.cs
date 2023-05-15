@@ -35,6 +35,18 @@ namespace BLL.Services
             {
                 throw new HelpSiteException("Volunteer info cannot be null");
             }
+            foreach (int userId in item.UserIds)
+            {
+                var user = await _db.Users.GetByIdAsync(userId);
+                if ( user == null)
+                {
+                    throw new NotFoundException("There is no such user in the system");
+                }
+                if (user.UserProfile.MigrantId > 1 || user.UserProfile.VolunteerId > 1)
+                {
+                    throw new HelpSiteException("The user has already chosen type of profile");
+                }
+            }
             var volunteerToCreate = _mapper.Map<Volunteer>(item);
             await _db.Volunteers.CreateAsync(volunteerToCreate);
             await _db.SaveAsync();

@@ -2,6 +2,8 @@
 {
     public class VolunteerModel
     {
+        public int Id { get; set; }
+
         public bool IsOrganisation { get; set; }
 
         public bool HasAPlace { get; set; }

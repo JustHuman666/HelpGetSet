@@ -116,6 +116,132 @@
             <param name="userId">The id of chat that is finding</param>
             <param name="chatId">The id of chat where chosen user wanted to be admin</param>
         </member>
+        <member name="T:PL_API.Controllers.CountryController">
+            <summary>
+            Controller for working with countries
+            </summary>
+        </member>
+        <member name="M:PL_API.Controllers.CountryController.#ctor(BLL.Interfaces.ICountryService,BLL.Interfaces.ICountryChangesHistoryService,BLL.Interfaces.IUserService,AutoMapper.IMapper)">
+            <summary>
+            Constructor for creating of user controller with given services and mapper profile
+            </summary>
+            <param name="mapper">Auto mapper profile for models and dtos</param>
+            <param name="_countryService">User service</param>
+            <param name="_countryChangesService">User profile service</param>
+        </member>
+        <member name="M:PL_API.Controllers.CountryController.GetAllCountries">
+            <summary>
+            To get all countries
+            </summary>
+            <returns>Collection of countries</returns>
+        </member>
+        <member name="M:PL_API.Controllers.CountryController.GetCountryByIdForAll(System.Int32)">
+            <summary>
+            To get country by its id allowed for all users
+            </summary>
+            <param name="id">The id of country which should be found</param>
+            <returns>Found country</returns>
+        </member>
+        <member name="M:PL_API.Controllers.CountryController.GetCountryByName(System.String)">
+            <summary>
+            To get country by its original name
+            </summary>
+            <param name="name">The name of country which should be found</param>
+            <returns>Found country</returns>
+        </member>
+        <member name="M:PL_API.Controllers.CountryController.GetCountryByShortName(System.String)">
+            <summary>
+            To get country by its short name
+            </summary>
+            <param name="name">The short name of country which should be found</param>
+            <returns>Found country</returns>
+        </member>
+        <member name="M:PL_API.Controllers.CountryController.GetUsersFromCountry(System.Int32)">
+            <summary>
+            To get users who are originally from a country by country id
+            </summary>
+            <param name="id">The id of a country which users should be found</param>
+            <returns>Found users from the country</returns>
+        </member>
+        <member name="M:PL_API.Controllers.CountryController.GetUsersInCountry(System.Int32)">
+            <summary>
+            To get users who are currently in a country by country id
+            </summary>
+            <param name="id">The id of a country which users should be found</param>
+            <returns>Found users who are in the country</returns>
+        </member>
+        <member name="M:PL_API.Controllers.CountryController.AddNewCountryByUser(PL_API.Models.CountryChangesHistoryModel)">
+            <summary>
+            To add new country
+            </summary>
+            <param name="countryChangesModel">Model of country for creating with needed data</param>
+        </member>
+        <member name="M:PL_API.Controllers.CountryController.RenameCountry(PL_API.Models.CountryModel)">
+            <summary>
+            To rename country if the same author or by admin
+            </summary>
+            <param name="countryModel">Model of country for with data for renaming</param>
+        </member>
+        <member name="M:PL_API.Controllers.CountryController.UpdateCountryInfo(PL_API.Models.CountryChangesHistoryModel)">
+            <summary>
+            To update country info
+            </summary>
+            <param name="changes">Model of country for with data for updating</param>
+        </member>
+        <member name="M:PL_API.Controllers.CountryController.GetCountryVersionByIdForAll(System.Int32)">
+            <summary>
+            To get country version by its id
+            </summary>
+            <param name="id">The id of country version which should be found</param>
+            <returns>Found country version</returns>
+        </member>
+        <member name="M:PL_API.Controllers.CountryController.GetCountryVersions(System.Int32)">
+            <summary>
+            To get all versions of a country by id
+            </summary>
+            <param name="id">The id of a country which versions should be found</param>
+            <returns>Found versions of the country</returns>
+        </member>
+        <member name="M:PL_API.Controllers.CountryController.GetCountryLastVersion(System.Int32)">
+            <summary>
+            To get the last version of a country by id
+            </summary>
+            <param name="id">The id of a country</param>
+            <returns>Found version of the country</returns>
+        </member>
+        <member name="M:PL_API.Controllers.CountryController.ApproveVersion(System.Int32)">
+            <summary>
+            To approve chosen version
+            </summary>
+            <param name="id">Id of version to be approved</param>
+        </member>
+        <member name="M:PL_API.Controllers.CountryController.DisapproveVersion(System.Int32)">
+            <summary>
+            To disapprove chosen version
+            </summary>
+            <param name="id">Id of version to be disapproved</param>
+        </member>
+        <member name="M:PL_API.Controllers.CountryController.DeleteVersionByAdmin(System.Int32)">
+            <summary>
+            To delete country version
+            </summary>
+            <param name="id">The id of version to be deleted</param>
+            <returns>Result status code</returns>
+        </member>
+        <member name="M:PL_API.Controllers.CountryController.DeleteCountryByAdmin(System.Int32)">
+            <summary>
+            To delete country with all country versions by admin
+            </summary>
+            <param name="id">The id of country to be deleted</param>
+            <returns>Result status code</returns>
+        </member>
+        <member name="M:PL_API.Controllers.CountryController.IfUserCheckedVersion(System.Int32)">
+            <summary>
+            To check if user already approved or disapproved
+            </summary>
+            <param name="id">The id of a version to be checked</param>
+            <returns>True if already checked</returns>
+        </member>
         <member name="T:PL_API.Controllers.ErrorController">
             <summary>
             Controller for error handling
@@ -159,6 +285,149 @@
             To get a collection of all messages
             </summary>
             <returns>Collection of messages</returns>
+        </member>
+        <member name="T:PL_API.Controllers.MigrantController">
+            <summary>
+            Controller for working with migrants information
+            </summary>
+        </member>
+        <member name="M:PL_API.Controllers.MigrantController.#ctor(BLL.Interfaces.IUserService,BLL.Interfaces.IMigrantService,AutoMapper.IMapper)">
+            <summary>
+            Constructor for creating of user controller with given services and mapper profile
+            </summary>
+            <param name="mapper">Auto mapper profile for models and dtos</param>
+            <param name="userService">User service</param>
+            <param name="migrantService">Migrant service</param>
+        </member>
+        <member name="M:PL_API.Controllers.MigrantController.GetAllMigrantsWithDetails">
+            <summary>
+            To get all migrants information with details
+            </summary>
+            <returns>Collection of migrants profiles</returns>
+        </member>
+        <member name="M:PL_API.Controllers.MigrantController.GetMigrantByIdForAll(System.Int32)">
+            <summary>
+            To get migrant profile by their id allowed for all users
+            </summary>
+            <param name="id">The id of migrant whose detailed profile should be found</param>
+            <returns>Found migrant profile</returns>
+        </member>
+        <member name="M:PL_API.Controllers.MigrantController.GetAllRefugees">
+            <summary>
+            To get all migrants, who are oficially refugees
+            </summary>
+            <returns>Collection of refugees</returns>
+        </member>
+        <member name="M:PL_API.Controllers.MigrantController.GetAllForcedMigrants">
+            <summary>
+            To get all migrants, who are forced migrants
+            </summary>
+            <returns>Collection of forced migrants</returns>
+        </member>
+        <member name="M:PL_API.Controllers.MigrantController.GetAllCommonMigrants">
+            <summary>
+            To get all migrants, who are common migrants
+            </summary>
+            <returns>Collection of common migrants</returns>
+        </member>
+        <member name="M:PL_API.Controllers.MigrantController.GetUserHousingType(System.Int32)">
+            <summary>
+            To get housing type of a migrant by their id
+            </summary>
+            <param name="id">The id of migrant whose housing type should be found</param>
+            <returns>Housing type converted to string</returns>
+        </member>
+        <member name="M:PL_API.Controllers.MigrantController.GetUserFamilyStatus(System.Int32)">
+            <summary>
+            To get family status of a migrant by their id
+            </summary>
+            <param name="id">The id of migrant whose family status should be found</param>
+            <returns>Family status converted to string</returns>
+        </member>
+        <member name="M:PL_API.Controllers.MigrantController.AddNewMigrant(PL_API.Models.MigrantModel)">
+            <summary>
+            To create a migrant profile
+            </summary>
+            <param name="migrantModel">Model of migrant for creating with needed data</param>
+        </member>
+        <member name="M:PL_API.Controllers.MigrantController.UpdateMigrantInfo(PL_API.Models.MigrantModel)">
+            <summary>
+            To update a migrant profile
+            </summary>
+            <param name="migrantModel">Model of migrant for updating with needed data</param>
+        </member>
+        <member name="M:PL_API.Controllers.MigrantController.DeleteMigrantById(System.Int32)">
+            <summary>
+            To delete migrant profile by user themselves or by admin
+            </summary>
+            <param name="id">The id of migrant profile to be deleted</param>
+            <returns>Result status code</returns>
+        </member>
+        <member name="M:PL_API.Controllers.MigrantController.IfMigrantIsEmployed(System.Int32)">
+            <summary>
+            To check if migrant is employed
+            </summary>
+            <param name="id">The id of migrant profile be checked</param>
+            <returns>True if employed</returns>
+        </member>
+        <member name="T:PL_API.Controllers.PostController">
+            <summary>
+            Controller for working with posts
+            </summary>
+        </member>
+        <member name="M:PL_API.Controllers.PostController.#ctor(BLL.Interfaces.IUserService,BLL.Interfaces.IPostService,BLL.Interfaces.ICountryService,AutoMapper.IMapper)">
+            <summary>
+            Constructor for creating of user controller with given services and mapper profile
+            </summary>
+            <param name="mapper">Auto mapper profile for models and dtos</param>
+            <param name="userService">User service</param>
+            <param name="postService">Post service</param>
+        </member>
+        <member name="M:PL_API.Controllers.PostController.GetAllPostsWithDetails">
+            <summary>
+            To get all posts with details
+            </summary>
+            <returns>Collection of posts</returns>
+        </member>
+        <member name="M:PL_API.Controllers.PostController.GetPostByIdForAll(System.Int32)">
+            <summary>
+            To get post by its id allowed for all users
+            </summary>
+            <param name="id">The id of post which should be found</param>
+            <returns>Found post</returns>
+        </member>
+        <member name="M:PL_API.Controllers.PostController.GetPostsByUserIdForAll(System.Int32)">
+            <summary>
+            To get all posts of user by their id allowed
+            </summary>
+            <param name="id">The id of user whose posts should be found</param>
+            <returns>Found posts</returns>
+        </member>
+        <member name="M:PL_API.Controllers.PostController.GetPostsByCountryIdForAll(System.Int32)">
+            <summary>
+            To get all posts related to a country by the country id
+            </summary>
+            <param name="id">The id of country for posts should be found</param>
+            <returns>Found posts</returns>
+        </member>
+        <member name="M:PL_API.Controllers.PostController.AddNewPost(PL_API.Models.PostModel)">
+            <summary>
+            To create a post
+            </summary>
+            <param name="postModel">Model of migrant for creating with needed data</param>
+        </member>
+        <member name="M:PL_API.Controllers.PostController.UpdatePost(PL_API.Models.PostModel)">
+            <summary>
+            To update a post
+            </summary>
+            <param name="postModel">Model of post for updating with needed data</param>
+        </member>
+        <member name="M:PL_API.Controllers.PostController.GetSuitablePosts(System.String)">
+            <summary>
+            To get suitable posts with details
+            </summary>
+            <param name="ipAddress">The ip address of user for posts should be found</param>
+            <returns>Collection of found posts</returns>
         </member>
         <member name="T:PL_API.Controllers.UserController">
             <summary>
@@ -261,6 +530,79 @@
             To delete any user by admin
             </summary>
             <param name="id">The id of user who should be deleted</param>
+            <returns>Result status code</returns>
+        </member>
+        <member name="M:PL_API.Controllers.UserController.GetUsersOriginalCountryByUserId(System.Int32)">
+            <summary>
+            To get an original country of user bu the user's id
+            </summary>
+             /// <param name="id">The id of user, whose original country is being looked for</param>
+            <returns>Found user's original country instance</returns>
+        </member>
+        <member name="M:PL_API.Controllers.UserController.GetUsersCurrentCountryByUserId(System.Int32)">
+            <summary>
+            To get a current country of user bu the user's id
+            </summary>
+             /// <param name="id">The id of user, whose current country is being looked for</param>
+            <returns>Found user's current country instance</returns>
+        </member>
+        <member name="T:PL_API.Controllers.VolunteerController">
+            <summary>
+            Controller for working with volunteers information
+            </summary>
+        </member>
+        <member name="M:PL_API.Controllers.VolunteerController.#ctor(BLL.Interfaces.IUserService,BLL.Interfaces.IVolunteerService,AutoMapper.IMapper)">
+            <summary>
+            Constructor for creating of user controller with given services and mapper profile
+            </summary>
+            <param name="mapper">Auto mapper profile for models and dtos</param>
+            <param name="userService">User service</param>
+            <param name="volunteerService">Migrant service</param>
+        </member>
+        <member name="M:PL_API.Controllers.VolunteerController.GetAllMigrantsWithDetails">
+            <summary>
+            To get all volunteers information with details
+            </summary>
+            <returns>Collection of volunteers profiles</returns>
+        </member>
+        <member name="M:PL_API.Controllers.VolunteerController.GetMigrantByIdForAll(System.Int32)">
+            <summary>
+            To get volunteer profile by their id allowed for all users
+            </summary>
+            <param name="id">The id of volunteer whose detailed profile should be found</param>
+            <returns>Found volunteer profile</returns>
+        </member>
+        <member name="M:PL_API.Controllers.VolunteerController.GetAllOrganistaions">
+            <summary>
+            To get all volunteers, who represent organisations
+            </summary>
+            <returns>Collection of volunteers, who represent organisations</returns>
+        </member>
+        <member name="M:PL_API.Controllers.VolunteerController.GetAllCommonVolunteer">
+            <summary>
+            To get all volunteers, who are just common people
+            </summary>
+            <returns>Collection of volunteers, who are just common people</returns>
+        </member>
+        <!-- Badly formed XML comment ignored for member "M:PL_API.Controllers.VolunteerController.GetAllTranslators" -->
+        <!-- Badly formed XML comment ignored for member "M:PL_API.Controllers.VolunteerController.GetAllForHousing" -->
+        <member name="M:PL_API.Controllers.VolunteerController.AddNewVolunteer(PL_API.Models.VolunteerModel)">
+            <summary>
+            To create a volunteer profile
+            </summary>
+            <param name="volunteerModel">Model of volunteer for creating with needed data</param>
+        </member>
+        <member name="M:PL_API.Controllers.VolunteerController.UpdateVolunteerInfo(PL_API.Models.VolunteerModel)">
+            <summary>
+            To update a volunteer profile
+            </summary>
+            <param name="volunteerModel">Model of volunteer for updating with needed data</param>
+        </member>
+        <member name="M:PL_API.Controllers.VolunteerController.DeleteVolunteerById(System.Int32)">
+            <summary>
+            To delete volunteer profile by user themselves or by admin
+            </summary>
+            <param name="id">The id of volunteer profile to be deleted</param>
             <returns>Result status code</returns>
         </member>
         <member name="T:PL_API.ErrorBuilder.ApiErrorBuilder">
