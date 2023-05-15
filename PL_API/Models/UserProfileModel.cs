@@ -31,5 +31,7 @@ namespace PL_API.Models
         public virtual ICollection<int> ChatIds { get; set; }
 
         public virtual ICollection<int> MessageIds { get; set; }
+
+        public virtual ICollection<int> CountryVersionsChecked { get; set; }
     }
 }

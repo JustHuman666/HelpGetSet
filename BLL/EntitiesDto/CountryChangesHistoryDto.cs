@@ -6,6 +6,7 @@ using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using DAL.Entities;
 
 namespace BLL.EntitiesDto
 {
@@ -34,5 +35,7 @@ namespace BLL.EntitiesDto
         public int ApprovesAmount { get; set; }
 
         public int DisApprovesAmount { get; set; }
+
+        public virtual ICollection<int> UsersWhoChecked { get; set; }
     }
 }

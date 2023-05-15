@@ -65,6 +65,19 @@ namespace BLL.Services
             return version.UsersWhoChecked.Any(userApprove => userApprove.UserId == userId);
         }
 
+        public async Task<bool> CheckIfUserApprovedOrDisapprovedAsync(int versionId, int userId)
+        {
+            if(await CheckIfUserAlreadyCheckedVersionAsync(versionId, userId))
+            {
+                var version = await _db.CountryVersions.GetByIdAsync(versionId);
+                return version.UsersWhoChecked.FirstOrDefault(approves => approves.UserId == userId).Approved;
+            }
+            else 
+            {
+                throw new HelpSiteException("User have not cheked this version yet");
+            }
+        }
+
         public async Task CreateCountryVersionAsync(CountryChangesHistoryDto item)
         {
             if (item == null)

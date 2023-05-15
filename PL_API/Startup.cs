@@ -35,6 +35,7 @@ namespace PL_API
             services.AddDbContext<SiteContext>(options =>
                 options.UseSqlServer(Configuration.GetConnectionString("HelpGetSet"), builder =>
                 {
+                    builder.MigrationsAssembly("DAL");
                     builder.EnableRetryOnFailure();
                 }));
 

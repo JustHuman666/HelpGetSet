@@ -23,5 +23,7 @@
         public string InsuranceInfo { get; set; }
 
         public string SupportInfo { get; set; }
+
+        public virtual ICollection<int> UsersWhoChecked { get; set; }
     }
 }

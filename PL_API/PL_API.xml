@@ -242,6 +242,13 @@
             <param name="id">The id of a version to be checked</param>
             <returns>True if already checked</returns>
         </member>
+        <member name="M:PL_API.Controllers.CountryController.IfUserApprovedOrDisapprovedVersion(System.Int32)">
+            <summary>
+            To define if user approved or disapproved
+            </summary>
+            <param name="id">The id of a version to be checked</param>
+            <returns>True if approved, false if not</returns>
+        </member>
         <member name="T:PL_API.Controllers.ErrorController">
             <summary>
             Controller for error handling

@@ -281,5 +281,19 @@ namespace PL_API.Controllers
             var isChecked = await _countryChangesService.CheckIfUserAlreadyCheckedVersionAsync(id, userId);
             return Ok(isChecked);
         }
+
+        /// <summary>
+        /// To define if user approved or disapproved
+        /// </summary>
+        /// <param name="id">The id of a version to be checked</param>
+        /// <returns>True if approved, false if not</returns>
+        [HttpGet]
+        [Route("Version/{id}/IsApproved")]
+        public async Task<ActionResult<bool>> IfUserApprovedOrDisapprovedVersion(int id)
+        {
+            var userId = Convert.ToInt32(User.FindFirst(ClaimTypes.NameIdentifier).Value);
+            var approved = await _countryChangesService.CheckIfUserApprovedOrDisapprovedAsync(id, userId);
+            return Ok(approved);
+        }
     }
 }

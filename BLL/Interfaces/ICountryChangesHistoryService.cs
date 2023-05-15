@@ -25,6 +25,8 @@ namespace BLL.Interfaces
 
         Task<bool> CheckIfUserAlreadyCheckedVersionAsync(int versionId, int userId);
 
+        Task<bool> CheckIfUserApprovedOrDisapprovedAsync(int versionId, int userId);
+
         Task DeleteCountryInfoVersionAsync(int id);
 
         Task DeleteCountryInfoAsync(int id);

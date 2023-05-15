@@ -33,7 +33,8 @@ namespace BLL.AutoMapper
                 .ForMember(p => p.ChatIds, c => c.MapFrom(src => src.Chats.Select(item => item.ChatId)))
                 .ForMember(p => p.PostIds, c => c.MapFrom(src => src.Posts.Select(item => item.Id)))
                 .ForMember(p => p.CountryIds, c => c.MapFrom(src => src.Countries.Select(item => item.CountryId)))
-                .ForMember(p => p.MadeCountryChangeIds, c => c.MapFrom(src => src.MadeCountryChanges.Select(item => item.Id)));
+                .ForMember(p => p.MadeCountryChangeIds, c => c.MapFrom(src => src.MadeCountryChanges.Select(item => item.Id)))
+                .ForMember(p => p.CountryVersionsChecked, c => c.MapFrom(src => src.CountryVersionsChecked.Select(item => item.Id)));
 
             CreateMap<UserProfileDto, UserProfile>()
                 .ForPath(p => p.AppUser.PhoneNumber, c => c.MapFrom(src => src.PhoneNumber))
@@ -42,7 +43,8 @@ namespace BLL.AutoMapper
                 .ForMember(p => p.Chats, c => c.MapFrom(src => src.ChatIds))
                 .ForMember(p => p.Posts, c => c.MapFrom(src => src.PostIds))
                 .ForMember(p => p.Countries, c => c.MapFrom(src => src.CountryIds))
-                .ForMember(p => p.MadeCountryChanges, c => c.MapFrom(src => src.MadeCountryChangeIds));
+                .ForMember(p => p.MadeCountryChanges, c => c.MapFrom(src => src.MadeCountryChangeIds))
+                .ForMember(p => p.CountryVersionsChecked, c => c.MapFrom(src => src.CountryVersionsChecked));
 
             CreateMap<UserProfileDto, UserDto>().ReverseMap();
 
@@ -67,6 +69,13 @@ namespace BLL.AutoMapper
 
             CreateMap<VolunteerDto, Volunteer>()
                .ForMember(p => p.Users, c => c.MapFrom(src => src.UserIds));
+
+            CreateMap<CountryChangesHistory, CountryChangesHistoryDto>()
+              .ForMember(p => p.UsersWhoChecked, c => c.MapFrom(src => src.UsersWhoChecked.Select(item => item.Id)));
+
+
+            CreateMap<CountryChangesHistoryDto, CountryChangesHistory>()
+              .ForMember(p => p.UsersWhoChecked, c => c.MapFrom(src => src.UsersWhoChecked));
 
             CreateMap<Country, CountryDto>()
                .ForMember(p => p.UserIds, c => c.MapFrom(src => src.Users.Select(item => item.UserId)))
