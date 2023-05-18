@@ -1,0 +1,26 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<ClassDiagram MajorVersion="1" MinorVersion="1">
+  <Class Name="DAL.Context.SiteContext">
+    <Position X="0.5" Y="0.5" Width="1.75" />
+    <TypeIdentifier>
+      <HashCode>AAABAAgAAAAAAAABBAAAAQAoEAQQAAAAAAAAAQAAAAA=</HashCode>
+      <FileName>Context\SiteContext.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="DAL.UnitOfWork">
+    <Position X="5.25" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAACABAAAABAABBAAAAQAIAoAQACAAAAAAAQAAAAA=</HashCode>
+      <FileName>UnitOfWork.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.204" />
+  </Class>
+  <Interface Name="DAL.Interfaces.BaseInterfaces.IUnitOfWork">
+    <Position X="3" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAACABAAAAAAABBAAAAQAIAoAQACAAAAAAAQAAAAA=</HashCode>
+      <FileName>Interfaces\BaseInterfaces\IUnitOfWork.cs</FileName>
+    </TypeIdentifier>
+  </Interface>
+  <Font Name="Segoe UI" Size="9" />
+</ClassDiagram>

@@ -59,6 +59,19 @@ namespace PL_API.Controllers
         }
 
         /// <summary>
+        /// To get volunteer profile by user id allowed for all users
+        /// </summary>
+        /// <param name="id">The id of user whose detailed volunteer profile should be found</param>
+        /// <returns>Found volunteer profile</returns>
+        [HttpGet]
+        [Route("ByUserId/{id}")]
+        public async Task<ActionResult<VolunteerModel>> GetMigrantByUserIdForAll(int id)
+        {
+            var volunteerDto = await _volunteerService.GetVolunteerInfoByUserIdAsync(id);
+            return Ok(_mapper.Map<VolunteerModel>(volunteerDto));
+        }
+
+        /// <summary>
         /// To get all volunteers, who represent organisations
         /// </summary>
         /// <returns>Collection of volunteers, who represent organisations</returns>
@@ -116,14 +129,7 @@ namespace PL_API.Controllers
         public async Task<ActionResult> AddNewVolunteer([FromBody] VolunteerModel volunteerModel)
         {
             var userId = Convert.ToInt32(User.FindFirst(ClaimTypes.NameIdentifier).Value);
-            if (volunteerModel.UserIds.Count() == 0)
-            {
-                volunteerModel.UserIds = new HashSet<int>() { userId };
-            }
-            else
-            {
-                volunteerModel.UserIds.Add(userId);
-            }
+            volunteerModel.UserId = userId;
             await _volunteerService.CreateVolunteerInfoAsync(_mapper.Map<VolunteerDto>(volunteerModel));
             return Ok();
         }
@@ -139,7 +145,7 @@ namespace PL_API.Controllers
         {
             var userId = Convert.ToInt32(User.FindFirst(ClaimTypes.NameIdentifier).Value);
             var userRoles = await _userService.GetAllUserRoles(userId);
-            if (!volunteerModel.UserIds.Contains(userId) && !userRoles.Contains("Admin"))
+            if (volunteerModel.UserId != userId && !userRoles.Contains("Admin"))
             {
                 return Forbid();
             }

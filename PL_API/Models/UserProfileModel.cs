@@ -14,10 +14,6 @@ namespace PL_API.Models
 
         public string PhoneNumber { get; set; }
 
-        public int VolunteerId { get; set; }
-
-        public int MigrantId { get; set; }
-
         public DateTime Birthday { get; set; }
 
         public string Gender { get; set; }
@@ -33,5 +29,9 @@ namespace PL_API.Models
         public virtual ICollection<int> MessageIds { get; set; }
 
         public virtual ICollection<int> CountryVersionsChecked { get; set; }
+
+        public virtual ICollection<int> MigrantsIds { get; set; }
+
+        public virtual ICollection<int> VolunteersIds { get; set; }
     }
 }

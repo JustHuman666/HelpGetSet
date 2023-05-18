@@ -15,6 +15,6 @@ namespace BLL.EntitiesDto
 
         public bool IsATranslator { get; set; }
 
-        public virtual ICollection<int> UserIds { get; set; }
+        public int UserId { get; set; }
     }
 }

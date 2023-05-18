@@ -42,18 +42,20 @@ namespace BLL.Services
             {
                 throw new HelpSiteException("Migrant info cannot be null");
             }
-            foreach (int userId in item.UserIds)
+            var user = await _db.Users.GetByIdAsync(item.UserId);
+            if (user == null)
             {
-                var user = await _db.Users.GetByIdAsync(userId);
-                if (user == null)
-                {
-                    throw new NotFoundException("There is no such user in the system");
-                }
-                if (user.UserProfile.MigrantId > 1 || user.UserProfile.VolunteerId > 1)
-                {
-                    throw new HelpSiteException("The user has already chosen type of profile");
-                }
+                throw new NotFoundException("There is no such user in the system");
             }
+            var volunteers = await _db.Volunteers.GetAllAsync();
+            var volunteer = volunteers.FirstOrDefault(volunteer => volunteer.UserId == item.UserId);
+            var migrants = await _db.Migrants.GetAllAsync();
+            var migrant = migrants.FirstOrDefault(migrant => migrant.UserId == item.UserId);
+            if (volunteer != null || migrant != null)
+            {
+                throw new HelpSiteException($"There is already volunteer or migrant profile for the user");
+            }
+
             var migrantToCreate = _mapper.Map<Migrant>(item);
             await _db.Migrants.CreateAsync(migrantToCreate);
             await _db.SaveAsync();
@@ -116,6 +118,22 @@ namespace BLL.Services
             if (migrant == null)
             {
                 throw new NotFoundException($"Migrant with the id: {id} does not exist");
+            }
+            return _mapper.Map<MigrantDto>(migrant);
+        }
+
+        public async Task<MigrantDto> GetMigrantInfoByUserIdAsync(int id)
+        {
+            var user = await _db.Users.GetByIdAsync(id);
+            if (user == null)
+            {
+                throw new NotFoundException($"There is no user with an id: {id}");
+            }
+            var migrants = await _db.Migrants.GetAllAsync();
+            var migrant = migrants.FirstOrDefault(migrant => migrant.UserId == id);
+            if (migrant == null)
+            {
+                throw new NotFoundException($"There is no migrant profile for the user");
             }
             return _mapper.Map<MigrantDto>(migrant);
         }

@@ -20,6 +20,6 @@ namespace PL_API.Models
 
         public string Housing { get; set; }
 
-        public virtual ICollection<int> UserIds { get; set; }
+        public int UserId { get; set; }
     }
 }

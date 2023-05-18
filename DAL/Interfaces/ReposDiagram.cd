@@ -1,0 +1,89 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<ClassDiagram MajorVersion="1" MinorVersion="1">
+  <Interface Name="DAL.Interfaces.BaseInterfaces.IDetailsRepository&lt;T&gt;">
+    <Position X="0.5" Y="1" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAIAAAAAQAAAAAAAAAA=</HashCode>
+      <FileName>Interfaces\BaseInterfaces\IDetailsRepository.cs</FileName>
+    </TypeIdentifier>
+  </Interface>
+  <Interface Name="DAL.Interfaces.BaseInterfaces.IRepository&lt;T&gt;">
+    <Position X="2.25" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAUAAAAAAAAAAAAAAAAAAAAAAAEAAAAAAAAAAIAAIAA=</HashCode>
+      <FileName>Interfaces\BaseInterfaces\IRepository.cs</FileName>
+    </TypeIdentifier>
+  </Interface>
+  <Interface Name="DAL.Interfaces.IChatRepository" Collapsed="true">
+    <Position X="2.25" Y="2.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Interfaces\IChatRepository.cs</FileName>
+    </TypeIdentifier>
+  </Interface>
+  <Interface Name="DAL.Interfaces.ICountryHistoryRepository">
+    <Position X="4" Y="2.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAgAAAgAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Interfaces\ICountryHistoryRepository.cs</FileName>
+    </TypeIdentifier>
+  </Interface>
+  <Interface Name="DAL.Interfaces.ICountryRepository">
+    <Position X="5.75" Y="2.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAgAAAAAAAAAAAAAAAAAAQAAAA=</HashCode>
+      <FileName>Interfaces\ICountryRepository.cs</FileName>
+    </TypeIdentifier>
+  </Interface>
+  <Interface Name="DAL.Interfaces.IMigrantRepository" Collapsed="true">
+    <Position X="7.5" Y="1.5" Width="1.5" />
+    <InheritanceLine Type="DAL.Interfaces.BaseInterfaces.IRepository&lt;T&gt;" ManuallyRouted="true" FixedToPoint="true">
+      <Path>
+        <Point X="3" Y="0.5" />
+        <Point X="3" Y="0.222" />
+        <Point X="8.312" Y="0.222" />
+        <Point X="8.312" Y="1.5" />
+      </Path>
+    </InheritanceLine>
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Interfaces\IMigrantRepository.cs</FileName>
+    </TypeIdentifier>
+  </Interface>
+  <Interface Name="DAL.Interfaces.IPostRepository">
+    <Position X="4" Y="1" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAgAAAAAAAAAACAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Interfaces\IPostRepository.cs</FileName>
+    </TypeIdentifier>
+  </Interface>
+  <Interface Name="DAL.Interfaces.IRoleRepository">
+    <Position X="5.75" Y="1" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAQAAAAAAAAAAAAAAAAAAAAAAgAAAAAAAAA=</HashCode>
+      <FileName>Interfaces\IRoleRepository.cs</FileName>
+    </TypeIdentifier>
+  </Interface>
+  <Interface Name="DAL.Interfaces.IUserProfileRepository">
+    <Position X="0.5" Y="2.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAQAAAAAAAAAAAIAA=</HashCode>
+      <FileName>Interfaces\IUserProfileRepository.cs</FileName>
+    </TypeIdentifier>
+  </Interface>
+  <Interface Name="DAL.Interfaces.IUserRepository">
+    <Position X="7.5" Y="2.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AACAAAgAAAAAUACAAAAAAAAAAgIAAAgAAgABAIAAIIA=</HashCode>
+      <FileName>Interfaces\IUserRepository.cs</FileName>
+    </TypeIdentifier>
+  </Interface>
+  <Interface Name="DAL.Interfaces.IVolunteerRepository" Collapsed="true">
+    <Position X="2.25" Y="3.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Interfaces\IVolunteerRepository.cs</FileName>
+    </TypeIdentifier>
+  </Interface>
+  <Font Name="Segoe UI" Size="9" />
+</ClassDiagram>

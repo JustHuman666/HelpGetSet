@@ -24,17 +24,11 @@ namespace PL_API.AutoMapper
 
             CreateMap<MigrantDto, MigrantModel>()
                 .ForMember(p => p.FamilyStatus, c => c.MapFrom(src => src.FamilyStatus.ToString()))
-                .ForMember(p => p.Housing, c => c.MapFrom(src => src.Housing.ToString()))
-                .ForMember(p => p.UserIds, c => c.MapFrom(src => src.UserIds));
+                .ForMember(p => p.Housing, c => c.MapFrom(src => src.Housing.ToString()));
 
             CreateMap<MigrantModel, MigrantDto>()
                 .ForMember(p => p.FamilyStatus, c => c.MapFrom(src => Enum.Parse(typeof(FamilyStatus), src.FamilyStatus)))
-                .ForMember(p => p.Housing, c => c.MapFrom(src => Enum.Parse(typeof(Housing), src.Housing)))
-                .ForMember(p => p.UserIds, c => c.MapFrom(src => src.UserIds));
-
-            CreateMap<VolunteerDto, VolunteerModel>()
-               .ForMember(p => p.UserIds, c => c.MapFrom(src => src.UserIds))
-               .ReverseMap();
+                .ForMember(p => p.Housing, c => c.MapFrom(src => Enum.Parse(typeof(Housing), src.Housing)));
 
             CreateMap<PostDto, PostModel>().ReverseMap();
 
@@ -45,7 +39,9 @@ namespace PL_API.AutoMapper
                 .ForMember(p => p.MadeCountryChangeIds, c => c.MapFrom(src => src.MadeCountryChangeIds))
                 .ForMember(p => p.ChatIds, c => c.MapFrom(src => src.ChatIds))
                 .ForMember(p => p.CountryIds, c => c.MapFrom(src => src.CountryIds))
-                .ForMember(p => p.CountryVersionsChecked, c => c.MapFrom(src => src.CountryVersionsChecked));
+                .ForMember(p => p.CountryVersionsChecked, c => c.MapFrom(src => src.CountryVersionsChecked))
+                .ForMember(p => p.MigrantsIds, c => c.MapFrom(src => src.MigrantsIds))
+                .ForMember(p => p.VolunteersIds, c => c.MapFrom(src => src.VolunteersIds));
 
             CreateMap<UserProfileModel, UserProfileDto>()
                 .ForMember(p => p.Gender, c => c.MapFrom(src => Enum.Parse(typeof(Gender), src.Gender)))
@@ -55,6 +51,8 @@ namespace PL_API.AutoMapper
                 .ForMember(p => p.ChatIds, c => c.MapFrom(src => src.ChatIds))
                 .ForMember(p => p.CountryIds, c => c.MapFrom(src => src.CountryIds))
                 .ForMember(p => p.CountryVersionsChecked, c => c.MapFrom(src => src.CountryVersionsChecked))
+                .ForMember(p => p.MigrantsIds, c => c.MapFrom(src => src.MigrantsIds))
+                .ForMember(p => p.VolunteersIds, c => c.MapFrom(src => src.VolunteersIds))
                 .ReverseMap();
 
             CreateMap<CountryModel, CountryChangesHistoryModel>()

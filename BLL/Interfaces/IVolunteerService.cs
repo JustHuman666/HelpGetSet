@@ -6,6 +6,8 @@ namespace BLL.Interfaces
     {
         Task<VolunteerDto> GetVolunteerInfoByIdAsync(int id);
 
+        Task<VolunteerDto> GetVolunteerInfoByUserIdAsync(int id);
+
         Task<IEnumerable<VolunteerDto>> GetAllVolunteersAsync();
 
         Task<IEnumerable<VolunteerDto>> GetOrganisationsAsync();

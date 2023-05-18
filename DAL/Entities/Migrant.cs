@@ -1,9 +1,14 @@
 ﻿using EnumTypes;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace DAL.Enteties
 {
     public class Migrant: BaseEntity
     {
+        public virtual UserProfile? User { get; set; }
+        [ForeignKey("UserId")]
+        public int UserId { get; set; }
+
         public bool IsOfficialRefugee { get; set; }
 
         public bool IsForcedMigrant { get; set; }
@@ -17,13 +22,5 @@ namespace DAL.Enteties
         public bool IsEmployed { get; set; }
 
         public Housing Housing { get; set; }
-
-        public virtual ICollection<UserProfile> Users { get; set; }
-
-        public Migrant()
-        {
-            Users ??= new HashSet<UserProfile>();
-        }
-
     }
 }

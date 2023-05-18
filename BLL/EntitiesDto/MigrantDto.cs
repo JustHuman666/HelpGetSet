@@ -26,6 +26,6 @@ namespace BLL.EntitiesDto
 
         public Housing Housing { get; set; }
 
-        public virtual ICollection<int> UserIds { get; set; }
+        public int UserId { get; set; }
     }
 }

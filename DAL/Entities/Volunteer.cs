@@ -11,17 +11,14 @@ namespace DAL.Enteties
 {
     public class Volunteer: BaseEntity
     {
+        public virtual UserProfile? User { get; set; }
+        [ForeignKey("UserId")]
+        public int UserId { get; set; }
+
         public bool IsOrganisation { get; set; }
 
         public bool HasAPlace { get; set; }
 
         public bool IsATranslator { get; set; }
-
-        public virtual ICollection<UserProfile> Users { get; set; }
-
-        public Volunteer()
-        {
-            Users ??= new HashSet<UserProfile>();
-        }
     }
 }

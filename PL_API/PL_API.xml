@@ -319,6 +319,13 @@
             <param name="id">The id of migrant whose detailed profile should be found</param>
             <returns>Found migrant profile</returns>
         </member>
+        <member name="M:PL_API.Controllers.MigrantController.GetMigrantByUserIdForAll(System.Int32)">
+            <summary>
+            To get migrant profile by user id allowed for all users
+            </summary>
+            <param name="id">The id of user whose detailed migrant profile should be found</param>
+            <returns>Found migrant profile</returns>
+        </member>
         <member name="M:PL_API.Controllers.MigrantController.GetAllRefugees">
             <summary>
             To get all migrants, who are oficially refugees
@@ -577,6 +584,13 @@
             To get volunteer profile by their id allowed for all users
             </summary>
             <param name="id">The id of volunteer whose detailed profile should be found</param>
+            <returns>Found volunteer profile</returns>
+        </member>
+        <member name="M:PL_API.Controllers.VolunteerController.GetMigrantByUserIdForAll(System.Int32)">
+            <summary>
+            To get volunteer profile by user id allowed for all users
+            </summary>
+            <param name="id">The id of user whose detailed volunteer profile should be found</param>
             <returns>Found volunteer profile</returns>
         </member>
         <member name="M:PL_API.Controllers.VolunteerController.GetAllOrganistaions">

@@ -12,6 +12,8 @@ namespace BLL.Interfaces
     {
         Task<MigrantDto> GetMigrantInfoByIdAsync(int id);
 
+        Task<MigrantDto> GetMigrantInfoByUserIdAsync(int id);
+
         Task<IEnumerable<MigrantDto>> GetAllMigrantsAsync();
 
         Task<IEnumerable<MigrantDto>> GetOfficialRefugeesAsync();

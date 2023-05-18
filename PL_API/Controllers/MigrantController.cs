@@ -58,6 +58,19 @@ namespace PL_API.Controllers
         }
 
         /// <summary>
+        /// To get migrant profile by user id allowed for all users
+        /// </summary>
+        /// <param name="id">The id of user whose detailed migrant profile should be found</param>
+        /// <returns>Found migrant profile</returns>
+        [HttpGet]
+        [Route("ByUserID/{id}")]
+        public async Task<ActionResult<MigrantModel>> GetMigrantByUserIdForAll(int id)
+        {
+            var migrantDto = await _migrantService.GetMigrantInfoByUserIdAsync(id);
+            return Ok(_mapper.Map<MigrantModel>(migrantDto));
+        }
+
+        /// <summary>
         /// To get all migrants, who are oficially refugees
         /// </summary>
         /// <returns>Collection of refugees</returns>
@@ -129,14 +142,7 @@ namespace PL_API.Controllers
         public async Task<ActionResult> AddNewMigrant([FromBody] MigrantModel migrantModel)
         {
             var userId = Convert.ToInt32(User.FindFirst(ClaimTypes.NameIdentifier).Value);
-            if (migrantModel.UserIds.Count() == 0)
-            {
-                migrantModel.UserIds = new HashSet<int>() { userId };
-            }
-            else
-            {
-                migrantModel.UserIds.Add(userId);
-            }
+            migrantModel.UserId = userId;
             await _migrantService.CreateMigrantInfoAsync(_mapper.Map<MigrantDto>(migrantModel));
             return Ok();
         }
@@ -152,7 +158,7 @@ namespace PL_API.Controllers
         {
             var userId = Convert.ToInt32(User.FindFirst(ClaimTypes.NameIdentifier).Value);
             var userRoles = await _userService.GetAllUserRoles(userId);
-            if (!migrantModel.UserIds.Contains(userId) && !userRoles.Contains("Admin"))
+            if (migrantModel.UserId != userId && !userRoles.Contains("Admin"))
             {
                 return Forbid();
             }

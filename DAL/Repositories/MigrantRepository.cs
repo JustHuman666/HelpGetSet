@@ -43,7 +43,7 @@ namespace DAL.Repositories
         public async Task<IQueryable<Migrant>> GetAllWithDetailsAsync()
         {
             var migrants = await _context.Migrants
-                .Include(migrant => migrant.Users).ToListAsync();
+                .Include(migrant => migrant.User).ToListAsync();
             return migrants.AsQueryable();
         }
 
@@ -55,7 +55,7 @@ namespace DAL.Repositories
         public async Task<Migrant> GetByIdWithDetailsAsync(int id)
         {
             return await _context.Migrants
-                .Include(migrant => migrant.Users)
+                .Include(migrant => migrant.User)
                 .FirstOrDefaultAsync(migrant => migrant.Id == id);
         }
 

@@ -42,16 +42,6 @@ namespace DAL.Context
 
             builder.Entity<Role>().HasData(admin, registered);
 
-            var defaultMigrant = new Migrant()
-            {
-                Id = 1
-            };
-
-            var defaultVolunteer = new Volunteer()
-            {
-                Id = 1
-            };
-
             var adminData = new User()
             {
                 Id = 1,
@@ -63,17 +53,13 @@ namespace DAL.Context
             {
                 Id = adminData.Id,
                 FirstName = "Eleonora",
-                LastName = "Mykhalchuk",
-                MigrantId = 1,
-                VolunteerId = 1
+                LastName = "Mykhalchuk"
             };
 
             var passwordHasher = new PasswordHasher<User>();
             adminData.PasswordHash = passwordHasher.HashPassword(adminData, "AdminPassword_1");
 
             builder.Entity<User>().HasData(adminData);
-            builder.Entity<Migrant>().HasData(defaultMigrant);
-            builder.Entity<Volunteer>().HasData(defaultVolunteer);
             builder.Entity<UserProfile>().HasData(adminProfile);
 
             builder.Entity<IdentityUserRole<int>>().HasData(
@@ -87,8 +73,12 @@ namespace DAL.Context
             builder.Entity<Chat>().HasMany(x => x.Users).WithOne(x => x.Chat).HasForeignKey(x => x.ChatId);
 
             builder.Entity<UserProfile>().HasOne(x => x.AppUser).WithOne(x => x.UserProfile).HasForeignKey<UserProfile>(x => x.Id);
-            builder.Entity<UserProfile>().HasOne(x => x.Volunteer).WithMany(x => x.Users).OnDelete(DeleteBehavior.Cascade).HasForeignKey(x => x.Id);
-            builder.Entity<UserProfile>().HasOne(x => x.Migrant).WithMany(x => x.Users).OnDelete(DeleteBehavior.Cascade).HasForeignKey(x => x.Id);
+
+            builder.Entity<UserProfile>().HasMany(x => x.Migrants).WithOne(x => x.User).HasForeignKey(x => x.UserId);
+            builder.Entity<UserProfile>().HasMany(x => x.Volunteers).WithOne(x => x.User).HasForeignKey(x => x.UserId);
+
+            builder.Entity<Migrant>().HasOne(x => x.User).WithMany(x => x.Migrants).HasForeignKey(x => x.UserId);
+            builder.Entity<Volunteer>().HasOne(x => x.User).WithMany(x => x.Volunteers).HasForeignKey(x => x.UserId);
 
             builder.Entity<UserProfile>().HasMany(x => x.Countries).WithOne(x => x.User).HasForeignKey(x => x.UserId);
             builder.Entity<Country>().HasMany(x => x.Users).WithOne(x => x.Country).HasForeignKey(x => x.CountryId);

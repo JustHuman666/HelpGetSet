@@ -35,18 +35,20 @@ namespace BLL.Services
             {
                 throw new HelpSiteException("Volunteer info cannot be null");
             }
-            foreach (int userId in item.UserIds)
+            var user = await _db.Users.GetByIdAsync(item.UserId);
+            if (user == null)
             {
-                var user = await _db.Users.GetByIdAsync(userId);
-                if ( user == null)
-                {
-                    throw new NotFoundException("There is no such user in the system");
-                }
-                if (user.UserProfile.MigrantId > 1 || user.UserProfile.VolunteerId > 1)
-                {
-                    throw new HelpSiteException("The user has already chosen type of profile");
-                }
+                throw new NotFoundException("There is no such user in the system");
             }
+            var volunteers = await _db.Volunteers.GetAllAsync();
+            var volunteer = volunteers.FirstOrDefault(volunteer => volunteer.UserId == item.UserId);
+            var migrants = await _db.Migrants.GetAllAsync();
+            var migrant = migrants.FirstOrDefault(migrant => migrant.UserId == item.UserId);
+            if (volunteer != null || migrant != null)
+            {
+                throw new HelpSiteException($"There is already volunteer or migrant profile for the user");
+            }
+
             var volunteerToCreate = _mapper.Map<Volunteer>(item);
             await _db.Volunteers.CreateAsync(volunteerToCreate);
             await _db.SaveAsync();
@@ -107,7 +109,23 @@ namespace BLL.Services
             var volunteer = await _db.Volunteers.GetByIdAsync(id);
             if (volunteer == null)
             {
-                throw new NotFoundException($"Version with the id: {id} does not exist");
+                throw new NotFoundException($"There is no volunteer with an id: {id}");
+            }
+            return _mapper.Map<VolunteerDto>(volunteer);
+        }
+
+        public async Task<VolunteerDto> GetVolunteerInfoByUserIdAsync(int id)
+        {
+            var user = await _db.Users.GetByIdAsync(id);
+            if (user == null)
+            {
+                throw new NotFoundException($"There is no user with an id: {id}");
+            }
+            var volunteers = await _db.Volunteers.GetAllAsync();
+            var volunteer = volunteers.FirstOrDefault(volunteer => volunteer.UserId == id);
+            if (volunteer == null)
+            {
+                throw new NotFoundException($"There is no volunteer profile for the user");
             }
             return _mapper.Map<VolunteerDto>(volunteer);
         }

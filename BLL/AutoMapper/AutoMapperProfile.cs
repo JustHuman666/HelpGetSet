@@ -34,7 +34,9 @@ namespace BLL.AutoMapper
                 .ForMember(p => p.PostIds, c => c.MapFrom(src => src.Posts.Select(item => item.Id)))
                 .ForMember(p => p.CountryIds, c => c.MapFrom(src => src.Countries.Select(item => item.CountryId)))
                 .ForMember(p => p.MadeCountryChangeIds, c => c.MapFrom(src => src.MadeCountryChanges.Select(item => item.Id)))
-                .ForMember(p => p.CountryVersionsChecked, c => c.MapFrom(src => src.CountryVersionsChecked.Select(item => item.Id)));
+                .ForMember(p => p.CountryVersionsChecked, c => c.MapFrom(src => src.CountryVersionsChecked.Select(item => item.Id)))
+                .ForMember(p => p.MigrantsIds, c => c.MapFrom(src => src.Migrants.Select(item => item.Id)))
+                .ForMember(p => p.VolunteersIds, c => c.MapFrom(src => src.Volunteers.Select(item => item.Id)));
 
             CreateMap<UserProfileDto, UserProfile>()
                 .ForPath(p => p.AppUser.PhoneNumber, c => c.MapFrom(src => src.PhoneNumber))
@@ -44,7 +46,9 @@ namespace BLL.AutoMapper
                 .ForMember(p => p.Posts, c => c.MapFrom(src => src.PostIds))
                 .ForMember(p => p.Countries, c => c.MapFrom(src => src.CountryIds))
                 .ForMember(p => p.MadeCountryChanges, c => c.MapFrom(src => src.MadeCountryChangeIds))
-                .ForMember(p => p.CountryVersionsChecked, c => c.MapFrom(src => src.CountryVersionsChecked));
+                .ForMember(p => p.CountryVersionsChecked, c => c.MapFrom(src => src.CountryVersionsChecked))
+                .ForMember(p => p.Migrants, c => c.MapFrom(src => src.MigrantsIds))
+                .ForMember(p => p.Volunteers, c => c.MapFrom(src => src.VolunteersIds));
 
             CreateMap<UserProfileDto, UserDto>().ReverseMap();
 
@@ -57,18 +61,6 @@ namespace BLL.AutoMapper
             CreateMap<ChatDto, Chat>()
                 .ForMember(p => p.Messages, c => c.MapFrom(src => src.MessageIds))
                 .ForMember(p => p.Users, c => c.MapFrom(src => src.UserIds));
-
-            CreateMap<Migrant, MigrantDto>()
-                .ForMember(p => p.UserIds, c => c.MapFrom(src => src.Users.Select(item => item.Id)));
-
-            CreateMap<MigrantDto, Migrant>()
-               .ForMember(p => p.Users, c => c.MapFrom(src => src.UserIds));
-
-            CreateMap<Volunteer, VolunteerDto>()
-                .ForMember(p => p.UserIds, c => c.MapFrom(src => src.Users.Select(item => item.Id)));
-
-            CreateMap<VolunteerDto, Volunteer>()
-               .ForMember(p => p.Users, c => c.MapFrom(src => src.UserIds));
 
             CreateMap<CountryChangesHistory, CountryChangesHistoryDto>()
               .ForMember(p => p.UsersWhoChecked, c => c.MapFrom(src => src.UsersWhoChecked.Select(item => item.Id)));

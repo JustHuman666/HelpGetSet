@@ -11,14 +11,6 @@ namespace DAL.Enteties
         [ForeignKey("UserId")]
         public int Id { get; set; }
 
-        public virtual Volunteer Volunteer { get; set; }
-        [ForeignKey("VolunteerId")]
-        public int VolunteerId { get; set; }
-
-        public virtual Migrant Migrant { get; set; }
-        [ForeignKey("MigrantId")]
-        public int MigrantId { get; set; }
-
         [Required]
         [StringLength(30)]
         public string? FirstName { get; set; }
@@ -45,6 +37,10 @@ namespace DAL.Enteties
 
         public virtual ICollection<UserApprove> CountryVersionsChecked { get; set; }
 
+        public virtual ICollection<Migrant> Migrants { get; set; }
+
+        public virtual ICollection<Volunteer> Volunteers { get; set; }
+
         public UserProfile()
         {
             Chats ??= new HashSet<UserChat>();
@@ -53,6 +49,8 @@ namespace DAL.Enteties
             Posts ??= new HashSet<Post>();
             MadeCountryChanges ??= new HashSet<CountryChangesHistory>();
             CountryVersionsChecked ??= new HashSet<UserApprove>();
+            Migrants ??= new HashSet<Migrant>();
+            Volunteers ??= new HashSet<Volunteer>();
         }
     }
 }
