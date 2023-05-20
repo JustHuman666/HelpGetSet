@@ -1,0 +1,74 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<ClassDiagram MajorVersion="1" MinorVersion="1">
+  <Interface Name="BLL.Interfaces.IAuthenticationService">
+    <Position X="8.25" Y="6" Width="1.75" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAIAAAAAAAAAAAA=</HashCode>
+      <FileName>Interfaces\IAuthenticationService.cs</FileName>
+    </TypeIdentifier>
+  </Interface>
+  <Interface Name="BLL.Interfaces.IChatService">
+    <Position X="3" Y="0.5" Width="2.25" />
+    <TypeIdentifier>
+      <HashCode>QACAIAQAAAAAAAAACABAAAAAQAASAAAASAABAgACAAA=</HashCode>
+      <FileName>Interfaces\IChatService.cs</FileName>
+    </TypeIdentifier>
+  </Interface>
+  <Interface Name="BLL.Interfaces.ICountryChangesHistoryService">
+    <Position X="5.5" Y="0.5" Width="2.75" />
+    <TypeIdentifier>
+      <HashCode>AAACAAAABAgAAACAAYIBAAAAAAABAAAAAAAAAAAAQAA=</HashCode>
+      <FileName>Interfaces\ICountryChangesHistoryService.cs</FileName>
+    </TypeIdentifier>
+  </Interface>
+  <Interface Name="BLL.Interfaces.ICountryService">
+    <Position X="8.5" Y="0.5" Width="2.25" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAgCAAAAABAgAAAAAAAAAAAAAAAAAAICACCABAA=</HashCode>
+      <FileName>Interfaces\ICountryService.cs</FileName>
+    </TypeIdentifier>
+  </Interface>
+  <Interface Name="BLL.Interfaces.IMessageService">
+    <Position X="5.75" Y="3.75" Width="2.25" />
+    <TypeIdentifier>
+      <HashCode>AAAAQAAAAAIAAAAAAAAAAAAAEAAAAACAAEAAAAAAAAA=</HashCode>
+      <FileName>Interfaces\IMessageService.cs</FileName>
+    </TypeIdentifier>
+  </Interface>
+  <Interface Name="BLL.Interfaces.IMigrantService">
+    <Position X="3" Y="4.25" Width="2.25" />
+    <TypeIdentifier>
+      <HashCode>BBAAAAAAAAAAAAAQBAEAAEAQAAAEAABAAAAAAIAAAIA=</HashCode>
+      <FileName>Interfaces\IMigrantService.cs</FileName>
+    </TypeIdentifier>
+  </Interface>
+  <Interface Name="BLL.Interfaces.IPostService">
+    <Position X="8.25" Y="3.5" Width="2.5" />
+    <TypeIdentifier>
+      <HashCode>AAACAAAAEAAAAAAwAAAAAAAAAIAAAAAAAIAAAAACAAA=</HashCode>
+      <FileName>Interfaces\IPostService.cs</FileName>
+    </TypeIdentifier>
+  </Interface>
+  <Interface Name="BLL.Interfaces.IUserProfileService">
+    <Position X="5.75" Y="5.75" Width="2.25" />
+    <TypeIdentifier>
+      <HashCode>CCAAABAAAAAAACAAAAAAAAAAAQAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Interfaces\IUserProfileService.cs</FileName>
+    </TypeIdentifier>
+  </Interface>
+  <Interface Name="BLL.Interfaces.IUserService">
+    <Position X="0.5" Y="0.5" Width="2.25" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAIAAASAAABAAoAIAAAAAQAAAEKABAAEAEAA=</HashCode>
+      <FileName>Interfaces\IUserService.cs</FileName>
+    </TypeIdentifier>
+  </Interface>
+  <Interface Name="BLL.Interfaces.IVolunteerService">
+    <Position X="0.5" Y="4.25" Width="2.25" />
+    <TypeIdentifier>
+      <HashCode>AAQAAABAAAAAMAYACAAAEAAAAAAAAAAAAAAAABAAABA=</HashCode>
+      <FileName>Interfaces\IVolunteerService.cs</FileName>
+    </TypeIdentifier>
+  </Interface>
+  <Font Name="Segoe UI" Size="9" />
+</ClassDiagram>

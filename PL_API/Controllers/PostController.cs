@@ -151,5 +151,25 @@ namespace PL_API.Controllers
                 return Ok(_mapper.Map<IEnumerable<PostModel>>(sortedPosts));
             }
         }
+
+        /// <summary>
+        /// To delete a post
+        /// </summary>
+        /// <param name="id">The id of post to be deleted</param>
+        /// <returns>Result status code</returns>
+        [HttpDelete]
+        [Route("{id}")]
+        [Authorize(Roles = "Admin")]
+        public async Task<ActionResult> DeletePost(int id)
+        {
+            var userId = Convert.ToInt32(User.FindFirst(ClaimTypes.NameIdentifier).Value);
+            var userRoles = await _userService.GetAllUserRoles(userId);
+            var postDto = await _postService.GetPostByIdAsync(id);
+            if (postDto.AuthorId != userId && !userRoles.Contains("Admin"))
+            {
+                return Forbid($"Only admin or creator of the country info can rename it.");
+            }
+            return Ok();
+        }
     }
 }

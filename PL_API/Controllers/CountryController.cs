@@ -150,7 +150,7 @@ namespace PL_API.Controllers
             if ((countryVersions.OrderBy(version => version.ChangeTime).First().AuthorId != userId)
                 && !userRoles.Contains("Admin"))
             {
-                return BadRequest($"Only admin or creator of the country info can rename it.");
+                return Forbid($"Only admin or creator of the country info can rename it.");
             }
             
             await _countryService.UpdateCountryNamesAsync(_mapper.Map<CountryDto>(countryModel));
