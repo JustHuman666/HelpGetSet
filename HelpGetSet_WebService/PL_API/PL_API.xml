@@ -443,6 +443,13 @@
             <param name="ipAddress">The ip address of user for posts should be found</param>
             <returns>Collection of found posts</returns>
         </member>
+        <member name="M:PL_API.Controllers.PostController.DeletePost(System.Int32)">
+            <summary>
+            To delete a post
+            </summary>
+            <param name="id">The id of post to be deleted</param>
+            <returns>Result status code</returns>
+        </member>
         <member name="T:PL_API.Controllers.UserController">
             <summary>
             Controller for working with users
