@@ -24,6 +24,10 @@
 
         public string SupportInfo { get; set; }
 
+        public int ApprovesAmount { get; set; }
+
+        public int DisApprovesAmount { get; set; }
+
         public virtual ICollection<int> UsersWhoChecked { get; set; }
     }
 }

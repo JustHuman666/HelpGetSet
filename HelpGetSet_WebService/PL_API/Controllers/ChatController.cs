@@ -62,7 +62,7 @@ namespace PL_API.Controllers
         [HttpGet]
         [Route("AllUserChats")]
         [Authorize(Roles = "Registered")]
-        public async Task<ActionResult<IEnumerable<ChatDto>>> GetAllUsersChat()
+        public async Task<ActionResult<IEnumerable<ChatDto>>> GetAllUserChats()
         {
             var chats = await _chatService.GetAllChatsByUserIdAsync(Convert.ToInt32(User.FindFirst(ClaimTypes.NameIdentifier).Value));
             return Ok(chats);

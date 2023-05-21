@@ -126,11 +126,13 @@ namespace PL_API.Controllers
         public async Task<ActionResult> AddNewCountryByUser([FromBody] CountryChangesHistoryModel countryChangesModel)
         {
             var userId = Convert.ToInt32(User.FindFirst(ClaimTypes.NameIdentifier).Value);
+            var user = await _userService.GetUserByIdAsync(userId);
             var country = new CountryModel() { Name = countryChangesModel.Name, ShortName = countryChangesModel.ShortName };
             await _countryService.CreateCountryAsync(_mapper.Map<CountryDto>(country));
             var createdCountry = await _countryService.GetCountryByNameAsync(countryChangesModel.Name);
             countryChangesModel.CountryId = createdCountry.Id;
             countryChangesModel.AuthorId = userId;
+            countryChangesModel.AuthorUsername = user.UserName;
             await _countryChangesService.CreateCountryVersionAsync(_mapper.Map<CountryChangesHistoryDto>(countryChangesModel));
             return Ok();
         }
