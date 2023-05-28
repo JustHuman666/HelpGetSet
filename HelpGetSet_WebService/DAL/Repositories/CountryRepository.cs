@@ -48,7 +48,9 @@ namespace DAL.Repositories
         {
             var countries = await _context.Countries
                 .Include(country => country.CountryVersions)
-                .Include(country => country.Users).ThenInclude(x => x.User).ToListAsync();
+                .Include(country => country.UsersFrom).ThenInclude(x => x.OriginalCountry)
+                .Include(country => country.UsersIn).ThenInclude(x => x.CurrentCountry).ToListAsync();
+
             return countries.AsQueryable();
         }
 
@@ -61,7 +63,8 @@ namespace DAL.Repositories
         {
             return await _context.Countries
                 .Include(country => country.CountryVersions)
-                .Include(country => country.Users).ThenInclude(x => x.User)
+                .Include(country => country.UsersFrom).ThenInclude(x => x.OriginalCountry)
+                .Include(country => country.UsersIn).ThenInclude(x => x.CurrentCountry)
                 .FirstOrDefaultAsync(country => country.Id == id);
         }
 
@@ -69,7 +72,8 @@ namespace DAL.Repositories
         {
             return await _context.Countries
                 .Include(country => country.CountryVersions)
-                .Include(country => country.Users).ThenInclude(x => x.User)
+                .Include(country => country.UsersFrom).ThenInclude(x => x.OriginalCountry)
+                .Include(country => country.UsersIn).ThenInclude(x => x.CurrentCountry)
                 .FirstOrDefaultAsync(country => country.Name == name);
         }
 
@@ -77,7 +81,8 @@ namespace DAL.Repositories
         {
             return await _context.Countries
                 .Include(country => country.CountryVersions)
-                .Include(country => country.Users).ThenInclude(x => x.User)
+                .Include(country => country.UsersFrom).ThenInclude(x => x.OriginalCountry)
+                .Include(country => country.UsersIn).ThenInclude(x => x.CurrentCountry)
                 .FirstOrDefaultAsync(country => country.ShortName == shortName);
         }
 

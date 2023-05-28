@@ -30,7 +30,15 @@ namespace PL_API
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddControllers();
-            services.AddCors();
+            services.AddCors(options =>
+            {
+                options.AddDefaultPolicy(builder =>
+                {
+                    builder.AllowAnyOrigin()
+                           .AllowAnyMethod()
+                           .AllowAnyHeader();
+                });
+            });
 
             services.AddDbContext<SiteContext>(options =>
                 options.UseSqlServer(Configuration.GetConnectionString("HelpGetSet"), builder =>

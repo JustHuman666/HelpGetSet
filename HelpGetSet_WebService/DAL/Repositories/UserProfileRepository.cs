@@ -30,7 +30,8 @@ namespace DAL.Repositories
         {
             var userProfiles = await _context.UserProfiles
                 .Include(user => user.AppUser)
-                .Include(user => user.Countries)
+                .Include(user => user.OriginalCountry)
+                .Include(user => user.CurrentCountry)
                 .Include(user => user.Posts)
                 .Include(user => user.Messages)
                 .Include(user => user.MadeCountryChanges)
@@ -48,7 +49,8 @@ namespace DAL.Repositories
         {
             return await _context.UserProfiles
                 .Include(user => user.AppUser)
-                .Include(user => user.Countries)
+                .Include(user => user.OriginalCountry)
+                .Include(user => user.CurrentCountry)
                 .Include(user => user.Posts)
                 .Include(user => user.Messages)
                 .Include(user => user.MadeCountryChanges)
@@ -61,7 +63,8 @@ namespace DAL.Repositories
             var users = _context.UserProfiles
                 .Where(user => user.FirstName == firstname && user.LastName == lastname)
                 .Include(user => user.AppUser)
-                .Include(user => user.Countries)
+                .Include(user => user.OriginalCountry)
+                .Include(user => user.CurrentCountry)
                 .Include(user => user.Posts)
                 .Include(user => user.Messages)
                 .Include(user => user.MadeCountryChanges)

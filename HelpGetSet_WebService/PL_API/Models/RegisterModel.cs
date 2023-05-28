@@ -31,5 +31,10 @@ namespace PL_API.Models
 
         [Required]
         public string Gender { get; set; }
+
+
+        public int OriginalCountryId { get; set; }
+
+        public int CurrentCountryId { get; set; }
     }
 }

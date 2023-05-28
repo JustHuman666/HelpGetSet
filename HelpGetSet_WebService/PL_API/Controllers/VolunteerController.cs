@@ -125,11 +125,8 @@ namespace PL_API.Controllers
         /// <param name="volunteerModel">Model of volunteer for creating with needed data</param>
         [HttpPost]
         [Route("New")]
-        [Authorize(Roles = "Registered")]
         public async Task<ActionResult> AddNewVolunteer([FromBody] VolunteerModel volunteerModel)
         {
-            var userId = Convert.ToInt32(User.FindFirst(ClaimTypes.NameIdentifier).Value);
-            volunteerModel.UserId = userId;
             await _volunteerService.CreateVolunteerInfoAsync(_mapper.Map<VolunteerDto>(volunteerModel));
             return Ok();
         }
@@ -140,16 +137,9 @@ namespace PL_API.Controllers
         /// <param name="volunteerModel">Model of volunteer for updating with needed data</param>
         [HttpPut]
         [Route("Update")]
-        [Authorize(Roles = "Registered")]
         public async Task<ActionResult> UpdateVolunteerInfo([FromBody] VolunteerModel volunteerModel)
         {
-            var userId = Convert.ToInt32(User.FindFirst(ClaimTypes.NameIdentifier).Value);
-            var userRoles = await _userService.GetAllUserRoles(userId);
-            if (volunteerModel.UserId != userId && !userRoles.Contains("Admin"))
-            {
-                return Forbid();
-            }
-            await _volunteerService.CreateVolunteerInfoAsync(_mapper.Map<VolunteerDto>(volunteerModel));
+            await _volunteerService.UpdateVolunteerInfoAsync(_mapper.Map<VolunteerDto>(volunteerModel));
             return Ok();
         }
 

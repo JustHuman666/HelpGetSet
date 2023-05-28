@@ -73,7 +73,7 @@ namespace BLL.Services
             if (!result.Succeeded)
             {
                 throw new HelpSiteException("Old or new password is incorrect. New password should contain at least 8 characters," +
-                    "and include uppercase and special characters");
+                    "and include uppercase and numerric characters");
             }
             await _db.SaveAsync();
             return result;

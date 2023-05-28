@@ -5,6 +5,7 @@
         Shelter,
         Family,
         Rent,
+        Campus,
         None
     }
 }

@@ -12,5 +12,9 @@ namespace PL_API.Models
 
         [Required]
         public int ChatId { get; set; }
+
+        public DateTime SendingTime { get; set; }
+
+        public int Id { get; set; }
     }
 }

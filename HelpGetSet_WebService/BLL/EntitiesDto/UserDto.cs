@@ -18,6 +18,10 @@ namespace BLL.EntitiesDto
 
         public Gender Gender { get; set; }
 
+        public int OriginalCountryId { get; set; }
+
+        public int CurrentCountryId { get; set; }
+
         public virtual UserProfileDto UserProfile { get; set; }
     }
 }

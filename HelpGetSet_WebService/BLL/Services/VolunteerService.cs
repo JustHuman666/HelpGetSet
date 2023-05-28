@@ -148,7 +148,7 @@ namespace BLL.Services
                 throw new HelpSiteException("Volunteer info cannot be null");
             }
             var volunteerToUpdate = _mapper.Map<Volunteer>(item);
-            await _db.Volunteers.CreateAsync(volunteerToUpdate);
+            _db.Volunteers.Update(volunteerToUpdate);
             await _db.SaveAsync();
         }
     }

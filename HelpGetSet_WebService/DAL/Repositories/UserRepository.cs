@@ -109,7 +109,8 @@ namespace DAL.Repositories
                 user.UserProfile.LastName = item.UserProfile.LastName;
                 user.PhoneNumber = item.PhoneNumber;
                 user.UserProfile.Birthday = item.UserProfile.Birthday;
-                user.UserProfile.Countries = item.UserProfile.Countries;
+                user.UserProfile.OriginalCountry = item.UserProfile.OriginalCountry;
+                user.UserProfile.CurrentCountry = item.UserProfile.CurrentCountry;
                 user.UserProfile.Gender = item.UserProfile.Gender;
             }
         }

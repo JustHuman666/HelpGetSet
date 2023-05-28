@@ -65,7 +65,7 @@ namespace BLL.Services
             {
                 throw new NotFoundException($"Country with id: {id} does not exist");
             }
-            if (country.Users.Count() != 0)
+            if (country.UsersFrom.Count() != 0 || country.UsersIn.Count() != 0)
             {
                 throw new HelpSiteException($"There are already some user connected to the country: {country.Name}");
             }
@@ -99,7 +99,7 @@ namespace BLL.Services
             {
                 throw new HelpSiteException("Country name cannot be empty");
             }
-            var country = _db.Countries.GetByNameAsync(name);
+            var country = await _db.Countries.GetByNameAsync(name);
             if (country == null)
             {
                 throw new NotFoundException("There is no country with such name");
@@ -117,7 +117,7 @@ namespace BLL.Services
             {
                 throw new HelpSiteException("Country's short name cannot contain empty spaces");
             }
-            var country = _db.Countries.GetByShortNameAsync(shortName);
+            var country = await _db.Countries.GetByShortNameAsync(shortName);
             if (country == null)
             {
                 throw new NotFoundException("There is no country with such short name");
@@ -128,35 +128,21 @@ namespace BLL.Services
         public async Task<IEnumerable<UserProfileDto>> GetUsersFromCountryByIdAsync(int id)
         {
             var country = await _db.Countries.GetByIdWithDetailsAsync(id);
-            if (country == null)
+            if (country == null || country.UsersFrom.Count() == 0)
             {
-                throw new NotFoundException($"Country with id {id} does not exist");
+                throw new NotFoundException($"Country with id {id} does not exist or there is no user from country");
             }
-            var users = country.Users
-                .Where(userCountry => userCountry.OriginalCountry == true)
-                .Select(userCountry => userCountry.User);
-            if (users == null)
-            {
-                throw new NotFoundException($"There is no user from country: {country.Name}");
-            }
-            return _mapper.Map<IEnumerable<UserProfileDto>>(users);
+            return _mapper.Map<IEnumerable<UserProfileDto>>(country.UsersFrom);
         }
 
         public async Task<IEnumerable<UserProfileDto>> GetUsersInCountryByIdAsync(int id)
         {
             var country = await _db.Countries.GetByIdWithDetailsAsync(id);
-            if (country == null)
+            if (country == null ||  country.UsersIn.Count() == 0)
             {
-                throw new NotFoundException($"Country with id {id} does not exist");
+                throw new NotFoundException($"Country with id {id} does not exist or there is no user");
             }
-            var users = country.Users
-                .Where(userCountry => userCountry.CurrentCountry == true)
-                .Select(userCountry => userCountry.User);
-            if (users == null)
-            {
-                throw new NotFoundException($"There is no user in country: {country.Name}");
-            }
-            return _mapper.Map<IEnumerable<UserProfileDto>>(users);
+            return _mapper.Map<IEnumerable<UserProfileDto>>(country.UsersIn);
         }
 
         public async Task UpdateCountryNamesAsync(CountryDto item)

@@ -10,8 +10,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace DAL.Migrations
 {
     [DbContext(typeof(SiteContext))]
-    [Migration("20230518212615_NewVolunteerMigrantStructure")]
-    partial class NewVolunteerMigrantStructure
+    [Migration("20230525005050_initial")]
+    partial class initial
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -58,6 +58,14 @@ namespace DAL.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("Countries");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = 1,
+                            Name = "The Netherlands",
+                            ShortName = "NL"
+                        });
                 });
 
             modelBuilder.Entity("DAL.Enteties.Message", b =>
@@ -184,14 +192,14 @@ namespace DAL.Migrations
                         new
                         {
                             Id = 1,
-                            ConcurrencyStamp = "fc88910b-40e6-4d90-99f0-8562856aa89b",
+                            ConcurrencyStamp = "e612ad1f-5f86-4e53-80ac-271329267130",
                             Name = "Admin",
                             NormalizedName = "ADMIN"
                         },
                         new
                         {
                             Id = 2,
-                            ConcurrencyStamp = "5a25ab74-13b2-4535-916e-8b13a3759e8a",
+                            ConcurrencyStamp = "d981f57c-6cea-4253-a9f8-548d0aae2f12",
                             Name = "Registered",
                             NormalizedName = "REGISTERED"
                         });
@@ -268,11 +276,11 @@ namespace DAL.Migrations
                         {
                             Id = 1,
                             AccessFailedCount = 0,
-                            ConcurrencyStamp = "d1917337-89ab-4721-81c8-0b1f656b77d8",
+                            ConcurrencyStamp = "10540b5d-4484-4565-9c03-b8158ad8055c",
                             EmailConfirmed = false,
                             LockoutEnabled = false,
                             NormalizedUserName = "ADMINELYA",
-                            PasswordHash = "AQAAAAEAACcQAAAAEMtgO78mcRjg4Uguy/VpISKbTxpfN/UKMMI34oDo70nC7uVTw+fDAHTPSyPhSLi0Fg==",
+                            PasswordHash = "AQAAAAEAACcQAAAAEFAhtQ+DwRuD4JcrD7Vi9hw0l5tlb+sVprNB71EMAKaMWOWLLkQOmIlrU6HsUqZS4w==",
                             PhoneNumber = "+380671234567",
                             PhoneNumberConfirmed = false,
                             TwoFactorEnabled = false,
@@ -298,27 +306,6 @@ namespace DAL.Migrations
                     b.ToTable("UsersChats");
                 });
 
-            modelBuilder.Entity("DAL.Enteties.UserCountry", b =>
-                {
-                    b.Property<int>("UserId")
-                        .HasColumnType("int");
-
-                    b.Property<int>("CountryId")
-                        .HasColumnType("int");
-
-                    b.Property<bool>("CurrentCountry")
-                        .HasColumnType("bit");
-
-                    b.Property<bool>("OriginalCountry")
-                        .HasColumnType("bit");
-
-                    b.HasKey("UserId", "CountryId");
-
-                    b.HasIndex("CountryId");
-
-                    b.ToTable("UserCountries");
-                });
-
             modelBuilder.Entity("DAL.Enteties.UserProfile", b =>
                 {
                     b.Property<int>("Id")
@@ -326,6 +313,9 @@ namespace DAL.Migrations
 
                     b.Property<DateTime>("Birthday")
                         .HasColumnType("datetime2");
+
+                    b.Property<int>("CurrentCountryId")
+                        .HasColumnType("int");
 
                     b.Property<string>("FirstName")
                         .IsRequired()
@@ -340,7 +330,14 @@ namespace DAL.Migrations
                         .HasColumnType("nvarchar(30)")
                         .HasMaxLength(30);
 
+                    b.Property<int>("OriginalCountryId")
+                        .HasColumnType("int");
+
                     b.HasKey("Id");
+
+                    b.HasIndex("CurrentCountryId");
+
+                    b.HasIndex("OriginalCountryId");
 
                     b.ToTable("UserProfiles");
 
@@ -349,9 +346,11 @@ namespace DAL.Migrations
                         {
                             Id = 1,
                             Birthday = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            CurrentCountryId = 1,
                             FirstName = "Eleonora",
                             Gender = 0,
-                            LastName = "Mykhalchuk"
+                            LastName = "Mykhalchuk",
+                            OriginalCountryId = 1
                         });
                 });
 
@@ -629,27 +628,24 @@ namespace DAL.Migrations
                         .IsRequired();
                 });
 
-            modelBuilder.Entity("DAL.Enteties.UserCountry", b =>
+            modelBuilder.Entity("DAL.Enteties.UserProfile", b =>
                 {
-                    b.HasOne("DAL.Enteties.Country", "Country")
-                        .WithMany("Users")
-                        .HasForeignKey("CountryId")
+                    b.HasOne("DAL.Enteties.Country", "CurrentCountry")
+                        .WithMany("UsersIn")
+                        .HasForeignKey("CurrentCountryId")
                         .OnDelete(DeleteBehavior.NoAction)
                         .IsRequired();
 
-                    b.HasOne("DAL.Enteties.UserProfile", "User")
-                        .WithMany("Countries")
-                        .HasForeignKey("UserId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-                });
-
-            modelBuilder.Entity("DAL.Enteties.UserProfile", b =>
-                {
                     b.HasOne("DAL.Enteties.User", "AppUser")
                         .WithOne("UserProfile")
                         .HasForeignKey("DAL.Enteties.UserProfile", "Id")
                         .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("DAL.Enteties.Country", "OriginalCountry")
+                        .WithMany("UsersFrom")
+                        .HasForeignKey("OriginalCountryId")
+                        .OnDelete(DeleteBehavior.NoAction)
                         .IsRequired();
                 });
 

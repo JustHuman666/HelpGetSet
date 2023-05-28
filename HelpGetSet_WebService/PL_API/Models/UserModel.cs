@@ -23,5 +23,10 @@ namespace PL_API.Models
         public DateTime Birthday { get; set; }
 
         public string Gender { get; set; }
+
+
+        public int OriginalCountryId { get; set; }
+
+        public int CurrentCountryId { get; set; }
     }
 }

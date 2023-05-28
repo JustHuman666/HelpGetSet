@@ -50,12 +50,7 @@ namespace BLL.Services
             {
                 throw new NotFoundException("User profile does not exist");
             }
-            var country = profile.Countries.FirstOrDefault(userCountry => userCountry.CurrentCountry == true).Country;
-            if (country == null)
-            {
-                throw new NotFoundException("User profile does not have a current country mentioned");
-            }
-            return _mapper.Map<CountryDto>(country);
+            return _mapper.Map<CountryDto>(profile.CurrentCountry);
         }
 
         public async Task<CountryDto> GetOriginalCountryByUserIdAsync(int id)
@@ -65,12 +60,7 @@ namespace BLL.Services
             {
                 throw new NotFoundException("User profile does not exist");
             }
-            var country = profile.Countries.FirstOrDefault(userCountry => userCountry.OriginalCountry == true).Country;
-            if (country == null)
-            {
-                throw new NotFoundException("User profile does not have an original country mentioned");
-            }
-            return _mapper.Map<CountryDto>(country);
+            return _mapper.Map<CountryDto>(profile.OriginalCountry);
         }
 
         public async Task<UserProfileDto> GetProfileByIdAsync(int id)

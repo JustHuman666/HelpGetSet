@@ -119,21 +119,13 @@ namespace PL_API.Controllers
         /// <summary>
         /// To add new country
         /// </summary>
-        /// <param name="countryChangesModel">Model of country for creating with needed data</param>
+        /// <param name="countryModel">Model of country for creating with needed data</param>
         [HttpPost]
         [Route("Add")]
         [Authorize(Roles = "Registered")]
-        public async Task<ActionResult> AddNewCountryByUser([FromBody] CountryChangesHistoryModel countryChangesModel)
-        {
-            var userId = Convert.ToInt32(User.FindFirst(ClaimTypes.NameIdentifier).Value);
-            var user = await _userService.GetUserByIdAsync(userId);
-            var country = new CountryModel() { Name = countryChangesModel.Name, ShortName = countryChangesModel.ShortName };
-            await _countryService.CreateCountryAsync(_mapper.Map<CountryDto>(country));
-            var createdCountry = await _countryService.GetCountryByNameAsync(countryChangesModel.Name);
-            countryChangesModel.CountryId = createdCountry.Id;
-            countryChangesModel.AuthorId = userId;
-            countryChangesModel.AuthorUsername = user.UserName;
-            await _countryChangesService.CreateCountryVersionAsync(_mapper.Map<CountryChangesHistoryDto>(countryChangesModel));
+        public async Task<ActionResult> AddNewCountry([FromBody] CountryModel countryModel)
+        { 
+            await _countryService.CreateCountryAsync(_mapper.Map<CountryDto>(countryModel));
             return Ok();
         }
 

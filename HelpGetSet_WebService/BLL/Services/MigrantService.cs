@@ -156,7 +156,7 @@ namespace BLL.Services
                 throw new HelpSiteException("Migrant info cannot be null");
             }
             var migrantToUpdate = _mapper.Map<Migrant>(item);
-            await _db.Migrants.CreateAsync(migrantToUpdate);
+            _db.Migrants.Update(migrantToUpdate);
             await _db.SaveAsync();
         }
     }

@@ -12,7 +12,8 @@ namespace DAL.Enteties
         [Required]
         public string? ShortName { get; set; }
 
-        public virtual ICollection<UserCountry> Users { get; set; }
+        public virtual ICollection<UserProfile> UsersFrom { get; set; }
+        public virtual ICollection<UserProfile> UsersIn { get; set; }
 
         public virtual ICollection<Post> Posts { get; set; }
 
@@ -20,7 +21,8 @@ namespace DAL.Enteties
 
         public Country()
         {
-            Users ??= new HashSet<UserCountry>();
+            UsersFrom ??= new HashSet<UserProfile>();
+            UsersIn ??= new HashSet<UserProfile>();
             Posts ??= new HashSet<Post>();
             CountryVersions ??= new HashSet<CountryChangesHistory>();
         }

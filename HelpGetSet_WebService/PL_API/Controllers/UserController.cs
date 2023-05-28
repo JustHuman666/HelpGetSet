@@ -42,7 +42,6 @@ namespace PL_API.Controllers
         /// <returns>Collection of users profiles</returns>
         [HttpGet]
         [Route("All")]
-        [Authorize(Roles = "Registered")]
         public async Task<ActionResult<IEnumerable<UserProfileModel>>> GetAllUserProfilesWithDetails()
         {
             var users = await _userProfileService.GetAllProfilesWithDetailsAsync();
@@ -56,7 +55,6 @@ namespace PL_API.Controllers
         /// <returns>Found user profile</returns>
         [HttpGet]
         [Route("{id}")]
-        [Authorize(Roles = "Registered")]
         public async Task<ActionResult<UserProfileModel>> GetUserProfileByIdForAll(int id)
         {
             var userProfileDto = await _userProfileService.GetProfileByIdWithDetailsAsync(id);
@@ -69,7 +67,6 @@ namespace PL_API.Controllers
         /// <returns>Collection of role names</returns>
         [HttpGet]
         [Route("Roles")]
-        [Authorize(Roles = "Registered")]
         public async Task<ActionResult<IEnumerable<string>>> GetUserRoles()
         {
             return Ok(await _userService.GetAllUserRoles(Convert.ToInt32(User.FindFirst(ClaimTypes.NameIdentifier).Value)));
@@ -111,7 +108,6 @@ namespace PL_API.Controllers
         /// <returns>Found user</returns>
         [HttpGet]
         [Route("ByUserName/{name}")]
-        [Authorize(Roles = "Registered")]
         public async Task<ActionResult<UserProfileModel>> GetUserProfileWithDetailsByUserName(string name)
         {
             var user = _userService.GetUserByUserName(name);
@@ -127,7 +123,6 @@ namespace PL_API.Controllers
         /// <returns>Found user</returns>
         [HttpGet]
         [Route("AllByFullName/{first}/{last}")]
-        [Authorize(Roles = "Registered")]
         public async Task<ActionResult<IEnumerable<UserProfileModel>>> GetUsersProfileWithDetailsByFullName(string first, string last)
         {
             var users = _userService.GetUsersByFirstAndLastName(first, last);
@@ -147,7 +142,6 @@ namespace PL_API.Controllers
         /// <returns>Found user</returns>
         [HttpGet]
         [Route("ByPhone/{phoneNumber}")]
-        [Authorize(Roles = "Registered")]
         public async Task<ActionResult<UserProfileModel>> GetUserProfileWithDetailsByPhone(string phoneNumber)
         {
             var user = await _userService.GetUserByPhoneNumberAsync(phoneNumber);
@@ -178,9 +172,9 @@ namespace PL_API.Controllers
         [HttpPut]
         [Route("MyInfo")]
         [Authorize(Roles = "Registered")]
-        public async Task<ActionResult<UserProfileDto>> UpdateUserInfoByUser([FromBody] UserModel userModel)
+        public async Task<ActionResult<UserProfileModel>> UpdateUserInfoByUser([FromBody] UserModel userModel)
         {
-            if (!Enum.IsDefined(typeof(Gender), userModel))
+            if (!Enum.IsDefined(typeof(Gender), userModel.Gender))
             {
                 throw new HelpSiteException($"{userModel.Gender} gender is not compatible");
             }
@@ -188,7 +182,7 @@ namespace PL_API.Controllers
             userToChange.Id = Convert.ToInt32(User.FindFirst(ClaimTypes.NameIdentifier).Value);
             await _userService.UpdateUserInfoAsync(userToChange);
             var changedProfile = await _userProfileService.GetProfileByIdWithDetailsAsync(userToChange.Id);
-            return Ok(changedProfile);
+            return Ok(_mapper.Map<UserProfileModel>(changedProfile));
         }
 
         /// <summary>
@@ -202,7 +196,7 @@ namespace PL_API.Controllers
         [Authorize(Roles = "Admin")]
         public async Task<ActionResult<UserProfileModel>> UpdateUserInfoByAdmin(int id, [FromBody] UserModel userModel)
         {
-            if (!Enum.IsDefined(typeof(Gender), userModel))
+            if (!Enum.IsDefined(typeof(Gender), userModel.Gender))
             {
                 throw new HelpSiteException($"{userModel.Gender} gender is not compatible");
             }
@@ -247,7 +241,7 @@ namespace PL_API.Controllers
         /// <returns>Found user's original country instance</returns>
         [HttpGet]
         [Route("OriginalCountry/{id}")]
-        public async Task<ActionResult<Country>> GetUsersOriginalCountryByUserId(int id)
+        public async Task<ActionResult<CountryModel>> GetUsersOriginalCountryByUserId(int id)
         {
             var countryDto = await _userProfileService.GetOriginalCountryByUserIdAsync(id);
             return Ok(_mapper.Map<CountryModel>(countryDto));
@@ -260,7 +254,7 @@ namespace PL_API.Controllers
         /// <returns>Found user's current country instance</returns>
         [HttpGet]
         [Route("CurrentCountry/{id}")]
-        public async Task<ActionResult<Country>> GetUsersCurrentCountryByUserId(int id)
+        public async Task<ActionResult<CountryModel>> GetUsersCurrentCountryByUserId(int id)
         {
             var countryDto = await _userProfileService.GetCurrentCountryByUserIdAsync(id);
             return Ok(_mapper.Map<CountryModel>(countryDto));

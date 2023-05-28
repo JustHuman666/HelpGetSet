@@ -112,6 +112,5 @@ namespace BLL.Interfaces
         /// <param name="id">The id of user that is found</param>
         /// <returns>An instance of found user</returns>
         Task<UserDto> GetUserByIdWithDetailsAsync(int id);
-
     }
 }

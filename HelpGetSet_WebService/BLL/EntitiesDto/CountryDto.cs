@@ -16,7 +16,9 @@ namespace BLL.EntitiesDto
 
         public string ShortName { get; set; }
 
-        public virtual ICollection<int> UserIds { get; set; }
+        public virtual ICollection<int> UsersFromIds { get; set; }
+
+        public virtual ICollection<int> UsersInIds { get; set; }
 
         public virtual ICollection<int> PostIds { get; set; }
 

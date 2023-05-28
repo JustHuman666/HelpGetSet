@@ -45,5 +45,6 @@ namespace BLL.Interfaces
         /// <param name="id">The id of user profile</param>
         /// <returns>An instance of found country</returns>
         Task<CountryDto> GetCurrentCountryByUserIdAsync(int id);
+
     }
 }

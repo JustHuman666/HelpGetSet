@@ -62,10 +62,10 @@ namespace PL_API.Controllers
         [HttpGet]
         [Route("AllUserChats")]
         [Authorize(Roles = "Registered")]
-        public async Task<ActionResult<IEnumerable<ChatDto>>> GetAllUserChats()
+        public async Task<ActionResult<IEnumerable<ChatModel>>> GetAllUserChats()
         {
             var chats = await _chatService.GetAllChatsByUserIdAsync(Convert.ToInt32(User.FindFirst(ClaimTypes.NameIdentifier).Value));
-            return Ok(chats);
+            return Ok(_mapper.Map<IEnumerable<ChatModel>>(chats));
         }
 
         /// <summary>
@@ -161,10 +161,10 @@ namespace PL_API.Controllers
         [HttpGet]
         [Route("{id}")]
         [Authorize(Roles = "Registered")]
-        public async Task<ActionResult<IEnumerable<ChatDto>>> GetChatById(int id)
+        public async Task<ActionResult<IEnumerable<ChatModel>>> GetChatById(int id)
         {
             var chat = await _chatService.GetChatByIdWithDetailsAsync(id);
-            return Ok(chat);
+            return Ok(_mapper.Map<ChatModel>(chat));
         }
 
         /// <summary>

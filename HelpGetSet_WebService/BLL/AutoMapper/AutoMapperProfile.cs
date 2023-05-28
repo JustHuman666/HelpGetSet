@@ -24,6 +24,8 @@ namespace BLL.AutoMapper
                 .ForMember(p => p.LastName, c => c.MapFrom(src => src.UserProfile.LastName))
                 .ForMember(p => p.Birthday, c => c.MapFrom(src => src.UserProfile.Birthday))
                 .ForMember(p => p.Gender, c => c.MapFrom(src => src.UserProfile.Gender))
+                .ForMember(p => p.OriginalCountryId, c => c.MapFrom(src => src.UserProfile.OriginalCountryId))
+                .ForMember(p => p.CurrentCountryId, c => c.MapFrom(src => src.UserProfile.CurrentCountryId))
                 .ReverseMap();
 
             CreateMap<UserProfile, UserProfileDto>()
@@ -32,7 +34,6 @@ namespace BLL.AutoMapper
                 .ForMember(p => p.MessageIds, c => c.MapFrom(src => src.Messages.Select(item => item.Id)))
                 .ForMember(p => p.ChatIds, c => c.MapFrom(src => src.Chats.Select(item => item.ChatId)))
                 .ForMember(p => p.PostIds, c => c.MapFrom(src => src.Posts.Select(item => item.Id)))
-                .ForMember(p => p.CountryIds, c => c.MapFrom(src => src.Countries.Select(item => item.CountryId)))
                 .ForMember(p => p.MadeCountryChangeIds, c => c.MapFrom(src => src.MadeCountryChanges.Select(item => item.Id)))
                 .ForMember(p => p.CountryVersionsChecked, c => c.MapFrom(src => src.CountryVersionsChecked.Select(item => item.Id)))
                 .ForMember(p => p.MigrantsIds, c => c.MapFrom(src => src.Migrants.Select(item => item.Id)))
@@ -44,7 +45,6 @@ namespace BLL.AutoMapper
                 .ForMember(p => p.Messages, c => c.MapFrom(src => src.MessageIds))
                 .ForMember(p => p.Chats, c => c.MapFrom(src => src.ChatIds))
                 .ForMember(p => p.Posts, c => c.MapFrom(src => src.PostIds))
-                .ForMember(p => p.Countries, c => c.MapFrom(src => src.CountryIds))
                 .ForMember(p => p.MadeCountryChanges, c => c.MapFrom(src => src.MadeCountryChangeIds))
                 .ForMember(p => p.CountryVersionsChecked, c => c.MapFrom(src => src.CountryVersionsChecked))
                 .ForMember(p => p.Migrants, c => c.MapFrom(src => src.MigrantsIds))
@@ -53,6 +53,12 @@ namespace BLL.AutoMapper
             CreateMap<UserProfileDto, UserDto>().ReverseMap();
 
             CreateMap<Message, MessageDto>().ReverseMap();
+
+            CreateMap<Migrant, MigrantDto>().ReverseMap();
+
+            CreateMap<Volunteer, VolunteerDto>().ReverseMap();
+
+            CreateMap<Post, PostDto>().ReverseMap();
 
             CreateMap<Chat, ChatDto>()
                 .ForMember(p => p.MessageIds, c => c.MapFrom(src => src.Messages.Select(item => item.Id)))
@@ -70,12 +76,14 @@ namespace BLL.AutoMapper
               .ForMember(p => p.UsersWhoChecked, c => c.MapFrom(src => src.UsersWhoChecked));
 
             CreateMap<Country, CountryDto>()
-               .ForMember(p => p.UserIds, c => c.MapFrom(src => src.Users.Select(item => item.UserId)))
+               .ForMember(p => p.UsersFromIds, c => c.MapFrom(src => src.UsersFrom.Select(item => item.Id)))
+               .ForMember(p => p.UsersInIds, c => c.MapFrom(src => src.UsersIn.Select(item => item.Id)))
                .ForMember(p => p.PostIds, c => c.MapFrom(src => src.Posts.Select(item => item.Id)))
                .ForMember(p => p.CountryVersionIds, c => c.MapFrom(src => src.CountryVersions.Select(item => item.Id)));
 
             CreateMap<CountryDto, Country>()
-               .ForMember(p => p.Users, c => c.MapFrom(src => src.UserIds))
+               .ForMember(p => p.UsersFrom, c => c.MapFrom(src => src.UsersFromIds))
+               .ForMember(p => p.UsersIn, c => c.MapFrom(src => src.UsersInIds))
                .ForMember(p => p.Posts, c => c.MapFrom(src => src.PostIds))
                .ForMember(p => p.CountryVersions, c => c.MapFrom(src => src.CountryVersionIds));
 
@@ -84,9 +92,6 @@ namespace BLL.AutoMapper
 
             CreateMap<int, Post>()
                 .ForMember(dest => dest.Id, m => m.MapFrom(src => src));
-
-            CreateMap<int, UserCountry>()
-                .ForMember(dest => dest.CountryId, m => m.MapFrom(src => src));
 
             CreateMap<int, CountryChangesHistory>()
                 .ForMember(dest => dest.Id, m => m.MapFrom(src => src));

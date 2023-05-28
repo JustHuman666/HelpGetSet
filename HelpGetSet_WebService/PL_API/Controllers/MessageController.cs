@@ -63,10 +63,10 @@ namespace PL_API.Controllers
         [HttpGet]
         [Route("{id}")]
         [Authorize(Roles = "Registered")]
-        public async Task<ActionResult<MessageDto>> GetMessageById(int id)
+        public async Task<ActionResult<MessageModel>> GetMessageById(int id)
         {
             var message = await _messageService.GetMessageByIdAsync(id);
-            return Ok(message);
+            return Ok(_mapper.Map<MessageModel>(message));
         }
 
         /// <summary>
@@ -76,10 +76,10 @@ namespace PL_API.Controllers
         [HttpGet]
         [Route("All")]
         [Authorize(Roles = "Registered")]
-        public async Task<ActionResult<IEnumerable<MessageDto>>> GetAllMessages()
+        public async Task<ActionResult<IEnumerable<MessageModel>>> GetAllMessages()
         {
             var messages = await _messageService.GetAllMessagesAsync();
-            return Ok(messages);
+            return Ok(_mapper.Map<IEnumerable<MessageModel>>(messages));
         }
 
         /// <summary>
@@ -89,11 +89,11 @@ namespace PL_API.Controllers
         [HttpGet]
         [Route("MessagesOfChat/{id}")]
         [Authorize(Roles = "Registered")]
-        public async Task<ActionResult<IEnumerable<MessageDto>>> GetMessagesOfChat(int id)
+        public async Task<ActionResult<IEnumerable<MessageModel>>> GetMessagesOfChat(int id)
         {
             var messages = await _messageService.GetAllMessagesAsync();
             var messagesOfChat = messages.Where(message => message.ChatId == id);
-            return Ok(messagesOfChat);
+            return Ok(_mapper.Map<IEnumerable<MessageModel>>(messagesOfChat));
         }
     }
 }

@@ -138,11 +138,8 @@ namespace PL_API.Controllers
         /// <param name="migrantModel">Model of migrant for creating with needed data</param>
         [HttpPost]
         [Route("New")]
-        [Authorize(Roles = "Registered")]
         public async Task<ActionResult> AddNewMigrant([FromBody] MigrantModel migrantModel)
         {
-            var userId = Convert.ToInt32(User.FindFirst(ClaimTypes.NameIdentifier).Value);
-            migrantModel.UserId = userId;
             await _migrantService.CreateMigrantInfoAsync(_mapper.Map<MigrantDto>(migrantModel));
             return Ok();
         }
@@ -153,15 +150,8 @@ namespace PL_API.Controllers
         /// <param name="migrantModel">Model of migrant for updating with needed data</param>
         [HttpPut]
         [Route("Update")]
-        [Authorize(Roles = "Registered")]
         public async Task<ActionResult> UpdateMigrantInfo([FromBody] MigrantModel migrantModel)
         {
-            var userId = Convert.ToInt32(User.FindFirst(ClaimTypes.NameIdentifier).Value);
-            var userRoles = await _userService.GetAllUserRoles(userId);
-            if (migrantModel.UserId != userId && !userRoles.Contains("Admin"))
-            {
-                return Forbid();
-            }
             await _migrantService.UpdateMigrantInfoAsync(_mapper.Map<MigrantDto>(migrantModel));
             return Ok();
         }

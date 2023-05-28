@@ -28,7 +28,6 @@ namespace DAL.Context
         public DbSet<Migrant> Migrants { get; set; }
         public DbSet<Volunteer> Volunteers { get; set; }
         public DbSet<Post> Posts { get; set; }
-        public DbSet<UserCountry> UserCountries { get; set; }
         public DbSet<UserChat> UsersChats { get; set; }
         public DbSet<CountryChangesHistory> CountriesHistories { get; set; }
         public DbSet<UserApprove> UsersApproves { get; set; }
@@ -41,11 +40,21 @@ namespace DAL.Context
             var registered = new Role() { Id = 2, Name = "Registered", NormalizedName = "REGISTERED" };
 
             builder.Entity<Role>().HasData(admin, registered);
+            var country = new Country() {
+                Id = 1,
+                Name = "The Netherlands",
+                ShortName = "NL",
+                CountryVersions = new HashSet<CountryChangesHistory>(),
+                UsersFrom = new HashSet<UserProfile>(),
+                UsersIn = new HashSet<UserProfile>()
+            };
+            
+            builder.Entity<Country>().HasData(country);
 
             var adminData = new User()
             {
                 Id = 1,
-                PhoneNumber = "+380671234567",
+                PhoneNumber = "380671234567",
                 UserName = "AdminElya",
                 NormalizedUserName = "ADMINELYA"
             };
@@ -53,7 +62,9 @@ namespace DAL.Context
             {
                 Id = adminData.Id,
                 FirstName = "Eleonora",
-                LastName = "Mykhalchuk"
+                LastName = "Mykhalchuk",
+                OriginalCountryId = country.Id,
+                CurrentCountryId = country.Id
             };
 
             var passwordHasher = new PasswordHasher<User>();
@@ -80,9 +91,6 @@ namespace DAL.Context
             builder.Entity<Migrant>().HasOne(x => x.User).WithMany(x => x.Migrants).HasForeignKey(x => x.UserId);
             builder.Entity<Volunteer>().HasOne(x => x.User).WithMany(x => x.Volunteers).HasForeignKey(x => x.UserId);
 
-            builder.Entity<UserProfile>().HasMany(x => x.Countries).WithOne(x => x.User).HasForeignKey(x => x.UserId);
-            builder.Entity<Country>().HasMany(x => x.Users).WithOne(x => x.Country).HasForeignKey(x => x.CountryId);
-
             builder.Entity<Country>().HasMany(x => x.Posts).WithOne(x => x.Country).OnDelete(DeleteBehavior.Cascade).HasForeignKey(x => x.CountryId);
             builder.Entity<Post>().HasOne(x => x.Country).WithMany(x => x.Posts).HasForeignKey(x => x.Id);
 
@@ -90,10 +98,11 @@ namespace DAL.Context
             builder.Entity<CountryChangesHistory>().HasOne(x => x.Author).WithMany(x => x.MadeCountryChanges).OnDelete(DeleteBehavior.NoAction).HasForeignKey(x => x.AuthorId);
             builder.Entity<CountryChangesHistory>().HasOne(x => x.Country).WithMany(x => x.CountryVersions).OnDelete(DeleteBehavior.Cascade).HasForeignKey(x => x.CountryId);
 
-            builder.Entity<UserCountry>().HasKey(x => new { x.UserId, x.CountryId });
-            builder.Entity<UserCountry>().HasOne(x => x.User).WithMany(x => x.Countries).OnDelete(DeleteBehavior.Cascade).HasForeignKey(x => x.UserId);
-            builder.Entity<UserCountry>().HasOne(x => x.Country).WithMany(x => x.Users).OnDelete(DeleteBehavior.NoAction).HasForeignKey(x => x.CountryId);
-            
+            builder.Entity<UserProfile>().HasOne(x => x.OriginalCountry).WithMany(x => x.UsersFrom).OnDelete(DeleteBehavior.NoAction).HasForeignKey(x => x.OriginalCountryId);
+            builder.Entity<UserProfile>().HasOne(x => x.CurrentCountry).WithMany(x => x.UsersIn).OnDelete(DeleteBehavior.NoAction).HasForeignKey(x => x.CurrentCountryId);
+            builder.Entity<Country>().HasMany(x => x.UsersFrom).WithOne(x => x.OriginalCountry).HasForeignKey(x => x.OriginalCountryId);
+            builder.Entity<Country>().HasMany(x => x.UsersIn).WithOne(x => x.CurrentCountry).HasForeignKey(x => x.CurrentCountryId);
+
             builder.Entity<UserChat>().HasKey(x => new { x.UserId, x.ChatId });
             builder.Entity<UserChat>().HasOne(x => x.User).WithMany(x => x.Chats).OnDelete(DeleteBehavior.Cascade).HasForeignKey(x => x.UserId);
             builder.Entity<UserChat>().HasOne(x => x.Chat).WithMany(x => x.Users).OnDelete(DeleteBehavior.Cascade).HasForeignKey(x => x.ChatId);

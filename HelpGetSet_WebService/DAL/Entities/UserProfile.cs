@@ -25,7 +25,13 @@ namespace DAL.Enteties
         [Required]
         public Gender Gender { get; set; }
 
-        public virtual ICollection<UserCountry> Countries { get; set; }
+        public virtual Country OriginalCountry { get; set; }
+        [ForeignKey("OriginalCountryId")]
+        public int OriginalCountryId { get; set; }
+
+        public virtual Country CurrentCountry { get; set; }
+        [ForeignKey("CurrentCountryId")]
+        public int CurrentCountryId { get; set; }
 
         public virtual ICollection<UserChat> Chats { get; set; }
 
@@ -45,7 +51,6 @@ namespace DAL.Enteties
         {
             Chats ??= new HashSet<UserChat>();
             Messages ??= new HashSet<Message>();
-            Countries ??= new HashSet<UserCountry>();
             Posts ??= new HashSet<Post>();
             MadeCountryChanges ??= new HashSet<CountryChangesHistory>();
             CountryVersionsChecked ??= new HashSet<UserApprove>();

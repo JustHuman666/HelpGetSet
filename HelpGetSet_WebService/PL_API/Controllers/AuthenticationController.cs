@@ -41,7 +41,7 @@ namespace PL_API.Controllers
         [Route("Register")]
         public async Task<IActionResult> RegisterUSer([FromBody] RegisterModel registerModel)
         {
-            if (!Enum.IsDefined(typeof(Gender), registerModel))
+            if (!Enum.IsDefined(typeof(Gender), registerModel.Gender))
             {
                 throw new HelpSiteException($"{registerModel.Gender} gender is not compatible");
             }
