@@ -24,6 +24,7 @@ namespace DAL.Repositories
         {
             _context = context;
         }
+
         public async Task CreateAsync(CountryChangesHistory item)
         {
             await _context.CountriesHistories.AddAsync(item);
@@ -44,6 +45,11 @@ namespace DAL.Repositories
             {
                 _context.CountriesHistories.RemoveRange(versions);
             }
+        }
+
+        public Task DisapproveIdAsync(int id)
+        {
+            throw new NotImplementedException();
         }
 
         public async Task<IQueryable<CountryChangesHistory>> GetAllAsync()

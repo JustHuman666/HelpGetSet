@@ -2,6 +2,7 @@
 using DAL.Interfaces;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.Storage;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -110,6 +111,8 @@ namespace DAL.Repositories
                 user.PhoneNumber = item.PhoneNumber;
                 user.UserProfile.Birthday = item.UserProfile.Birthday;
                 user.UserProfile.OriginalCountry = item.UserProfile.OriginalCountry;
+                user.UserProfile.OriginalCountryId = item.UserProfile.OriginalCountryId;
+                user.UserProfile.CurrentCountryId = item.UserProfile.CurrentCountryId;
                 user.UserProfile.CurrentCountry = item.UserProfile.CurrentCountry;
                 user.UserProfile.Gender = item.UserProfile.Gender;
             }

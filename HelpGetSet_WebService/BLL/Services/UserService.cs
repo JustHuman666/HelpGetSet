@@ -212,14 +212,14 @@ namespace BLL.Services
             return _mapper.Map<UserDto>(user);
         }
 
-        public async Task<UserDto> GetUserByIdWithDetailsAsync(int id)
+        public async Task<UserProfileDto> GetUserByIdWithDetailsAsync(int id)
         {
-            var user = await _db.Users.GetByIdWithDetailsAsync(id);
+            var user = await _db.UsersProfiles.GetByIdWithDetailsAsync(id);
             if (user == null)
             {
                 throw new NotFoundException("User does not exist");
             }
-            return _mapper.Map<UserDto>(user);
+            return _mapper.Map<UserProfileDto>(user);
         }
 
         public async Task<UserDto> GetUserByPhoneNumberAsync(string phoneNumber)
@@ -293,6 +293,9 @@ namespace BLL.Services
                 throw new HelpSiteException("This username is already occupied");
             }
             var userToUpdate = _mapper.Map<User>(user);
+
+            userToUpdate.UserProfile.OriginalCountry = await _db.Countries.GetByIdAsync(user.OriginalCountryId);
+            userToUpdate.UserProfile.CurrentCountry = await _db.Countries.GetByIdAsync(user.OriginalCountryId);
             await _db.Users.UpdateAsync(userToUpdate);
             await _db.SaveAsync();
         }

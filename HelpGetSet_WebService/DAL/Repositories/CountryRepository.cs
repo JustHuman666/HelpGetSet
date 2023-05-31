@@ -48,8 +48,8 @@ namespace DAL.Repositories
         {
             var countries = await _context.Countries
                 .Include(country => country.CountryVersions)
-                .Include(country => country.UsersFrom).ThenInclude(x => x.OriginalCountry)
-                .Include(country => country.UsersIn).ThenInclude(x => x.CurrentCountry).ToListAsync();
+                .Include(country => country.UsersFrom).ThenInclude(x => x.AppUser.UserProfile)
+                .Include(country => country.UsersIn).ThenInclude(x => x.AppUser.UserProfile).ToListAsync();
 
             return countries.AsQueryable();
         }

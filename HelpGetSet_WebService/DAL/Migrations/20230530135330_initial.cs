@@ -1,5 +1,6 @@
 ﻿using System;
 using Microsoft.EntityFrameworkCore.Migrations;
+using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 
 namespace DAL.Migrations
 {
@@ -12,7 +13,7 @@ namespace DAL.Migrations
                 columns: table => new
                 {
                     Id = table.Column<int>(nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1"),
+                        .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
                     Name = table.Column<string>(maxLength: 256, nullable: true),
                     NormalizedName = table.Column<string>(maxLength: 256, nullable: true),
                     ConcurrencyStamp = table.Column<string>(nullable: true)
@@ -27,7 +28,7 @@ namespace DAL.Migrations
                 columns: table => new
                 {
                     Id = table.Column<int>(nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1"),
+                        .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
                     UserName = table.Column<string>(maxLength: 256, nullable: true),
                     NormalizedUserName = table.Column<string>(maxLength: 256, nullable: true),
                     Email = table.Column<string>(maxLength: 256, nullable: true),
@@ -53,7 +54,7 @@ namespace DAL.Migrations
                 columns: table => new
                 {
                     Id = table.Column<int>(nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1"),
+                        .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
                     CreationDate = table.Column<DateTime>(nullable: false),
                     ChatName = table.Column<string>(nullable: true)
                 },
@@ -67,7 +68,7 @@ namespace DAL.Migrations
                 columns: table => new
                 {
                     Id = table.Column<int>(nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1"),
+                        .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
                     Name = table.Column<string>(maxLength: 30, nullable: false),
                     ShortName = table.Column<string>(nullable: false)
                 },
@@ -81,7 +82,7 @@ namespace DAL.Migrations
                 columns: table => new
                 {
                     Id = table.Column<int>(nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1"),
+                        .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
                     RoleId = table.Column<int>(nullable: false),
                     ClaimType = table.Column<string>(nullable: true),
                     ClaimValue = table.Column<string>(nullable: true)
@@ -102,7 +103,7 @@ namespace DAL.Migrations
                 columns: table => new
                 {
                     Id = table.Column<int>(nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1"),
+                        .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
                     UserId = table.Column<int>(nullable: false),
                     ClaimType = table.Column<string>(nullable: true),
                     ClaimValue = table.Column<string>(nullable: true)
@@ -220,7 +221,7 @@ namespace DAL.Migrations
                 columns: table => new
                 {
                     Id = table.Column<int>(nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1"),
+                        .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
                     CountryId = table.Column<int>(nullable: false),
                     AuthorId = table.Column<int>(nullable: false),
                     AuthorUsername = table.Column<string>(nullable: false),
@@ -254,7 +255,7 @@ namespace DAL.Migrations
                 columns: table => new
                 {
                     Id = table.Column<int>(nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1"),
+                        .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
                     Text = table.Column<string>(nullable: false),
                     SendingTime = table.Column<DateTime>(nullable: false),
                     SenderId = table.Column<int>(nullable: false),
@@ -282,7 +283,7 @@ namespace DAL.Migrations
                 columns: table => new
                 {
                     Id = table.Column<int>(nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1"),
+                        .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
                     UserId = table.Column<int>(nullable: false),
                     IsOfficialRefugee = table.Column<bool>(nullable: false),
                     IsForcedMigrant = table.Column<bool>(nullable: false),
@@ -307,7 +308,8 @@ namespace DAL.Migrations
                 name: "Posts",
                 columns: table => new
                 {
-                    Id = table.Column<int>(nullable: false),
+                    Id = table.Column<int>(nullable: false)
+                        .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
                     Content = table.Column<string>(nullable: false),
                     CreationTime = table.Column<DateTime>(nullable: false),
                     AuthorId = table.Column<int>(nullable: false),
@@ -323,8 +325,8 @@ namespace DAL.Migrations
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
-                        name: "FK_Posts_Countries_Id",
-                        column: x => x.Id,
+                        name: "FK_Posts_Countries_CountryId",
+                        column: x => x.CountryId,
                         principalTable: "Countries",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
@@ -360,7 +362,7 @@ namespace DAL.Migrations
                 columns: table => new
                 {
                     Id = table.Column<int>(nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1"),
+                        .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
                     UserId = table.Column<int>(nullable: false),
                     IsOrganisation = table.Column<bool>(nullable: false),
                     HasAPlace = table.Column<bool>(nullable: false),
@@ -382,7 +384,7 @@ namespace DAL.Migrations
                 columns: table => new
                 {
                     Id = table.Column<int>(nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1"),
+                        .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
                     UserId = table.Column<int>(nullable: false),
                     VersionId = table.Column<int>(nullable: false),
                     Approved = table.Column<bool>(nullable: false),
@@ -408,14 +410,14 @@ namespace DAL.Migrations
                 columns: new[] { "Id", "ConcurrencyStamp", "Name", "NormalizedName" },
                 values: new object[,]
                 {
-                    { 1, "e612ad1f-5f86-4e53-80ac-271329267130", "Admin", "ADMIN" },
-                    { 2, "d981f57c-6cea-4253-a9f8-548d0aae2f12", "Registered", "REGISTERED" }
+                    { 1, "33a73aff-8d17-4cb8-8ec9-20d9dee07e4d", "Admin", "ADMIN" },
+                    { 2, "96ea571a-2d7f-41ab-b7b4-94afe4478cb4", "Registered", "REGISTERED" }
                 });
 
             migrationBuilder.InsertData(
                 table: "AspNetUsers",
                 columns: new[] { "Id", "AccessFailedCount", "ConcurrencyStamp", "Email", "EmailConfirmed", "LockoutEnabled", "LockoutEnd", "NormalizedEmail", "NormalizedUserName", "PasswordHash", "PhoneNumber", "PhoneNumberConfirmed", "SecurityStamp", "TwoFactorEnabled", "UserName" },
-                values: new object[] { 1, 0, "10540b5d-4484-4565-9c03-b8158ad8055c", null, false, false, null, null, "ADMINELYA", "AQAAAAEAACcQAAAAEFAhtQ+DwRuD4JcrD7Vi9hw0l5tlb+sVprNB71EMAKaMWOWLLkQOmIlrU6HsUqZS4w==", "+380671234567", false, null, false, "AdminElya" });
+                values: new object[] { 1, 0, "3a7e1b31-a244-47c2-945c-63a472b41173", null, false, false, null, null, "ADMINELYA", "AQAAAAEAACcQAAAAEHuVA++O2ooDp8A7z80ucj5LcQ99X+31mnBV+JJXdx2qrd2DFwRM1CbWddok1GTc+g==", "380671234567", false, null, false, "AdminElya" });
 
             migrationBuilder.InsertData(
                 table: "Countries",
@@ -425,12 +427,11 @@ namespace DAL.Migrations
             migrationBuilder.InsertData(
                 table: "AspNetUserRoles",
                 columns: new[] { "UserId", "RoleId" },
-                values: new object[] { 1, 1 });
-
-            migrationBuilder.InsertData(
-                table: "AspNetUserRoles",
-                columns: new[] { "UserId", "RoleId" },
-                values: new object[] { 1, 2 });
+                values: new object[,]
+                {
+                    { 1, 1 },
+                    { 1, 2 }
+                });
 
             migrationBuilder.InsertData(
                 table: "UserProfiles",
@@ -446,8 +447,7 @@ namespace DAL.Migrations
                 name: "RoleNameIndex",
                 table: "AspNetRoles",
                 column: "NormalizedName",
-                unique: true,
-                filter: "[NormalizedName] IS NOT NULL");
+                unique: true);
 
             migrationBuilder.CreateIndex(
                 name: "IX_AspNetUserClaims_UserId",
@@ -473,8 +473,7 @@ namespace DAL.Migrations
                 name: "UserNameIndex",
                 table: "AspNetUsers",
                 column: "NormalizedUserName",
-                unique: true,
-                filter: "[NormalizedUserName] IS NOT NULL");
+                unique: true);
 
             migrationBuilder.CreateIndex(
                 name: "IX_CountriesHistories_AuthorId",
@@ -505,6 +504,11 @@ namespace DAL.Migrations
                 name: "IX_Posts_AuthorId",
                 table: "Posts",
                 column: "AuthorId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Posts_CountryId",
+                table: "Posts",
+                column: "CountryId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_UserProfiles_CurrentCountryId",

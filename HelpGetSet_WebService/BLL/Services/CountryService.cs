@@ -75,7 +75,7 @@ namespace BLL.Services
 
         public async Task<IEnumerable<CountryDto>> GetAllCountriesAsync()
         {
-            var countries = await _db.Countries.GetAllAsync();
+            var countries = await _db.Countries.GetAllWithDetailsAsync();
             if (countries == null || countries.Count() == 0)
             {
                 throw new NotFoundException("There is no country");

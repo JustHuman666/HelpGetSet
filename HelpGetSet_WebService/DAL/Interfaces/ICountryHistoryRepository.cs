@@ -23,5 +23,6 @@ namespace DAL.Interfaces
         /// </summary>
         /// <param name="id">Id of country, changes of which are being deleted</param>
         Task DeleteByCountryIdAsync(int id);
+
     }
 }

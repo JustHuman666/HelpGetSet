@@ -2,6 +2,7 @@
 using BLL.EntitiesDto;
 using BLL.Interfaces;
 using BLL.Services;
+using DAL.Repositories;
 using IPinfo;
 using IPinfo.Models;
 using Microsoft.AspNetCore.Authorization;
@@ -23,6 +24,8 @@ namespace PL_API.Controllers
         private readonly IUserService _userService;
         private readonly IPostService _postService;
         private readonly ICountryService _countryService;
+        private readonly IVolunteerService _volunteerService;
+        private readonly IMigrantService _migrantService;
         private readonly IMapper _mapper;
 
         /// <summary>
@@ -31,11 +34,19 @@ namespace PL_API.Controllers
         /// <param name="mapper">Auto mapper profile for models and dtos</param>
         /// <param name="userService">User service</param>
         /// <param name="postService">Post service</param>
-        public PostController(IUserService userService, IPostService postService, ICountryService countryService, IMapper mapper)
+        public PostController(
+            IUserService userService,
+            IPostService postService, 
+            ICountryService countryService,
+            IVolunteerService volunteerService,
+            IMigrantService migrantService,
+            IMapper mapper)
         {
             _userService = userService;
             _postService = postService;
             _countryService = countryService;
+            _migrantService = migrantService;
+            _volunteerService = volunteerService;
             _mapper = mapper;
         }
 
@@ -88,6 +99,49 @@ namespace PL_API.Controllers
         {
             var posts = await _postService.GetAllCountryPostsByCountryIdAsync(id);
             return Ok(_mapper.Map<IEnumerable<PostModel>>(posts));
+        }
+
+        /// <summary>
+        /// To get all posts of volunteers
+        /// </summary>
+        /// <returns>Found posts</returns>
+        [HttpGet]
+        [Route("AllOfVolunteers")]
+        public async Task<ActionResult<IEnumerable<PostModel>>> GetVolunteersPosts()
+        {
+            var posts = await _postService.GetAllPostsAsync();
+            List<PostDto> postsToReturn = new List<PostDto>();
+            foreach(PostDto post in posts)
+            {
+                var user = await _userService.GetUserByIdWithDetailsAsync(post.AuthorId);
+                if(user.VolunteersIds.Count() != 0)
+                {
+                    postsToReturn.Add(post);
+                }
+
+            }
+            return Ok(_mapper.Map<IEnumerable<PostModel>>(postsToReturn));
+        }
+
+        /// <summary>
+        /// To get all posts of migrants
+        /// </summary>
+        /// <returns>Found posts</returns>
+        [HttpGet]
+        [Route("AllOfMigrants")]
+        public async Task<ActionResult<IEnumerable<PostModel>>> GetMigrantsPosts()
+        {
+            var posts = await _postService.GetAllPostsAsync();
+            List<PostDto> postsToReturn = new List<PostDto>();
+            foreach (PostDto post in posts)
+            {
+                var user = await _userService.GetUserByIdWithDetailsAsync(post.AuthorId);
+                if (user.MigrantsIds.Count() != 0)
+                {
+                    postsToReturn.Add(post);
+                }
+            }
+            return Ok(_mapper.Map<IEnumerable<PostModel>>(postsToReturn));
         }
 
         /// <summary>
@@ -147,7 +201,7 @@ namespace PL_API.Controllers
             else
             {
                 var allPosts = await _postService.GetAllPostsAsync();
-                var sortedPosts = allPosts.Take(20).OrderByDescending(post => post.CreationTime);
+                var sortedPosts = allPosts.Take(100).OrderByDescending(post => post.CreationTime);
                 return Ok(_mapper.Map<IEnumerable<PostModel>>(sortedPosts));
             }
         }
@@ -159,7 +213,6 @@ namespace PL_API.Controllers
         /// <returns>Result status code</returns>
         [HttpDelete]
         [Route("{id}")]
-        [Authorize(Roles = "Admin")]
         public async Task<ActionResult> DeletePost(int id)
         {
             var userId = Convert.ToInt32(User.FindFirst(ClaimTypes.NameIdentifier).Value);
@@ -169,6 +222,7 @@ namespace PL_API.Controllers
             {
                 return Forbid($"Only admin or creator of the country info can rename it.");
             }
+            await _postService.DeletePostAsync(id);
             return Ok();
         }
     }

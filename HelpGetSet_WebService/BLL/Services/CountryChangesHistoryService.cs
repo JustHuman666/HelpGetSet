@@ -40,12 +40,23 @@ namespace BLL.Services
             {
                 throw new HelpSiteException($"User with the id: {userId} already checked the version with id: {versionId}");
             }
+            var user = await _db.Users.GetByIdAsync(userId);
             var version = await _db.CountryVersions.GetByIdAsync(versionId);
             if (version == null)
             {
                 throw new NotFoundException($"Version with the id: {versionId} does not exist");
             }
             version.ApprovesAmount += 1;
+            var userApprove = new UserApprove()
+            {
+                Approved = true,
+                CountryVersion = version,
+                VersionId = versionId,
+                DisApproved = false,
+                UserId = userId,
+                User = user.UserProfile
+            };
+            version.UsersWhoChecked.Add(userApprove);
             _db.CountryVersions.Update(version);
             await _db.SaveAsync();
         }
@@ -57,7 +68,7 @@ namespace BLL.Services
             {
                 throw new NotFoundException($"User with id: {userId} does not exist");
             }
-            var version = await _db.CountryVersions.GetByIdAsync(versionId);
+            var version = await _db.CountryVersions.GetByIdWithDetailsAsync(versionId);
             if (version == null)
             {
                 throw new NotFoundException($"Version with the id: {versionId} does not exist");
@@ -129,12 +140,22 @@ namespace BLL.Services
             {
                 throw new HelpSiteException($"User with the id: {userId} already checked the version with id: {versionId}");
             }
+            var user = await _db.UsersProfiles.GetByIdAsync(userId);
             var version = await _db.CountryVersions.GetByIdAsync(versionId);
             if (version == null)
             {
                 throw new NotFoundException($"Version with the id: {versionId} does not exist");
             }
             version.DisApprovesAmount += 1;
+            version.UsersWhoChecked.Add(new UserApprove()
+            {
+                Approved = false,
+                CountryVersion = version,
+                VersionId = versionId,
+                DisApproved = true,
+                UserId = userId,
+                User = user
+            });
             _db.CountryVersions.Update(version);
             await _db.SaveAsync();
         }
@@ -167,7 +188,7 @@ namespace BLL.Services
         public async Task<CountryChangesHistoryDto> GetLastCountryInfoByIdAsync(int id)
         {
             var countryVersions = await GetAllCountryInfoVersionsByCountryIdAsync(id);
-            var sortedVersions = countryVersions.OrderBy(version => version.ChangeTime).ToList();
+            var sortedVersions = countryVersions.OrderByDescending(version => version.ChangeTime).ToList();
             return sortedVersions.ElementAt(0);
         }
 

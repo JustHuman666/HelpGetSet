@@ -34,11 +34,13 @@ namespace BLL.Services
             {
                 throw new HelpSiteException("Post content cannot be empty");
             }
-            if (await _db.Users.GetByIdAsync(item.AuthorId) == null)
+            var user = await _db.UsersProfiles.GetByIdAsync(item.AuthorId);
+            if (user == null)
             {
                 throw new NotFoundException($"No user with id: {item.AuthorId} was found");
             }
-            if (await _db.Countries.GetByIdAsync(item.CountryId) == null)
+            var country = await _db.Countries.GetByIdAsync(item.CountryId);
+            if (country == null)
             {
                 throw new NotFoundException($"No country with id: {item.CountryId} was found");
             }
