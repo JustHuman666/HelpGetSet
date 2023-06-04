@@ -59,7 +59,7 @@ namespace PL_API.Controllers
         public async Task<ActionResult> Login([FromBody] LoginModel loginModel)
         {
             var user = await _userService.GetUserByPhoneNumberAsync(loginModel.PhoneNumber);
-            await _userService.CheckUserPasswordAsync(user.Id, loginModel.Password);
+            var isTheSame = await _userService.CheckUserPasswordAsync(user.Id, loginModel.Password);
             return Ok(await _authService.LoginUserAsync(user));
         }
     }

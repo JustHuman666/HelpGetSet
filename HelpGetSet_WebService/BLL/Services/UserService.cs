@@ -5,11 +5,6 @@ using BLL.Validation;
 using DAL.Enteties;
 using DAL.Interfaces.BaseInterfaces;
 using Microsoft.AspNetCore.Identity;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace BLL.Services
 {
@@ -87,6 +82,7 @@ namespace BLL.Services
                 throw new NotFoundException("User does not exist");
             }
             var result = await _db.Users.CheckPasswordAsync(user, password);
+            if (!result) { throw new HelpSiteException("The password is not correct"); }
             return result;
         }
 

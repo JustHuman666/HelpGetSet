@@ -17,7 +17,7 @@
   <Class Name="DAL.Enteties.Country">
     <Position X="7.25" Y="2.25" Width="1.5" />
     <TypeIdentifier>
-      <HashCode>AAAAACAAAAAAAAAABAAAAAQAAAAAAKAAAAAAAAAAAAA=</HashCode>
+      <HashCode>AAAAAAAAAAAAAAAABAAAAAQAAAAAAKAAAAAAAAAAAEg=</HashCode>
       <FileName>Entities\Country.cs</FileName>
     </TypeIdentifier>
   </Class>
@@ -57,23 +57,16 @@
     </TypeIdentifier>
   </Class>
   <Class Name="DAL.Enteties.UserChat">
-    <Position X="9" Y="6.25" Width="1.5" />
+    <Position X="7.25" Y="5" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AAABAAAAAAAAAAAAAAAAAAgAAAAAAAgAAAAAAAAAAAQ=</HashCode>
       <FileName>Entities\UserChat.cs</FileName>
     </TypeIdentifier>
   </Class>
-  <Class Name="DAL.Enteties.UserCountry">
+  <Class Name="DAL.Enteties.UserProfile">
     <Position X="5.5" Y="4.75" Width="1.5" />
     <TypeIdentifier>
-      <HashCode>AAABAAAAAAAAABAAAAAAAAgAAAIQAAAAAQAAAAAAAAA=</HashCode>
-      <FileName>Entities\UserCountry.cs</FileName>
-    </TypeIdentifier>
-  </Class>
-  <Class Name="DAL.Enteties.UserProfile">
-    <Position X="7.25" Y="4.75" Width="1.5" />
-    <TypeIdentifier>
-      <HashCode>AAACAEAAAAAABACBBAAAAQIIAAAYAAAAAACAAQAAAAg=</HashCode>
+      <HashCode>AAACAEABAAAABBCBBAAAAAIIAAAYAAAAAQCAAQAgAAg=</HashCode>
       <FileName>Entities\UserProfile.cs</FileName>
     </TypeIdentifier>
   </Class>

@@ -1,0 +1,3 @@
+﻿C:\Users\lenovo\source\repos\HelpGetSet\HelpGetSet_WebService\EnumTypes\FamilyStatus.cs
+C:\Users\lenovo\source\repos\HelpGetSet\HelpGetSet_WebService\EnumTypes\Gender.cs
+C:\Users\lenovo\source\repos\HelpGetSet\HelpGetSet_WebService\EnumTypes\Housing.cs

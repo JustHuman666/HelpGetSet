@@ -5,11 +5,6 @@ using BLL.Validation;
 using DAL.Enteties;
 using DAL.Interfaces.BaseInterfaces;
 using EnumTypes;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace BLL.Services
 {

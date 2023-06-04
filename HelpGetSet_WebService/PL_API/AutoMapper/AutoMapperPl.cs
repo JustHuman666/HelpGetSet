@@ -2,7 +2,6 @@
 using AutoMapper;
 using BLL.EntitiesDto;
 using EnumTypes;
-using DAL.Entities;
 
 namespace PL_API.AutoMapper
 {
