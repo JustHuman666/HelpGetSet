@@ -1,6 +1,8 @@
 ﻿using AutoMapper;
 using BLL.EntitiesDto;
 using BLL.Interfaces;
+using BLL.Services;
+using BLL.Validation;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using PL_API.Models;
@@ -16,6 +18,7 @@ namespace PL_API.Controllers
     public class MigrantController : ControllerBase
     {
         private readonly IUserService _userService;
+        private readonly IUserProfileService _userProfileService;
         private readonly IMigrantService _migrantService;
         private readonly IMapper _mapper;
 
@@ -25,9 +28,10 @@ namespace PL_API.Controllers
         /// <param name="mapper">Auto mapper profile for models and dtos</param>
         /// <param name="userService">User service</param>
         /// <param name="migrantService">Migrant service</param>
-        public MigrantController(IUserService userService, IMigrantService migrantService, IMapper mapper)
+        public MigrantController(IUserService userService, IMigrantService migrantService, IUserProfileService userProfileService, IMapper mapper)
         {
             _userService = userService;
+            _userProfileService = userProfileService;
             _migrantService = migrantService;
             _mapper = mapper;
         }
@@ -38,10 +42,16 @@ namespace PL_API.Controllers
         /// <returns>Collection of migrants profiles</returns>
         [HttpGet]
         [Route("All")]
-        public async Task<ActionResult<IEnumerable<MigrantModel>>> GetAllMigrantsWithDetails()
+        public async Task<ActionResult<IEnumerable<UserProfileModel>>> GetAllMigrantsWithDetails()
         {
             var migrants = await _migrantService.GetAllMigrantsAsync();
-            return Ok(_mapper.Map<IEnumerable<MigrantModel>>(migrants));
+            var users = new List<UserProfileDto>();
+            foreach (var migrant in migrants)
+            {
+                var user = await _userProfileService.GetProfileByIdWithDetailsAsync(migrant.UserId);
+                users.Add(user);
+            }
+            return Ok(_mapper.Map<IEnumerable<UserProfileModel>>(users));
         }
 
         /// <summary>
@@ -79,7 +89,13 @@ namespace PL_API.Controllers
         public async Task<ActionResult<IEnumerable<MigrantModel>>> GetAllRefugees()
         {
             var migrants = await _migrantService.GetOfficialRefugeesAsync();
-            return Ok(_mapper.Map<IEnumerable<MigrantModel>>(migrants));
+            var users = new List<UserProfileDto>();
+            foreach (var migrant in migrants)
+            {
+                var user = await _userProfileService.GetProfileByIdWithDetailsAsync(migrant.UserId);
+                users.Add(user);
+            }
+            return Ok(_mapper.Map<IEnumerable<UserProfileModel>>(users));
         }
 
         /// <summary>
@@ -91,7 +107,13 @@ namespace PL_API.Controllers
         public async Task<ActionResult<IEnumerable<MigrantModel>>> GetAllForcedMigrants()
         {
             var migrants = await _migrantService.GetForcedMigrantsAsync();
-            return Ok(_mapper.Map<IEnumerable<MigrantModel>>(migrants));
+            var users = new List<UserProfileDto>();
+            foreach (var migrant in migrants)
+            {
+                var user = await _userProfileService.GetProfileByIdWithDetailsAsync(migrant.UserId);
+                users.Add(user);
+            }
+            return Ok(_mapper.Map<IEnumerable<UserProfileModel>>(users));
         }
 
         /// <summary>
@@ -103,7 +125,13 @@ namespace PL_API.Controllers
         public async Task<ActionResult<IEnumerable<MigrantModel>>> GetAllCommonMigrants()
         {
             var migrants = await _migrantService.GetCommonMigrantsAsync();
-            return Ok(_mapper.Map<IEnumerable<MigrantModel>>(migrants));
+            var users = new List<UserProfileDto>();
+            foreach (var migrant in migrants)
+            {
+                var user = await _userProfileService.GetProfileByIdWithDetailsAsync(migrant.UserId);
+                users.Add(user);
+            }
+            return Ok(_mapper.Map<IEnumerable<UserProfileModel>>(users));
         }
 
         /// <summary>
@@ -187,6 +215,26 @@ namespace PL_API.Controllers
         {
             var isEmployed = await _migrantService.CheckIfEmployedAsync(id);
             return Ok(isEmployed);
+        }
+
+        /// <summary>
+        /// To check if user is migrant
+        /// </summary>
+        /// <param name="id">The id of user profile to be checked</param>
+        /// <returns>True if employed</returns>
+        [HttpGet]
+        [Route("{id}/Exists")]
+        public async Task<ActionResult<bool>> IfIsMigrant(int id)
+        {
+            try
+            {
+                var migrant = await _migrantService.GetMigrantInfoByUserIdAsync(id);
+                return Ok(true);
+            }
+            catch (NotFoundException)
+            {
+                return Ok(false);
+            }
         }
     }
 }

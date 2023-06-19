@@ -58,6 +58,8 @@ namespace DAL.Repositories
                 .Include(country => country.CountryVersions)
                 .Include(country => country.UsersFrom).ThenInclude(x => x.OriginalCountry)
                 .Include(country => country.UsersIn).ThenInclude(x => x.CurrentCountry)
+                .Include(country => country.UsersFrom).ThenInclude(x => x.AppUser.UserProfile)
+                .Include(country => country.UsersIn).ThenInclude(x => x.AppUser.UserProfile)
                 .FirstOrDefaultAsync(country => country.Id == id);
         }
 

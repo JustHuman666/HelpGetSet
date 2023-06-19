@@ -2,6 +2,7 @@
 using BLL.EntitiesDto;
 using BLL.Interfaces;
 using BLL.Services;
+using BLL.Validation;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using PL_API.Models;
@@ -17,6 +18,7 @@ namespace PL_API.Controllers
     public class VolunteerController : ControllerBase
     {
         private readonly IUserService _userService;
+        private readonly IUserProfileService _userProfileService;
         private readonly IVolunteerService _volunteerService;
         private readonly IMapper _mapper;
 
@@ -26,9 +28,10 @@ namespace PL_API.Controllers
         /// <param name="mapper">Auto mapper profile for models and dtos</param>
         /// <param name="userService">User service</param>
         /// <param name="volunteerService">Migrant service</param>
-        public VolunteerController(IUserService userService, IVolunteerService volunteerService, IMapper mapper)
+        public VolunteerController(IUserService userService, IVolunteerService volunteerService, IUserProfileService userProfileService, IMapper mapper)
         {
             _userService = userService;
+            _userProfileService = userProfileService;
             _volunteerService = volunteerService;
             _mapper = mapper;
         }
@@ -39,10 +42,16 @@ namespace PL_API.Controllers
         /// <returns>Collection of volunteers profiles</returns>
         [HttpGet]
         [Route("All")]
-        public async Task<ActionResult<IEnumerable<VolunteerModel>>> GetAllMigrantsWithDetails()
+        public async Task<ActionResult<IEnumerable<UserProfileModel>>> GetAllVolunteersWithDetails()
         {
             var volunteers = await _volunteerService.GetAllVolunteersAsync();
-            return Ok(_mapper.Map<IEnumerable<VolunteerModel>>(volunteers));
+            var users = new List<UserProfileDto>();
+            foreach (var volunteer in volunteers)
+            {
+                var user = await _userProfileService.GetProfileByIdWithDetailsAsync(volunteer.UserId);
+                users.Add(user);
+            }
+            return Ok(_mapper.Map<IEnumerable<UserProfileModel>>(users));
         }
 
         /// <summary>
@@ -52,7 +61,7 @@ namespace PL_API.Controllers
         /// <returns>Found volunteer profile</returns>
         [HttpGet]
         [Route("{id}")]
-        public async Task<ActionResult<VolunteerModel>> GetMigrantByIdForAll(int id)
+        public async Task<ActionResult<VolunteerModel>> GetVolunteerByIdForAll(int id)
         {
             var volunteerDto = await _volunteerService.GetVolunteerInfoByIdAsync(id);
             return Ok(_mapper.Map<VolunteerModel>(volunteerDto));
@@ -65,7 +74,7 @@ namespace PL_API.Controllers
         /// <returns>Found volunteer profile</returns>
         [HttpGet]
         [Route("ByUserId/{id}")]
-        public async Task<ActionResult<VolunteerModel>> GetMigrantByUserIdForAll(int id)
+        public async Task<ActionResult<VolunteerModel>> GetVolunteerByUserIdForAll(int id)
         {
             var volunteerDto = await _volunteerService.GetVolunteerInfoByUserIdAsync(id);
             return Ok(_mapper.Map<VolunteerModel>(volunteerDto));
@@ -80,7 +89,13 @@ namespace PL_API.Controllers
         public async Task<ActionResult<IEnumerable<VolunteerModel>>> GetAllOrganistaions()
         {
             var volunteers = await _volunteerService.GetOrganisationsAsync();
-            return Ok(_mapper.Map<IEnumerable<VolunteerModel>>(volunteers));
+            var users = new List<UserProfileDto>();
+            foreach(var volunteer in volunteers)
+            {
+                var user = await _userProfileService.GetProfileByIdWithDetailsAsync(volunteer.UserId);
+                users.Add(user);
+            }
+            return Ok(_mapper.Map<IEnumerable<UserProfileModel>>(users));
         }
 
         /// <summary>
@@ -92,7 +107,13 @@ namespace PL_API.Controllers
         public async Task<ActionResult<IEnumerable<VolunteerModel>>> GetAllCommonVolunteer()
         {
             var volunteers = await _volunteerService.GetJustVolunteersAsync();
-            return Ok(_mapper.Map<IEnumerable<VolunteerModel>>(volunteers));
+            var users = new List<UserProfileDto>();
+            foreach (var volunteer in volunteers)
+            {
+                var user = await _userProfileService.GetProfileByIdWithDetailsAsync(volunteer.UserId);
+                users.Add(user);
+            }
+            return Ok(_mapper.Map<IEnumerable<UserProfileModel>>(users));
         }
 
         /// <summary>
@@ -104,7 +125,13 @@ namespace PL_API.Controllers
         public async Task<ActionResult<IEnumerable<VolunteerModel>>> GetAllTranslators()
         {
             var volunteers = await _volunteerService.GetTranslatorsAsync();
-            return Ok(_mapper.Map<IEnumerable<VolunteerModel>>(volunteers));
+            var users = new List<UserProfileDto>();
+            foreach (var volunteer in volunteers)
+            {
+                var user = await _userProfileService.GetProfileByIdWithDetailsAsync(volunteer.UserId);
+                users.Add(user);
+            }
+            return Ok(_mapper.Map<IEnumerable<UserProfileModel>>(users));
         }
 
         /// <summary>
@@ -116,7 +143,13 @@ namespace PL_API.Controllers
         public async Task<ActionResult<IEnumerable<VolunteerModel>>> GetAllForHousing()
         {
             var volunteers = await _volunteerService.GetVolunteersForHousingAsync();
-            return Ok(_mapper.Map<IEnumerable<VolunteerModel>>(volunteers));
+            var users = new List<UserProfileDto>();
+            foreach (var volunteer in volunteers)
+            {
+                var user = await _userProfileService.GetProfileByIdWithDetailsAsync(volunteer.UserId);
+                users.Add(user);
+            }
+            return Ok(_mapper.Map<IEnumerable<UserProfileModel>>(users));
         }
 
         /// <summary>
@@ -161,6 +194,26 @@ namespace PL_API.Controllers
             }
             await _volunteerService.DeleteVolunteerInfoAsync(id);
             return Ok();
+        }
+
+        /// <summary>
+        /// To check if user is migrant
+        /// </summary>
+        /// <param name="id">The id of user profile to be checked</param>
+        /// <returns>True if employed</returns>
+        [HttpGet]
+        [Route("{id}/Exists")]
+        public async Task<ActionResult<bool>> IfIsVolunteer(int id)
+        {
+            try
+            {
+                var volunteer = await _volunteerService.GetVolunteerInfoByUserIdAsync(id);
+                return Ok(true);
+            }
+            catch (NotFoundException)
+            {
+                return Ok(false);
+            }
         }
     }
 }

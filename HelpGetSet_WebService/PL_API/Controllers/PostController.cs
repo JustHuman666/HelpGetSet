@@ -2,6 +2,7 @@
 using BLL.EntitiesDto;
 using BLL.Interfaces;
 using BLL.Services;
+using BLL.Validation;
 using DAL.Repositories;
 using IPinfo;
 using IPinfo.Models;
@@ -139,6 +140,58 @@ namespace PL_API.Controllers
                 if (user.MigrantsIds.Count() != 0)
                 {
                     postsToReturn.Add(post);
+                }
+            }
+            return Ok(_mapper.Map<IEnumerable<PostModel>>(postsToReturn));
+        }
+
+        /// <summary>
+        /// To get all posts of migrants by country
+        /// </summary>
+        /// <param name="id">Id of country</param>
+        /// <returns>Found posts</returns>
+        [HttpGet]
+        [Route("Migrants/ByCountry/{id}")]
+        public async Task<ActionResult<IEnumerable<PostModel>>> GetMigrantsPostsByCountry(int id)
+        {
+            var posts = await _postService.GetAllCountryPostsByCountryIdAsync(id);
+            List<PostDto> postsToReturn = new List<PostDto>();
+            foreach (PostDto post in posts)
+            {
+                try
+                {
+                    var user = await _migrantService.GetMigrantInfoByUserIdAsync(post.AuthorId);
+                    postsToReturn.Add(post);
+                }
+                catch (NotFoundException)
+                {
+                    continue;
+                }
+            }
+            return Ok(_mapper.Map<IEnumerable<PostModel>>(postsToReturn));
+        }
+
+        /// <summary>
+        /// To get all posts of migrants by country
+        /// </summary>
+        /// <param name="id">Id of country</param>
+        /// <returns>Found posts</returns>
+        [HttpGet]
+        [Route("Volunteers/ByCountry/{id}")]
+        public async Task<ActionResult<IEnumerable<PostModel>>> GetVolunteersPostsByCountry(int id)
+        {
+            var posts = await _postService.GetAllCountryPostsByCountryIdAsync(id);
+            List<PostDto> postsToReturn = new List<PostDto>();
+            foreach (PostDto post in posts)
+            {
+                try
+                {
+                    var user = await _volunteerService.GetVolunteerInfoByUserIdAsync(post.AuthorId);
+                    postsToReturn.Add(post);
+                }
+                catch (NotFoundException)
+                {
+                    continue;
                 }
             }
             return Ok(_mapper.Map<IEnumerable<PostModel>>(postsToReturn));

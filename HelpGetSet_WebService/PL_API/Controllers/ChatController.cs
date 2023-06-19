@@ -38,7 +38,8 @@ namespace PL_API.Controllers
         [Authorize(Roles = "Registered")]
         public async Task<ActionResult> CreateNewChatForUser([FromBody] ChatModel chatModel)
         {
-            var userIds = new HashSet<int>() { Convert.ToInt32(User.FindFirst(ClaimTypes.NameIdentifier).Value) };
+            var userId = Convert.ToInt32(User.FindFirst(ClaimTypes.NameIdentifier).Value);
+            var userIds = new HashSet<int>() { userId };
             if (chatModel.UserIds.Count() != 0)
             {
                 foreach (var id in chatModel.UserIds)

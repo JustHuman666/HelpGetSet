@@ -96,9 +96,9 @@ namespace BLL.Services
                 if (user.Chats != null && user.Chats.Count() != 0)
                 {
                     var userChats = await GetAllChatsByUserIdAsync(item.UserIds.First());
-                    if (userChats != null && userChats.Any(chat => chat.UserIds.Count == 1))
+                    if (userChats != null && userChats.Where(chat => chat.UserIds.Count == 1).Count() >= 2)
                     {
-                        throw new HelpSiteException("Cannot create more than one chat with one user for this user");
+                        throw new HelpSiteException("Cannot create more than two chat with one user for this user");
                     }
                 }
 
@@ -123,10 +123,6 @@ namespace BLL.Services
             if (user == null)
             {
                 throw new NotFoundException($"The user with id: {userId} does not exist in this chat");
-            }
-            if (!user.isAdmin)
-            {
-                throw new HelpSiteException("Only admin of chat can delete chat");
             }
             _db.Chats.Delete(id);
             await _db.SaveAsync();
