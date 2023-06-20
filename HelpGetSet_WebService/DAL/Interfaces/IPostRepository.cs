@@ -23,5 +23,9 @@ namespace DAL.Interfaces
         /// <param name="id">Id of country of post which are being is looked for</param>
         /// <returns>A collection of found posts</returns>
         Task<IQueryable<Post>> GetByCountryIdAsync(int id);
+
+        Task<IQueryable<Post>> GetMigrantsPostsAsync();
+
+        Task<IQueryable<Post>> GetVolunteersPostsAsync();
     }
 }

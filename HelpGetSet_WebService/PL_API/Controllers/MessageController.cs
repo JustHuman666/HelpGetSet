@@ -35,11 +35,11 @@ namespace PL_API.Controllers
         /// <param name="messageModel">The instance of new message that should be sent</param>
         [HttpPost]
         [Authorize(Roles = "Registered")]
-        public async Task<ActionResult> SendMessageInChat([FromBody] MessageModel messageModel)
+        public async Task<ActionResult<MessageModel>> SendMessageInChat([FromBody] MessageModel messageModel)
         {
             messageModel.SenderId = Convert.ToInt32(User.FindFirst(ClaimTypes.NameIdentifier).Value);
-            await _messageService.SendMessageInChatAsync(_mapper.Map<MessageDto>(messageModel));
-            return Ok();
+            var message = await _messageService.SendMessageInChatAsync(_mapper.Map<MessageDto>(messageModel));
+            return Ok(_mapper.Map<MessageModel>(message));
         }
 
         /// <summary>
@@ -91,8 +91,7 @@ namespace PL_API.Controllers
         [Authorize(Roles = "Registered")]
         public async Task<ActionResult<IEnumerable<MessageModel>>> GetMessagesOfChat(int id)
         {
-            var messages = await _messageService.GetAllMessagesAsync();
-            var messagesOfChat = messages.Where(message => message.ChatId == id);
+            var messagesOfChat = await _messageService.GetAllMessagesByChatIdAsync(id);
             return Ok(_mapper.Map<IEnumerable<MessageModel>>(messagesOfChat));
         }
     }

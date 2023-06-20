@@ -42,10 +42,10 @@ namespace PL_API.Controllers
         /// <returns>Collection of users profiles</returns>
         [HttpGet]
         [Route("All")]
-        public async Task<ActionResult<IEnumerable<UserProfileModel>>> GetAllUserProfilesWithDetails()
+        public async Task<ActionResult<IEnumerable<UserModel>>> GetAllUserProfilesWithDetails()
         {
-            var users = await _userProfileService.GetAllProfilesWithDetailsAsync();
-            return Ok(_mapper.Map<IEnumerable<UserProfileModel>>(users));
+            var users = _userService.GetAllUsersWithDetails();
+            return Ok(_mapper.Map<IEnumerable<UserModel>>(users));
         }
 
         /// <summary>

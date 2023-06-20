@@ -100,6 +100,26 @@ namespace BLL.Services
             return _mapper.Map<IEnumerable<PostDto>>(userPosts);
         }
 
+        public async Task<IEnumerable<PostDto>> GetMigrantsPostsAsync()
+        {
+            var posts = await _db.Posts.GetMigrantsPostsAsync();
+            if (posts == null || posts.Count() == 0)
+            {
+                throw new NotFoundException($"There is no post found");
+            }
+            return _mapper.Map<IEnumerable<PostDto>>(posts);
+        }
+
+        public async Task<IEnumerable<PostDto>> GetVolunteersPostsAsync()
+        {
+            var posts = await _db.Posts.GetVolunteersPostsAsync();
+            if (posts == null || posts.Count() == 0)
+            {
+                throw new NotFoundException($"There is no post found");
+            }
+            return _mapper.Map<IEnumerable<PostDto>>(posts);
+        }
+
         public async Task<PostDto> GetPostByIdAsync(int id)
         {
             var post = await _db.Posts.GetByIdAsync(id);

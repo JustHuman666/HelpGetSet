@@ -13,6 +13,10 @@ namespace BLL.Interfaces
 
         Task<IEnumerable<PostDto>> GetAllPostsAsync();
 
+        Task<IEnumerable<PostDto>> GetMigrantsPostsAsync();
+
+        Task<IEnumerable<PostDto>> GetVolunteersPostsAsync();
+
         Task<IEnumerable<PostDto>> GetAllUserPostsByUserIdAsync(int id);
 
         Task<IEnumerable<PostDto>> GetAllCountryPostsByCountryIdAsync(int id);

@@ -4,6 +4,8 @@ namespace PL_API.Models
 {
     public class UserModel
     {
+        public int Id { get; set; }
+
         [Required]
         [StringLength(30, ErrorMessage = "First name should consits of at least {2} characters", MinimumLength = 2)]
         public string FirstName { get; set; }

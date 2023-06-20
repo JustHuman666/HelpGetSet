@@ -1,5 +1,6 @@
 ﻿using DAL.Context;
 using DAL.Enteties;
+using DAL.Interfaces;
 using DAL.Interfaces.BaseInterfaces;
 using Microsoft.EntityFrameworkCore;
 
@@ -9,7 +10,7 @@ namespace DAL.Repositories
     /// <summary>
     /// Class that represents a message repository
     /// </summary>
-    public class MessageRepository : IRepository<Message>
+    public class MessageRepository : IMessageRepository
     {
         private readonly SiteContext _context;
 
@@ -21,9 +22,10 @@ namespace DAL.Repositories
         {
             _context = context;
         }
-        public async Task CreateAsync(Message item)
+        public async Task<Message> CreateAsync(Message item)
         {
             await _context.Messages.AddAsync(item);
+            return item;
         }
 
         public void Delete(int id)
@@ -38,6 +40,12 @@ namespace DAL.Repositories
         public async Task<IQueryable<Message>> GetAllAsync()
         {
             var messages = await _context.Messages.ToListAsync();
+            return messages.AsQueryable();
+        }
+
+        public async Task<IQueryable<Message>> GetMessagesByChatAsync(int id)
+        {
+            var messages = await _context.Messages.Where(message => message.ChatId == id).ToListAsync();
             return messages.AsQueryable();
         }
 

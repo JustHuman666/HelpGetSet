@@ -35,7 +35,6 @@ namespace DAL.Repositories
                 .Include(user => user.Posts)
                 .Include(user => user.Messages)
                 .Include(user => user.MadeCountryChanges)
-                .Include(user => user.Chats)
                 .Include(user => user.Migrants)
                 .Include(user => user.Volunteers)
                 .Include(user => user.CountryVersionsChecked).ToListAsync();
@@ -50,16 +49,16 @@ namespace DAL.Repositories
         public async Task<UserProfile> GetByIdWithDetailsAsync(int id)
         {
             return await _context.UserProfiles
+                .Where(user => user.Id == id)
                 .Include(user => user.AppUser)
                 .Include(user => user.OriginalCountry)
                 .Include(user => user.CurrentCountry)
                 .Include(user => user.Posts)
                 .Include(user => user.Messages)
                 .Include(user => user.MadeCountryChanges)
-                .Include(user => user.Chats)
                 .Include(user => user.Migrants)
                 .Include(user => user.Volunteers)
-                .Include(user => user.CountryVersionsChecked).FirstOrDefaultAsync(user => user.Id == id);
+                .Include(user => user.CountryVersionsChecked).FirstOrDefaultAsync();
         }
 
         public async Task<IQueryable<UserProfile>> GetUsersByFirstAndLastNameAsync(string firstname, string lastname)
@@ -72,7 +71,6 @@ namespace DAL.Repositories
                 .Include(user => user.Posts)
                 .Include(user => user.Messages)
                 .Include(user => user.MadeCountryChanges)
-                .Include(user => user.Chats)
                 .Include(user => user.Migrants)
                 .Include(user => user.Volunteers)
                 .Include(user => user.CountryVersionsChecked)

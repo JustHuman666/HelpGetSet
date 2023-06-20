@@ -10,5 +10,6 @@ namespace DAL.Interfaces
 {
     public interface IMigrantRepository : IRepository<Migrant>, IDetailsRepository<Migrant>
     {
+        Task<Migrant> GetByUserIdAsync(int id);
     }
 }

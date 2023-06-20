@@ -46,6 +46,18 @@ namespace DAL.Repositories
             return posts.AsQueryable();
         }
 
+        public async Task<IQueryable<Post>> GetMigrantsPostsAsync()
+        {
+            var posts = await _context.Posts.Where(post => post.Author.Migrants.Count() > 0).ToListAsync();
+            return posts.AsQueryable();
+        }
+
+        public async Task<IQueryable<Post>> GetVolunteersPostsAsync()
+        {
+            var posts = await _context.Posts.Where(post => post.Author.Volunteers.Count() > 0).ToListAsync();
+            return posts.AsQueryable();
+        }
+
         public async Task<IQueryable<Post>> GetByCountryIdAsync(int id)
         {
             var posts = await _context.Posts.Where(post => post.CountryId == id).ToListAsync();

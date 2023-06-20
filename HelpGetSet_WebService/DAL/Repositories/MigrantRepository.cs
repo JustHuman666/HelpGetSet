@@ -52,6 +52,11 @@ namespace DAL.Repositories
             return await _context.Migrants.FindAsync(id);
         }
 
+        public async Task<Migrant> GetByUserIdAsync(int id)
+        {
+            return await _context.Migrants.Where(migrant => migrant.UserId == id).FirstOrDefaultAsync();
+        }
+
         public async Task<Migrant> GetByIdWithDetailsAsync(int id)
         {
             return await _context.Migrants

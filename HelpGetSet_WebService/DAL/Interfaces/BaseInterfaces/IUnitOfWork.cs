@@ -35,7 +35,7 @@ namespace DAL.Interfaces.BaseInterfaces
         /// <summary>
         /// Repository for messages
         /// </summary>
-        IRepository<Message> Messages { get; }
+        IMessageRepository Messages { get; }
 
         /// <summary>
         /// Repository for posts

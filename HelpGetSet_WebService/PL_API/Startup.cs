@@ -26,7 +26,6 @@ namespace PL_API
 
         public IConfiguration Configuration { get; }
 
-        // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddControllers();
@@ -60,7 +59,7 @@ namespace PL_API
             services.AddScoped<IChatRepository, ChatRepository>();
             services.AddScoped<ICountryHistoryRepository, CountryChangesRepository>();
             services.AddScoped<ICountryRepository, CountryRepository>();
-            services.AddScoped<IRepository<Message>, MessageRepository>();
+            services.AddScoped<IMessageRepository, MessageRepository>();
             services.AddScoped<IMigrantRepository, MigrantRepository>();
             services.AddScoped<IPostRepository, PostRepository>();
             services.AddScoped<IRoleRepository, RoleRepository>();

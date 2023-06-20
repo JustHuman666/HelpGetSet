@@ -16,7 +16,7 @@ namespace BLL.Interfaces
         /// To send a new message in chat
         /// </summary>
         /// <param name="item">The instance of new message that should be sent</param>
-        Task SendMessageInChatAsync(MessageDto item);
+        Task<MessageDto> SendMessageInChatAsync(MessageDto item);
 
         /// <summary>
         /// To delete chosen message for all users in the chat

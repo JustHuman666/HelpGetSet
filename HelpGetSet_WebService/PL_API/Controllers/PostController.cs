@@ -110,18 +110,8 @@ namespace PL_API.Controllers
         [Route("AllOfVolunteers")]
         public async Task<ActionResult<IEnumerable<PostModel>>> GetVolunteersPosts()
         {
-            var posts = await _postService.GetAllPostsAsync();
-            List<PostDto> postsToReturn = new List<PostDto>();
-            foreach(PostDto post in posts)
-            {
-                var user = await _userService.GetUserByIdWithDetailsAsync(post.AuthorId);
-                if(user.VolunteersIds.Count() != 0)
-                {
-                    postsToReturn.Add(post);
-                }
-
-            }
-            return Ok(_mapper.Map<IEnumerable<PostModel>>(postsToReturn));
+            var posts = await _postService.GetVolunteersPostsAsync();
+            return Ok(_mapper.Map<IEnumerable<PostModel>>(posts));
         }
 
         /// <summary>
@@ -132,17 +122,8 @@ namespace PL_API.Controllers
         [Route("AllOfMigrants")]
         public async Task<ActionResult<IEnumerable<PostModel>>> GetMigrantsPosts()
         {
-            var posts = await _postService.GetAllPostsAsync();
-            List<PostDto> postsToReturn = new List<PostDto>();
-            foreach (PostDto post in posts)
-            {
-                var user = await _userService.GetUserByIdWithDetailsAsync(post.AuthorId);
-                if (user.MigrantsIds.Count() != 0)
-                {
-                    postsToReturn.Add(post);
-                }
-            }
-            return Ok(_mapper.Map<IEnumerable<PostModel>>(postsToReturn));
+            var posts = await _postService.GetMigrantsPostsAsync();
+            return Ok(_mapper.Map<IEnumerable<PostModel>>(posts));
         }
 
         /// <summary>

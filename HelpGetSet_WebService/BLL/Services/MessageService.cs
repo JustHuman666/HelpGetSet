@@ -50,12 +50,7 @@ namespace BLL.Services
 
         public async Task<IEnumerable<MessageDto>> GetAllMessagesByChatIdAsync(int id)
         {
-            var allMessages = await _db.Messages.GetAllAsync();
-            if (allMessages == null || allMessages.Count() == 0)
-            {
-                throw new NotFoundException("There is not any message");
-            }
-            var chatMessages = allMessages.Where(message => message.ChatId == id);
+            var chatMessages = await _db.Messages.GetMessagesByChatAsync(id);
             if (chatMessages == null || chatMessages.Count() == 0)
             {
                 throw new NotFoundException("There is not any message in this chat");
@@ -73,7 +68,7 @@ namespace BLL.Services
             return _mapper.Map<MessageDto>(message);
         }
 
-        public async Task SendMessageInChatAsync(MessageDto item)
+        public async Task<MessageDto> SendMessageInChatAsync(MessageDto item)
         {
             if (item == null)
             {
@@ -100,8 +95,9 @@ namespace BLL.Services
             }
             item.SendingTime = DateTime.Now;
 
-            await _db.Messages.CreateAsync(_mapper.Map<Message>(item));
+            var createdMessage = await _db.Messages.CreateAsync(_mapper.Map<Message>(item));
             await _db.SaveAsync();
+            return _mapper.Map<MessageDto>(createdMessage);
         }
     }
 }

@@ -31,7 +31,7 @@ namespace DAL
                           IUserProfileRepository userProfileRepository,
                           IChatRepository chatRepository,
                           ICountryRepository countryRepository,
-                          IRepository<Message> messageRepository,
+                          IMessageRepository messageRepository,
                           IPostRepository postRepository,
                           IMigrantRepository migrantRepository,
                           IVolunteerRepository volunteerRepository,
@@ -55,7 +55,7 @@ namespace DAL
         public IUserProfileRepository UsersProfiles { get; }
         public IChatRepository Chats { get; }
         public ICountryRepository Countries { get; }
-        public IRepository<Message> Messages { get; }
+        public IMessageRepository Messages { get; }
         public IPostRepository Posts { get; }
         public IMigrantRepository Migrants { get; }
         public IVolunteerRepository Volunteers { get; }

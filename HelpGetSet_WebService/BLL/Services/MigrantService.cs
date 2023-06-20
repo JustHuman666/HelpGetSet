@@ -119,13 +119,7 @@ namespace BLL.Services
 
         public async Task<MigrantDto> GetMigrantInfoByUserIdAsync(int id)
         {
-            var user = await _db.Users.GetByIdAsync(id);
-            if (user == null)
-            {
-                throw new NotFoundException($"There is no user with an id: {id}");
-            }
-            var migrants = await _db.Migrants.GetAllAsync();
-            var migrant = migrants.FirstOrDefault(migrant => migrant.UserId == id);
+            var migrant = await _db.Migrants.GetByUserIdAsync(id);
             if (migrant == null)
             {
                 throw new NotFoundException($"There is no migrant profile for the user");
